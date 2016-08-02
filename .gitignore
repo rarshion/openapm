@@ -25,3 +25,4 @@ proguard/
 
 # Log Files
 *.log
+openapm-agent/src/com/github/sgwhp/openapm/agent/InvocationDispatcher.java.bak

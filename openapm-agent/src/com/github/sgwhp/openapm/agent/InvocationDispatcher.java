@@ -68,9 +68,21 @@ public class InvocationDispatcher implements InvocationHandler {
             if (skip(context.getClassName()))
                 return null;
             ClassVisitor cv = cw;
-            if(context.getTargetPackage() == null || str.startsWith(context.getTargetPackage())){
+
+            if (context.getTargetPackage() == null || str.startsWith(context.getTargetPackage())) {
+                log.d("InvocationDispatcher invoke from ExceptionLogClassAdapter");
                 cv = new ExceptionLogClassAdapter(cw, context);
+            }else{
+                //log.e("no invoke transform: ExceptionLogClassAdapter");
             }
+
+            if (str.startsWith("com/github/sgwhp/openapm/sample/testMesurement")) {
+                log.d("InvocationDispatcher invoke transform: testMesurement");
+                cv = new MeClassAdapter(cv, context);
+            } else{
+                //log.e("no invoke transform: testMesurement");
+            }
+            
             cr.accept(new ContextClassVisitor(cv, context)
                     , ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);
             return context.newClassData(cw.toByteArray());
