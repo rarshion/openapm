@@ -10,7 +10,6 @@ import java.util.HashMap;
 /**
  * Created by wuhongping on 15-11-11.
  */
-
 public class ClassTransformer implements IClassTransformer {
     private Log log;
     private final HashMap<String, ClassAdapterCreator> classAdapterFactory = new HashMap<>();
@@ -29,7 +28,7 @@ public class ClassTransformer implements IClassTransformer {
         ClassAdapterCreator creator = classAdapterFactory.get(className);
         if(creator != null){
             try{
-                //log.d("transforming " + className);
+                log.d("transforming " + className);
                 ClassReader cr = new ClassReader(classfileBuffer);
                 ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
                 ClassVisitor classAdapter = creator.create(cw);

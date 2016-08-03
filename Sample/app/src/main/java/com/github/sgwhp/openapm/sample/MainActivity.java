@@ -36,9 +36,6 @@ public class MainActivity extends AppCompatActivity
             System.out.println("oops");
         }
         System.out.println(arr[0]);
-
-        TestMesurement test = new TestMesurement();
-        test.calculate();
     }
 
     @Override

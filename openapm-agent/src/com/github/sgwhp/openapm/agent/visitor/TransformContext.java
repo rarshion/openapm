@@ -11,25 +11,13 @@ import java.util.*;
 public class TransformContext {
     private final TransformConfig config;
     private final Log log;
-
     private boolean modified;
     private String className;
     private String superClassName;
 
-    private final ArrayList<String> tags;
-    private HashMap<String, String> tracedMethods;
-    private HashMap<String, String> skippedMethods;
-    private final HashMap<String, ArrayList<String>> tracedMethodParameters;
-
     public TransformContext(TransformConfig config, Log log) {
         this.config = config;
         this.log = log;
-
-        this.tags = new ArrayList<String>();
-        this.tracedMethodParameters = new HashMap<String, ArrayList<String>>();
-        this.tracedMethods = new HashMap<String, String>();
-        this.skippedMethods = new HashMap<String, String>();
-
     }
 
     public Log getLog() {
@@ -40,7 +28,6 @@ public class TransformContext {
         this.modified = false;
         this.className = null;
         this.superClassName = null;
-        this.tags.clear();
     }
 
     public void markModified() {
@@ -92,60 +79,4 @@ public class TransformContext {
     public String getTargetPackage(){
         return config.getTargetPackage();
     }
-
-
-
-    public void addTag(final String tag) {
-        this.tags.add(tag);
-    }
-
-    public void addUniqueTag(final String tag) {
-        while (this.tags.remove(tag)) {}
-        this.addTag(tag);
-    }
-
-    public void addTracedMethod(final String name, final String desc) {
-        this.log.d("Will trace method " + this.className + "#" + name + ":" + desc + " as requested");
-        this.tracedMethods.put(this.className + "#" + name, desc);
-    }
-
-    public void addSkippedMethod(final String name, final String desc) {
-        this.log.d("Will skip all tracing in method " + this.className + "#" + name + ":" + desc + " as requested");
-        this.skippedMethods.put(this.className + "#" + name, desc);
-    }
-
-    public void addTracedMethodParameter(final String methodName, final String parameterName, final String parameterClass, final String parameterValue) {
-        this.log.d("Adding traced method parameter " + parameterName + " for method " + methodName);
-        final String name = this.className + "#" + methodName;
-        if (!this.tracedMethodParameters.containsKey(name)) {
-            this.tracedMethodParameters.put(name, new ArrayList<String>());
-        }
-
-        final ArrayList<String> methodParameters = this.tracedMethodParameters.get(name);
-        methodParameters.add(parameterName);
-        methodParameters.add(parameterClass);
-        methodParameters.add(parameterValue);
-    }
-
-    public ArrayList<String> getTracedMethodParameters(final String methodName) {
-        return this.tracedMethodParameters.get(this.className + "#" + methodName);
-    }
-
-    public boolean isTracedMethod(final String name, final String desc) {
-        return this.searchMethodMap(this.tracedMethods, name, desc);
-    }
-
-    public boolean isSkippedMethod(final String name, final String desc) {
-        return this.searchMethodMap(this.skippedMethods, name, desc);
-    }
-
-    private boolean searchMethodMap(final Map<String, String> map, final String name, final String desc) {
-        final String descToMatch = map.get(this.className + "#" + name);
-        return descToMatch != null && desc.equals(desc);
-    }
-
-    public List<String> getTags() {
-        return this.tags;
-    }
-
 }

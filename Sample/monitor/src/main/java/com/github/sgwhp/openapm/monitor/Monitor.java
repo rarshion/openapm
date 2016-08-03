@@ -3,6 +3,8 @@ package com.github.sgwhp.openapm.monitor;
 import android.content.Context;
 import android.util.Log;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +31,6 @@ public class Monitor {
     private volatile int writeIndex = 1;
     private volatile int readIndex = -writeIndex;
     private boolean debug;
-    private static final String PRINT_TAG = "openapm_rarshion_monitor: ";
 
     private Monitor(){ }
 
@@ -54,9 +55,7 @@ public class Monitor {
                 return;
             }
         }
-
         logPath = dirStr + "/exceptions%d.log";
-        System.out.println(PRINT_TAG  + logPath);
         if(!debug) executor.execute(new UploadExceptionTask());
     }
 
@@ -117,7 +116,6 @@ public class Monitor {
             writeCount.incrementAndGet();
             fc = getFileChannel();
             if(fc == null) return;
-            System.out.println(PRINT_TAG  + "pushException " +log);
             fc.write(ByteBuffer.wrap(log.getBytes()));
 
             if (!taskRunning) {
@@ -171,7 +169,6 @@ public class Monitor {
 
         @Override
         public void run() {
-            System.out.println(PRINT_TAG  + "start UploadExceptionTask");
             taskRunning = true;
             while(true){
                 File file = new File(getReadFilePath());

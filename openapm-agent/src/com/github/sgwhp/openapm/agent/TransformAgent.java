@@ -42,30 +42,22 @@ public class TransformAgent {
         Log log = new FileLog("log.txt");
         if(error){
             log.e("Arguments parse error: " + args);
-        }else{
-            log.d("new Arguments parse success:");
         }
-
         if(params.containsKey("instrumentationDisabled")){
             log.v("instrumentation disabled");
             return;
-        }else{
-            log.d("instrumentation enable");
         }
-
         try {
             IClassTransformer modifier = new ClassTransformer(log);
             createInvocationDispatcher(log);
             inst.addTransformer(modifier, true);
             Class[] classes = inst.getAllLoadedClasses();
-
             ArrayList<Class> classesToBeTransform = new ArrayList<>();
             for (Class cls : classes) {
                 if(modifier.transforms(cls)){
                     classesToBeTransform.add(cls);
                 }
             }
-
             if(!classesToBeTransform.isEmpty()){
                 if(inst.isRetransformClassesSupported()){
                     log.d("retransform classes: " + classesToBeTransform);
@@ -74,7 +66,6 @@ public class TransformAgent {
                     log.e("unable to transform classes: " + classesToBeTransform);
                 }
             }
-
             redefineClass(inst, modifier, ProcessBuilder.class);
         } catch (Exception e) {
             log.e("agent startup error", e);
@@ -88,7 +79,6 @@ public class TransformAgent {
         Field modifiers = Field.class.getDeclaredField("modifiers");
         modifiers.setAccessible(true);
         modifiers.setInt(treeLock, treeLock.getModifiers() & 0xFFFFFFEF);//去掉final
-
         if (!(treeLock.get(null) instanceof InvocationDispatcher)) {
             treeLock.set(null, new InvocationDispatcher(log));
         }
@@ -103,11 +93,9 @@ public class TransformAgent {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         StreamUtil.copy(inputStream, outputStream);
         inputStream.close();
-
         byte[] arrayOfByte = transformer.transform(klass.getClassLoader(), internalName, klass
                 , null, outputStream.toByteArray());
         ClassDefinition classDefinition = new ClassDefinition(klass, arrayOfByte);
-
         instrumentation.redefineClasses(classDefinition);
     }
 

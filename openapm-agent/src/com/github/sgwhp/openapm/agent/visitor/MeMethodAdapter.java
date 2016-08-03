@@ -20,24 +20,25 @@ public class MeMethodAdapter extends AdviceAdapter {
     private TransformContext context;
     private Log log;
 
-    public MeMethodAdapter(MethodVisitor mv, int acc, String name, String desc, TransformContext context) {
+    public MeMethodAdapter(MethodVisitor mv, int acc, String name, String desc, Log log,TransformContext context) {
         super(ASM5, mv, acc, name, desc);
         this.name = name;
         this.context = context;
-        this.log = context.getLog();
+        this.log = log;
     }
 
     @Override
     protected void onMethodEnter() {
         log.d("-----MeMethodAdapter-------onMethodEnter");
         super.onMethodEnter();
-        //onMethodEnter_internal();
-        //methodStartLabel = new Label();
-        //mv.visitLabel(methodStartLabel);
+        /*
+        onMethodEnter_internal();
+        methodStartLabel = new Label();
+        mv.visitLabel(methodStartLabel);
+        */
     }
 
     private void onMethodEnter_internal() {
-        log.d("-----MeMethodAdapter-------onMethodEnter_internal");
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
         mv.visitVarInsn(LSTORE, 1);
         mv.visitInsn(ICONST_0);
@@ -52,12 +53,9 @@ public class MeMethodAdapter extends AdviceAdapter {
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-
     }
 
-    /*
     private void onMethodExit_internal() {
-        log.d("-----MeMethodAdapter-------onMethodExit_internal");
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
         mv.visitVarInsn(LSTORE, 4);
         mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
@@ -90,29 +88,28 @@ public class MeMethodAdapter extends AdviceAdapter {
 
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
-        log.d("-----MeMethodAdapter-------visitMaxs");
+        /*
         Label endFinallyLabel = new Label();
         mv.visitTryCatchBlock(methodStartLabel, endFinallyLabel, endFinallyLabel, THROWABLE_TYPE.getInternalName());
         mv.visitLabel(endFinallyLabel);
+
         mv.visitInsn(ICONST_1);
         mv.visitVarInsn(ISTORE, 3);
+
         onFinally(ATHROW);
         visitInsn(ATHROW);
         mv.visitMaxs(maxStack, maxLocals);
+        */
     }
 
     @Override
     protected void onMethodExit(int opcode) {
-        log.d("-----MeMethodAdapter-------onMethodExit");
         if (opcode != ATHROW) {
             onFinally(opcode);
         }
     }
 
     private void onFinally(int opcode) {
-        log.d("-----MeMethodAdapter-------onFinally");
         onMethodExit_internal();
     }
-    */
-
 }
