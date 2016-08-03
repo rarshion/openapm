@@ -1,53 +1,862 @@
-[openamp.d] Agent running in pid 8244 arguments: null
-[openamp.d] transforming java/lang/ProcessBuilder
-[openamp.d] transforming java/lang/ProcessBuilder
-[openamp.d] transforming java/lang/ProcessBuilder
-[openamp.d] transforming com/android/dx/command/dexer/Main
-[openamp.d] invoke transform: android/support/design/R$anim
-[openamp.d] invoke transform: android/support/design/R$attr
-[openamp.d] invoke transform: android/support/design/R$bool
-[openamp.d] invoke transform: android/support/design/R$color
-[openamp.d] invoke transform: android/support/design/R$dimen
-[openamp.d] invoke transform: android/support/design/R$drawable
-[openamp.d] invoke transform: android/support/design/R$id
-[openamp.d] invoke transform: android/support/design/R$integer
-[openamp.d] invoke transform: android/support/design/R$layout
-[openamp.d] invoke transform: android/support/design/R$string
-[openamp.d] invoke transform: android/support/design/R$style
-[openamp.d] invoke transform: android/support/design/R$styleable
-[openamp.d] invoke transform: android/support/design/R
-[openamp.d] invoke transform: android/support/v7/appcompat/R$anim
-[openamp.d] invoke transform: android/support/v7/appcompat/R$attr
-[openamp.d] invoke transform: android/support/v7/appcompat/R$bool
-[openamp.d] invoke transform: android/support/v7/appcompat/R$color
-[openamp.d] invoke transform: android/support/v7/appcompat/R$dimen
-[openamp.d] invoke transform: android/support/v7/appcompat/R$drawable
-[openamp.d] invoke transform: android/support/v7/appcompat/R$id
-[openamp.d] invoke transform: android/support/v7/appcompat/R$integer
-[openamp.d] invoke transform: android/support/v7/appcompat/R$layout
-[openamp.d] invoke transform: android/support/v7/appcompat/R$string
-[openamp.d] invoke transform: android/support/v7/appcompat/R$style
-[openamp.d] invoke transform: android/support/v7/appcompat/R$styleable
-[openamp.d] invoke transform: android/support/v7/appcompat/R
-[openamp.d] invoke transform: com/github/sgwhp/openapm/monitor/R$string
-[openamp.d] invoke transform: com/github/sgwhp/openapm/monitor/R
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/BuildConfig
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MainActivity
-[openamp.d] find exception java/lang/IndexOutOfBoundsException
-[openamp.d] instrument exception
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MyApplication
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$anim
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$attr
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$bool
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$color
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$dimen
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$drawable
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$id
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$integer
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$layout
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$menu
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$mipmap
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$string
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$style
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$styleable
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R
+[openamp.d] new Arguments parse success:
+[openamp.d] instrumentation enable
+[openamp.d] invoke transform: android/support/v4/accessibilityservice/AccessibilityServiceInfoCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/accessibilityservice/AccessibilityServiceInfoCompatJellyBeanMr2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/AnimatorListenerCompat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/AnimatorProvider
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/AnimatorUpdateListenerCompat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/DonutAnimatorCompatProvider
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/DonutAnimatorCompatProvider$DonutFloatValueAnimator
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/DonutAnimatorCompatProvider$DonutFloatValueAnimator$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/HoneycombMr1AnimatorCompatProvider
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/HoneycombMr1AnimatorCompatProvider$AnimatorListenerCompatWrapper
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/HoneycombMr1AnimatorCompatProvider$HoneycombValueAnimatorCompat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/HoneycombMr1AnimatorCompatProvider$HoneycombValueAnimatorCompat$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/animation/ValueAnimatorCompat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActionBarDrawerToggleHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/app/ActionBarDrawerToggleHoneycomb.
+java.lang.ClassNotFoundException: android.support.v4.app.ActionBarDrawerToggleHoneycomb$SetIndicatorInfo
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.support.v4.app.ActionBarDrawerToggleHoneycomb$SetIndicatorInfo
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/app/ActionBarDrawerToggleHoneycomb$SetIndicatorInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActionBarDrawerToggleJellybeanMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/app/ActionBarDrawerToggleJellybeanMR2.
+java.lang.ClassNotFoundException: android.content.Context
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.content.Context
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompat21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompat21$SharedElementCallback21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompat21$SharedElementCallbackImpl
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompat22
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompatApi23$RequestPermissionsRequestCodeValidator
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityCompatJB
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityManagerCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityOptionsCompat21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ActivityOptionsCompatJB
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/AppOpsManagerCompat23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/BaseFragmentActivityDonut
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/BaseFragmentActivityHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/BundleCompatDonut
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/BundleCompatJellybeanMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/BundleUtil
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/app/FragmentTransitionCompat21.
+java.lang.ClassNotFoundException: android.transition.Transition
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.transition.Transition
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21$2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21$3
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21$4
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21$EpicenterView
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/FragmentTransitionCompat21$ViewRetriever
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NavUtilsJB
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationBuilderWithActions
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationBuilderWithBuilderAccessor
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatApi20
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatApi20$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatApi21$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatBase
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatBase$Action
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatBase$Action$Factory
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatBase$UnreadConversation
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatBase$UnreadConversation$Factory
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatIceCreamSandwich
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatIceCreamSandwich$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatJellybean$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationCompatKitKat$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationManagerCompatEclair
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/NotificationManagerCompatIceCreamSandwich
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/RemoteInputCompatApi20
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/RemoteInputCompatBase
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/RemoteInputCompatBase$RemoteInput
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/RemoteInputCompatBase$RemoteInput$Factory
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/RemoteInputCompatJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ShareCompatICS
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/ShareCompatJB
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/TaskStackBuilderHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/app/TaskStackBuilderJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContentResolverCompatJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContextCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContextCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContextCompatFroyo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContextCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContextCompatJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/ContextCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/EditorCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/IntentCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/IntentCompatIcsMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/res/ResourcesCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/content/res/ResourcesCompatIcsMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/BitmapCompatHoneycombMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/BitmapCompatJellybeanMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/BitmapCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatApi22
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatBase
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableWrapper
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableWrapperDonut
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableWrapperHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableWrapperKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/DrawableWrapperLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/RoundedBitmapDrawable
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/graphics/drawable/RoundedBitmapDrawable21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/hardware/display/DisplayManagerJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/hardware/fingerprint/FingerprintManagerCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/hardware/fingerprint/FingerprintManagerCompatApi23$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/hardware/fingerprint/FingerprintManagerCompatApi23$AuthenticationCallback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/hardware/fingerprint/FingerprintManagerCompatApi23$AuthenticationResultInternal
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/hardware/fingerprint/FingerprintManagerCompatApi23$CryptoObject
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/MediaDescriptionCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/MediaDescriptionCompatApi21$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/MediaDescriptionCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/MediaDescriptionCompatApi23$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/MediaMetadataCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/MediaMetadataCompatApi21$Builder
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/RatingCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/TransportMediatorCallback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/TransportMediatorJellybeanMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/TransportMediatorJellybeanMR2$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/TransportMediatorJellybeanMR2$2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/TransportMediatorJellybeanMR2$3
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/media/TransportMediatorJellybeanMR2$3.
+java.lang.ClassNotFoundException: android.view.KeyEvent
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.view.KeyEvent
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/media/TransportMediatorJellybeanMR2$4
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/VolumeProviderCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/VolumeProviderCompatApi21$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/VolumeProviderCompatApi21$Delegate
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$Callback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$CallbackProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$GetDefaultRouteWorkaround
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$RouteCategory
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$RouteGroup
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$RouteInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$SelectRouteWorkaround
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$UserRouteInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$VolumeCallback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybean$VolumeCallbackProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr1$ActiveScanWorkaround
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr1$Callback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr1$CallbackProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr1$IsConnectingWorkaround
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr1$RouteInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr2$RouteInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/routing/MediaRouterJellybeanMr2$UserRouteInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi21$Callback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi21$CallbackProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi21$PlaybackInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi21$TransportControls
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaControllerCompatApi23$TransportControls
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi14
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi14$Callback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi18
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi18$OnPlaybackPositionUpdateListener
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi19
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi19$OnMetadataUpdateListener
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi21$Callback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi21$CallbackProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi21$QueueItem
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi22
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi23$Callback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi23$CallbackProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/MediaSessionCompatApi8
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/PlaybackStateCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/PlaybackStateCompatApi21$CustomAction
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/media/session/PlaybackStateCompatApi22
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/net/ConnectivityManagerCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/net/ConnectivityManagerCompatHoneycombMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/net/ConnectivityManagerCompatJellyBean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/net/TrafficStatsCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/AsyncTaskCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/CancellationSignalCompatJellybean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/EnvironmentCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/ParcelableCompatCreatorCallbacks
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/ParcelableCompatCreatorHoneycombMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/ParcelableCompatCreatorHoneycombMR2Stub
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/os/TraceJellybeanMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/print/PrintHelperKitkat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/print/PrintHelperKitkat.
+java.lang.ClassNotFoundException: android.graphics.Bitmap
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.graphics.Bitmap
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/print/PrintHelperKitkat$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/print/PrintHelperKitkat$1.
+java.lang.ClassNotFoundException: android.graphics.pdf.PdfDocument$Page
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.graphics.pdf.PdfDocument$Page
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/print/PrintHelperKitkat$2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/print/PrintHelperKitkat$2.
+java.lang.ClassNotFoundException: android.graphics.pdf.PdfDocument$Page
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.graphics.pdf.PdfDocument$Page
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/print/PrintHelperKitkat$2$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/print/PrintHelperKitkat$2$1$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/print/PrintHelperKitkat$OnPrintFinishCallback
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/provider/DocumentsContractApi19
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/provider/DocumentsContractApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/speech/tts/TextToSpeechICS
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/speech/tts/TextToSpeechICSMR1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/speech/tts/TextToSpeechICSMR1$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/speech/tts/TextToSpeechICSMR1$2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/speech/tts/TextToSpeechICSMR1$UtteranceProgressListenerICSMR1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/text/ICUCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/text/ICUCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/text/TextUtilsCompatJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/AccessibilityDelegateCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/AccessibilityDelegateCompatIcs$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/AccessibilityDelegateCompatIcs$AccessibilityDelegateBridge
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/AccessibilityDelegateCompatJellyBean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/AccessibilityDelegateCompatJellyBean$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/AccessibilityDelegateCompatJellyBean$AccessibilityDelegateBridgeJellyBean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/GravityCompatJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/KeyEventCompatEclair
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/KeyEventCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/LayoutInflaterCompatBase
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/LayoutInflaterCompatBase$FactoryWrapper
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/LayoutInflaterCompatHC
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/LayoutInflaterCompatHC$FactoryWrapperHC
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/LayoutInflaterCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/LayoutInflaterFactory
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MarginLayoutParamsCompatJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MenuItemCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MenuItemCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MenuItemCompatIcs$OnActionExpandListenerWrapper
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MenuItemCompatIcs$SupportActionExpandProxy
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MotionEventCompatEclair
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MotionEventCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/MotionEventCompatHoneycombMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/OnApplyWindowInsetsListener
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/PagerTitleStripIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/PagerTitleStripIcs$SingleLineAllCapsTransform
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ScaleGestureDetectorCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/TintableBackgroundView
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/VelocityTrackerCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatBase
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatEclairMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatHC
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatICS
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatJB
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatJellybeanMr2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.e] An error occurred while transforming android/support/v4/view/ViewCompatLollipop.
+java.lang.ClassNotFoundException: android.support.v4.view.WindowInsetsCompatApi21
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.support.v4.view.WindowInsetsCompatApi21
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:95)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:47)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processArchive(ClassPathOpener.java:284)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:166)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMultiDex(Main.java:366)
+	at com.android.dx.command.dexer.Main.run(Main.java:275)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
+[openamp.d] invoke transform: android/support/v4/view/ViewCompatLollipop$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewConfigurationCompatFroyo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewConfigurationCompatICS
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewGroupCompatHC
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewGroupCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewGroupCompatJellybeanMR2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewGroupCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewParentCompatICS
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewParentCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewParentCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatICS
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatICS$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatJB
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatJB$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatJellybeanMr2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatKK
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatKK$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorListener
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/ViewPropertyAnimatorUpdateListener
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/WindowInsetsCompat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/WindowInsetsCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityEventCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityEventCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityManagerCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityManagerCompatIcs$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityManagerCompatIcs$AccessibilityStateChangeListenerBridge
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatApi21$CollectionItemInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatApi22
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatJellyBean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatJellybeanMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatJellybeanMr2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatKitKat$CollectionInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatKitKat$CollectionItemInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeInfoCompatKitKat$RangeInfo
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeProviderCompatJellyBean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeProviderCompatJellyBean$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeProviderCompatJellyBean$AccessibilityNodeInfoBridge
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeProviderCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeProviderCompatKitKat$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityNodeProviderCompatKitKat$AccessibilityNodeInfoBridge
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityRecordCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityRecordCompatIcsMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityRecordCompatJellyBean
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/accessibility/AccessibilityWindowInfoCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/animation/PathInterpolatorCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/animation/PathInterpolatorCompatBase
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/view/animation/PathInterpolatorDonut
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/CompoundButtonCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/CompoundButtonCompatDonut
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/CompoundButtonCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/DrawerLayoutCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/DrawerLayoutCompatApi21$InsetsListener
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/DrawerLayoutImpl
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/EdgeEffectCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/EdgeEffectCompatLollipop
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/ListPopupWindowCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/PopupMenuCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/PopupWindowCompatApi21
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/PopupWindowCompatApi23
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/PopupWindowCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/PopupWindowCompatKitKat
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/ScrollerCompatGingerbread
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/ScrollerCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatHoneycomb
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatHoneycomb$1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatHoneycomb$2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatHoneycomb$OnCloseListenerCompatBridge
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatHoneycomb$OnQueryTextListenerCompatBridge
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatIcs
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/SearchViewCompatIcs$MySearchView
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/TextViewCompatJbMr1
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/TextViewCompatJbMr2
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null
+[openamp.d] invoke transform: android/support/v4/widget/TintableCompoundButton
+[openamp.d] InvocationDispatcher invoke from ExceptionLogClassAdapter null

@@ -5,6 +5,9 @@ import com.github.sgwhp.openapm.agent.visitor.ContextClassVisitor;
 import com.github.sgwhp.openapm.agent.visitor.ExceptionLogClassAdapter;
 import com.github.sgwhp.openapm.agent.visitor.TransformContext;
 import com.github.sgwhp.openapm.agent.visitor.InitContextClassVisitor;
+import com.github.sgwhp.openapm.agent.visitor.MeClassAdapter;
+
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
@@ -64,28 +67,36 @@ public class InvocationDispatcher implements InvocationHandler {
             cr.accept(new InitContextClassVisitor(context, log)
                     , ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG | ClassReader.SKIP_CODE);
             str = context.getClassName();
+
             log.d("invoke transform: " + str);
+
             if (skip(context.getClassName()))
                 return null;
             ClassVisitor cv = cw;
 
+            //经过测试这里的每次判断时getTargetPackage是空的，所有的都会去类中添加异常处理适配器；
+            //运行时可以在MainActivity中捕捉到异常并打印堆栈，但没有MainActivity的路径/类名,是不是在编译时候就改成了其他类名?
             if (context.getTargetPackage() == null || str.startsWith(context.getTargetPackage())) {
-                log.d("InvocationDispatcher invoke from ExceptionLogClassAdapter");
+                log.d("InvocationDispatcher invoke from ExceptionLogClassAdapter " + context.getTargetPackage());
                 cv = new ExceptionLogClassAdapter(cw, context);
+                //cv = new MeClassAdapter(cv, context);//放进来是可以执行的
             }else{
                 //log.e("no invoke transform: ExceptionLogClassAdapter");
             }
 
-            if (str.startsWith("com/github/sgwhp/openapm/sample/testMesurement")) {
-                log.d("InvocationDispatcher invoke transform: testMesurement");
-                cv = new MeClassAdapter(cv, context);
+            //一直没有TestMesurement类进来
+            if (str.startsWith("com/github/sgwhp/openapm/sample/TestMesurement")) {
+                log.d("InvocationDispatcher invoke transform: TestMesurement");
+                cv = new MeClassAdapter(cv, context);//这句是没执行的
             } else{
                 //log.e("no invoke transform: testMesurement");
             }
-            
+
             cr.accept(new ContextClassVisitor(cv, context)
                     , ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);
+
             return context.newClassData(cw.toByteArray());
+
         } catch (TransformedException e) {
             return null;
         } catch (Exception e) {
