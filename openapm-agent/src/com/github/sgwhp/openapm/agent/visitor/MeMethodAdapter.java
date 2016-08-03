@@ -31,14 +31,14 @@ public class MeMethodAdapter extends AdviceAdapter {
     protected void onMethodEnter() {
         log.d("-----MeMethodAdapter-------onMethodEnter");
         super.onMethodEnter();
-        /*
         onMethodEnter_internal();
         methodStartLabel = new Label();
         mv.visitLabel(methodStartLabel);
-        */
     }
 
+
     private void onMethodEnter_internal() {
+        log.d("-----MeMethodAdapter-------onMethodEnter_internal");
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
         mv.visitVarInsn(LSTORE, 1);
         mv.visitInsn(ICONST_0);
@@ -56,6 +56,7 @@ public class MeMethodAdapter extends AdviceAdapter {
     }
 
     private void onMethodExit_internal() {
+        log.d("-----MeMethodAdapter-------onMethodExit_internal");
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
         mv.visitVarInsn(LSTORE, 4);
         mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
@@ -88,18 +89,14 @@ public class MeMethodAdapter extends AdviceAdapter {
 
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
-        /*
         Label endFinallyLabel = new Label();
         mv.visitTryCatchBlock(methodStartLabel, endFinallyLabel, endFinallyLabel, THROWABLE_TYPE.getInternalName());
         mv.visitLabel(endFinallyLabel);
-
         mv.visitInsn(ICONST_1);
         mv.visitVarInsn(ISTORE, 3);
-
         onFinally(ATHROW);
         visitInsn(ATHROW);
         mv.visitMaxs(maxStack, maxLocals);
-        */
     }
 
     @Override

@@ -7,6 +7,8 @@ import org.objectweb.asm.Opcodes;
 /**
  * Created by user on 2016/8/3.
  */
+
+/*
 public class TraceAnnotationClassVisitor extends ClassVisitor {
 
    private final TransformContext context;
@@ -27,3 +29,4 @@ public class TraceAnnotationClassVisitor extends ClassVisitor {
     }
 
 }
+*/

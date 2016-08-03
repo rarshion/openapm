@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by user on 2016/8/3.
  */
-
+/*
 public class TraceMethodVisitor extends AdviceAdapter {
 
     //public static final String TRACE_MACHINE_INTERNAL_CLASSNAME = "com/newrelic/agent/android/tracing/TraceMachine";
@@ -107,3 +107,4 @@ public class TraceMethodVisitor extends AdviceAdapter {
         }
     }
 }
+*/
