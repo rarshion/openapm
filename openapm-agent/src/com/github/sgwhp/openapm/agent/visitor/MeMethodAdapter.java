@@ -11,6 +11,7 @@ import org.objectweb.asm.commons.AdviceAdapter;
  */
 
 public class MeMethodAdapter extends AdviceAdapter {
+
     private static final Type THROWABLE_TYPE = Type.getType(Throwable.class);
     private String name;
     private Label methodStartLabel;
@@ -25,6 +26,9 @@ public class MeMethodAdapter extends AdviceAdapter {
         this.name = name;
         this.context = context;
         this.log = log;
+        this.appId = "hello";
+        this.module = "MeMethodAdapter";
+        this.pinName = "rarshion";
     }
 
     @Override
@@ -35,7 +39,6 @@ public class MeMethodAdapter extends AdviceAdapter {
         methodStartLabel = new Label();
         mv.visitLabel(methodStartLabel);
     }
-
 
     private void onMethodEnter_internal() {
         log.d("-----MeMethodAdapter-------onMethodEnter_internal");
@@ -89,6 +92,7 @@ public class MeMethodAdapter extends AdviceAdapter {
 
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
+        log.d("-----MeMethodAdapter-------visitMaxs");
         Label endFinallyLabel = new Label();
         mv.visitTryCatchBlock(methodStartLabel, endFinallyLabel, endFinallyLabel, THROWABLE_TYPE.getInternalName());
         mv.visitLabel(endFinallyLabel);
@@ -101,12 +105,14 @@ public class MeMethodAdapter extends AdviceAdapter {
 
     @Override
     protected void onMethodExit(int opcode) {
+        log.d("-----MeMethodAdapter-------onMethodExit");
         if (opcode != ATHROW) {
             onFinally(opcode);
         }
     }
 
     private void onFinally(int opcode) {
+        log.d("-----MeMethodAdapter-------onFinally");
         onMethodExit_internal();
     }
 }

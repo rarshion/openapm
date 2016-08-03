@@ -52,5 +52,11 @@
 [openamp.d] InvocationDispatcher invoke transform: testMesurement
 [openamp.d] -----MeMethodAdapter-------onMethodEnter
 [openamp.d] -----MeMethodAdapter-------onMethodEnter_internal
+[openamp.d] -----MeMethodAdapter-------onMethodExit
+[openamp.d] -----MeMethodAdapter-------onMethodExit
+[openamp.d] -----MeMethodAdapter-------onFinally
 [openamp.d] -----MeMethodAdapter-------onMethodExit_internal
+[openamp.d] -----MeMethodAdapter-------visitMaxs
+[openamp.d] -----MeMethodAdapter-------onFinally
 [openamp.d] -----MeMethodAdapter-------onMethodExit_internal
+[openamp.d] -----MeMethodAdapter-------onMethodExit

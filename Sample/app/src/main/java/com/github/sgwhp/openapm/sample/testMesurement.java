@@ -7,6 +7,7 @@ public class testMesurement {
     public void calculate(){
         try {
             Thread.sleep(10000);
+            System.out.println("wocaonima");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {
