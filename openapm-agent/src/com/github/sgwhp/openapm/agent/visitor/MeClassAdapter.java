@@ -1,11 +1,12 @@
 package com.github.sgwhp.openapm.agent.visitor;
 
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 /**
- * Created by user on 2016/8/1.
+ * Created by huangshunbin on 2016/8/1.
  */
 public class MeClassAdapter extends ClassVisitor {
 
@@ -18,10 +19,26 @@ public class MeClassAdapter extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+
         if(name.equals("calculate"))
             return new MeMethodAdapter(super.visitMethod(access, name, desc, signature, exceptions),
                 access, name, desc, this.context.getLog(), context);
         else
             return super.visitMethod(access, name, desc, signature, exceptions);
     }
+
+
+    /*
+    @Override
+    public void visitEnd(){
+        FieldVisitor fv = cv.visitField(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "timer", "J", null, null);
+        if(fv != null){
+            this.context.getLog().d("timer:" + fv.toString());
+            fv.visitEnd();
+        }
+        cv.visitEnd();
+    }
+    */
+
+
 }

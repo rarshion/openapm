@@ -3,11 +3,12 @@ package com.github.sgwhp.openapm.agent.visitor;
 import com.github.sgwhp.openapm.agent.util.Log;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.AdviceAdapter;
 
 /**
- * Created by user on 2016/8/1.
+ * Created by huangshunbin on 2016/8/1.
  */
 
 public class MeMethodAdapter extends AdviceAdapter {
@@ -29,7 +30,35 @@ public class MeMethodAdapter extends AdviceAdapter {
         this.appId = "hello";
         this.module = "MeMethodAdapter";
         this.pinName = "rarshion";
+
     }
+
+    /*
+    @Override
+    public void visitCode() {
+        mv.visitCode();
+        mv.visitFieldInsn(Opcodes.GETSTATIC, module, "timer", "J");
+        mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J");
+        mv.visitInsn(Opcodes.LSUB);
+        mv.visitFieldInsn(Opcodes.PUTSTATIC, module, "timer", "J");
+    }
+
+    @Override
+    public void visitInsn(int opcode) {
+        if((opcode>=Opcodes.IRETURN && opcode<=Opcodes.RETURN) || opcode==Opcodes.ATHROW){
+            mv.visitFieldInsn(Opcodes.GETSTATIC, module, "timer", "J");
+            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J");
+            mv.visitInsn(Opcodes.LADD);
+            mv.visitFieldInsn(Opcodes.PUTSTATIC, module, "timer", "J");
+        }
+        mv.visitInsn(opcode);
+    }
+
+    @Override
+    public void visitMaxs(int maxStack, int maxLocal) {
+        mv.visitMaxs(maxStack+4, maxLocal);
+    }
+    */
 
     @Override
     protected void onMethodEnter() {
@@ -115,4 +144,6 @@ public class MeMethodAdapter extends AdviceAdapter {
         log.d("-----MeMethodAdapter-------onFinally");
         onMethodExit_internal();
     }
+
+
 }

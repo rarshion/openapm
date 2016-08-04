@@ -80,6 +80,8 @@ public class InvocationDispatcher implements InvocationHandler {
             } else{
                 //log.e("no invoke transform: testMesurement");
             }
+
+            //cv = new TraceAnnotationClassVisitor(cv, context);
             
             cr.accept(new ContextClassVisitor(cv, context)
                     , ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);

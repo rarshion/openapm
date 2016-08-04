@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by user on 2016/8/3.
  */
-/*
+
 public class TraceMethodVisitor extends AdviceAdapter {
 
     //public static final String TRACE_MACHINE_INTERNAL_CLASSNAME = "com/newrelic/agent/android/tracing/TraceMachine";
@@ -37,8 +37,9 @@ public class TraceMethodVisitor extends AdviceAdapter {
 
     @Override
     protected void onMethodEnter(){
-        final Type targetType = Type.getObjectType("com/github/sgwhp/openapm/sample/tracing/TraceMachine");
+        log.d("---TraceMethodVisitor---onMethodEnter");
 
+        final Type targetType = Type.getObjectType("com/github/sgwhp/openapm/sample/tracing/TraceMachine");
         if (this.startTracing) {
             super.visitLdcInsn(this.context.getSimpleClassName());
             super.invokeStatic(targetType, new Method("startTracing", "(Ljava/lang/String;)V"));
@@ -76,6 +77,8 @@ public class TraceMethodVisitor extends AdviceAdapter {
 
     private void emitAnnotationParamsList(final String name) {
 
+        log.d("---TraceMethodVisitor---emitAnnotationParamsList " + name);
+
         final ArrayList<String> annotationParameters = this.context.getTracedMethodParameters(name);
         if (annotationParameters == null || annotationParameters.size() == 0) {
             super.visitInsn(1);
@@ -98,8 +101,12 @@ public class TraceMethodVisitor extends AdviceAdapter {
 
     @Override
     protected void onMethodExit(final int opcode) {
+
+        log.d("---TraceMethodVisitor---onMethodExit");
+
         Type targetType = Type.getObjectType("com/github/sgwhp/openapm/sample/tracing/TraceMachine");
         super.invokeStatic(targetType, new Method("exitMethod", "()V"));
+
         if (this.unloadContext) {
             super.loadThis();
             targetType = Type.getObjectType("com/github/sgwhp/openapm/sample/tracing/TraceMachine");
@@ -107,4 +114,3 @@ public class TraceMethodVisitor extends AdviceAdapter {
         }
     }
 }
-*/

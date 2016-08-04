@@ -20,6 +20,7 @@ public abstract class EventHookClassVisitor extends ClassVisitor {
     protected final TransformContext context;
     protected final Log log;
 
+
     public EventHookClassVisitor(final ClassVisitor cv, final TransformContext context, final Log log, final Set<String> baseClasses, final Map<Method, Method> methodMappings) {
         super(Opcodes.ASM5, cv);
         this.instrument = false;
@@ -45,16 +46,19 @@ public abstract class EventHookClassVisitor extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(final int access, final String name, final String desc, final String signature, final String[] exceptions) {
+
         final MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
         if (!this.instrument) {
             return mv;
         }
+
         final Method method = new Method(name, desc);
         final MethodVisitorFactory v = this.methodVisitors.get(method);
         if (v != null) {
             this.methodVisitors.remove(method);
             return v.createMethodVisitor(access, method, mv, false);
         }
+
         return mv;
     }
 

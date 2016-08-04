@@ -4,14 +4,16 @@ package com.github.sgwhp.openapm.sample;
  * Created by user on 2016/8/1.
  */
 public class testMesurement {
-    public void calculate(){
-        try {
-            Thread.sleep(10000);
-            System.out.println("wocaonima");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }finally {
 
+    public void calculate(){
+
+        try {
+            //Thread.sleep(500L);
+            System.out.println("enter exception");
+            //throw new RuntimeException("calculate with exception");
+        } catch (Throwable t) {
+            throw t;
         }
+
     }
 }
