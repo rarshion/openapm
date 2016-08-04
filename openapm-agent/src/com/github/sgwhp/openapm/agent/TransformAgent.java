@@ -51,6 +51,7 @@ public class TransformAgent {
             IClassTransformer modifier = new ClassTransformer(log);
             createInvocationDispatcher(log);
             inst.addTransformer(modifier, true);
+
             Class[] classes = inst.getAllLoadedClasses();
             ArrayList<Class> classesToBeTransform = new ArrayList<>();
             for (Class cls : classes) {
@@ -58,6 +59,7 @@ public class TransformAgent {
                     classesToBeTransform.add(cls);
                 }
             }
+
             if(!classesToBeTransform.isEmpty()){
                 if(inst.isRetransformClassesSupported()){
                     log.d("retransform classes: " + classesToBeTransform);

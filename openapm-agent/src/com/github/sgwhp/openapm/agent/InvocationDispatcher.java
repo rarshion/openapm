@@ -1,6 +1,7 @@
 package com.github.sgwhp.openapm.agent;
 
 import com.github.sgwhp.openapm.agent.util.Log;
+import com.github.sgwhp.openapm.agent.util.StreamUtil;
 import com.github.sgwhp.openapm.agent.visitor.*;
 
 import org.objectweb.asm.ClassReader;
@@ -68,14 +69,14 @@ public class InvocationDispatcher implements InvocationHandler {
             ClassVisitor cv = cw;
 
             if (context.getTargetPackage() == null || str.startsWith(context.getTargetPackage())) {
-                log.d("InvocationDispatcher invoke from ExceptionLogClassAdapter");
+                //log.d("invoke from ExceptionLogClassAdapter");
                 cv = new ExceptionLogClassAdapter(cw, context);
             }else{
                 //log.e("no invoke transform: ExceptionLogClassAdapter");
             }
 
             if (str.startsWith("com/github/sgwhp/openapm/sample/testMesurement")) {
-                log.d("InvocationDispatcher invoke transform: testMesurement");
+                log.d("invoke transform: testMesurement" + str);
                 cv = new MeClassAdapter(cv, context);
             } else{
                 //log.e("no invoke transform: testMesurement");
@@ -85,7 +86,13 @@ public class InvocationDispatcher implements InvocationHandler {
             
             cr.accept(new ContextClassVisitor(cv, context)
                     , ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);
+
+            //将转换的类字节写到文件中以便观察
+            StreamUtil.writeToFile(cw.toByteArray(), cv.getClass().toString());
+
+            
             return context.newClassData(cw.toByteArray());
+
         } catch (TransformedException e) {
             return null;
         } catch (Exception e) {

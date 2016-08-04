@@ -32,6 +32,8 @@
 [openamp.d] invoke transform: com/github/sgwhp/openapm/monitor/R
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/BuildConfig
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MainActivity
+[openamp.d] find exception java/lang/IndexOutOfBoundsException
+[openamp.d] instrument exception
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MyApplication
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$anim
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$attr
@@ -49,10 +51,9 @@
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$styleable
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/testMesurement
-[openamp.d] InvocationDispatcher invoke transform: testMesurement
+[openamp.d] invoke transform: testMesurementcom/github/sgwhp/openapm/sample/testMesurement
 [openamp.d] -----MeMethodAdapter-------onMethodEnter
 [openamp.d] -----MeMethodAdapter-------onMethodEnter_internal
-[openamp.d] -----MeMethodAdapter-------onMethodExit
 [openamp.d] -----MeMethodAdapter-------onMethodExit
 [openamp.d] -----MeMethodAdapter-------onFinally
 [openamp.d] -----MeMethodAdapter-------onMethodExit_internal
