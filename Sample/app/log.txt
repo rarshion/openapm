@@ -30,7 +30,13 @@
 [openamp.d] invoke transform: android/support/v7/appcompat/R
 [openamp.d] invoke transform: com/github/sgwhp/openapm/monitor/R$string
 [openamp.d] invoke transform: com/github/sgwhp/openapm/monitor/R
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AopInteceptor
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/BuildConfig
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Hello
+[openamp.d] invoke transform: Hellocom/github/sgwhp/openapm/sample/Hello
+[openamp.d] AopClassAdapter
+[openamp.d] AopMethodAdapter visitCode
+[openamp.d] AopMethodAdapter visitInsn
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MainActivity
 [openamp.d] find exception java/lang/IndexOutOfBoundsException
 [openamp.d] instrument exception

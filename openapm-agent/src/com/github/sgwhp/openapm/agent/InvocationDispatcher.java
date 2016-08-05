@@ -83,14 +83,17 @@ public class InvocationDispatcher implements InvocationHandler {
             }
 
             //cv = new TraceAnnotationClassVisitor(cv, context);
-            
+
+            if(str.startsWith("com/github/sgwhp/openapm/sample/Hello")){
+                log.d("invoke transform: Hello" + str);
+                cv = new AopClassAdapter(cv, context);
+            }
+
             cr.accept(new ContextClassVisitor(cv, context)
                     , ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);
 
             //将转换的类字节写到文件中以便观察
             StreamUtil.writeToFile(cw.toByteArray(), cv.getClass().toString());
-
-            
             return context.newClassData(cw.toByteArray());
 
         } catch (TransformedException e) {

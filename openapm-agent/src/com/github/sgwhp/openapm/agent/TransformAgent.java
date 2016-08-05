@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * Created by wuhongping on 15-11-10.
  */
 public class TransformAgent {
+
     public static final Class LOGGER = Logger.class;
     public static final Set<String> dx = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new String[] { "dx", "dx.bat" })));
     public static final Set<String> java = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new String[] { "java", "java.exe" })));

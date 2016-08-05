@@ -30,35 +30,7 @@ public class MeMethodAdapter extends AdviceAdapter {
         this.appId = "hello";
         this.module = "MeMethodAdapter";
         this.pinName = "rarshion";
-
     }
-
-    /*
-    @Override
-    public void visitCode() {
-        mv.visitCode();
-        mv.visitFieldInsn(Opcodes.GETSTATIC, module, "timer", "J");
-        mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J");
-        mv.visitInsn(Opcodes.LSUB);
-        mv.visitFieldInsn(Opcodes.PUTSTATIC, module, "timer", "J");
-    }
-
-    @Override
-    public void visitInsn(int opcode) {
-        if((opcode>=Opcodes.IRETURN && opcode<=Opcodes.RETURN) || opcode==Opcodes.ATHROW){
-            mv.visitFieldInsn(Opcodes.GETSTATIC, module, "timer", "J");
-            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J");
-            mv.visitInsn(Opcodes.LADD);
-            mv.visitFieldInsn(Opcodes.PUTSTATIC, module, "timer", "J");
-        }
-        mv.visitInsn(opcode);
-    }
-
-    @Override
-    public void visitMaxs(int maxStack, int maxLocal) {
-        mv.visitMaxs(maxStack+4, maxLocal);
-    }
-    */
 
     @Override
     protected void onMethodEnter() {
@@ -78,6 +50,9 @@ public class MeMethodAdapter extends AdviceAdapter {
         mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
         mv.visitInsn(DUP);
+        // 这个指令是调用系列指令中的一个。其目的是调用对象类的方法。后面需要给上父类的方法完整签名。
+        // “#8”的意思是 .class 文件常量表中第8个元素。值为：“java/lang/Object."<init>"
+        // :()V”。结合ALOAD_0。这两个指令可以翻译为：“super()”。其含义是调用自己的父类构造方法。
         mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
         mv.visitLdcInsn("start: ");
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
@@ -138,6 +113,7 @@ public class MeMethodAdapter extends AdviceAdapter {
         if (opcode != ATHROW) {
             onFinally(opcode);
         }
+        this.context.markModified();
     }
 
     private void onFinally(int opcode) {

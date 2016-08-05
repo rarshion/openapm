@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity
         testMesurement mesurement = new testMesurement();
         mesurement.calculate();
 
+        Hello hello = new Hello();
+        hello.test();
+
     }
 
     @Override

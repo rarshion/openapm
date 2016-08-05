@@ -19,4 +19,5 @@ public class ContextClassVisitor extends ClassVisitor {
         context.setSuperClassName(superName);
         super.visit(version, access, name, signature, superName, interfaces);
     }
+
 }

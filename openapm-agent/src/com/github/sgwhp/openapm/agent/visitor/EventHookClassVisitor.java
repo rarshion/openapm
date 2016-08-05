@@ -20,7 +20,6 @@ public abstract class EventHookClassVisitor extends ClassVisitor {
     protected final TransformContext context;
     protected final Log log;
 
-
     public EventHookClassVisitor(final ClassVisitor cv, final TransformContext context, final Log log, final Set<String> baseClasses, final Map<Method, Method> methodMappings) {
         super(Opcodes.ASM5, cv);
         this.instrument = false;

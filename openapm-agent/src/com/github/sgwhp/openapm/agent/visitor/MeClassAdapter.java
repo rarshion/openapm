@@ -27,18 +27,4 @@ public class MeClassAdapter extends ClassVisitor {
             return super.visitMethod(access, name, desc, signature, exceptions);
     }
 
-
-    /*
-    @Override
-    public void visitEnd(){
-        FieldVisitor fv = cv.visitField(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "timer", "J", null, null);
-        if(fv != null){
-            this.context.getLog().d("timer:" + fv.toString());
-            fv.visitEnd();
-        }
-        cv.visitEnd();
-    }
-    */
-
-
 }
