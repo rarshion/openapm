@@ -21,7 +21,7 @@ public class DexerMainInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         byte[] classBytes = (byte[]) args[1];
         synchronized (dispatcher.getContext()) {
-            ClassData data = dispatcher.transform(classBytes);
+            ClassData data = dispatcher.transform(classBytes);//这里调用dispatcher的转换方法
             if ((data != null) && (data.getMainClassBytes() != null) && (data.isModified()))
                 return data.getMainClassBytes();
         }

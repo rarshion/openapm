@@ -69,6 +69,7 @@ public class TransformAgent {
                     log.e("unable to transform classes: " + classesToBeTransform);
                 }
             }
+
             redefineClass(inst, modifier, ProcessBuilder.class);
         } catch (Exception e) {
             log.e("agent startup error", e);

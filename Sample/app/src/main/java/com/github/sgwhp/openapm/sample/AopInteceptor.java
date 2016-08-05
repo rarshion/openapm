@@ -6,10 +6,10 @@ package com.github.sgwhp.openapm.sample;
 public class AopInteceptor {
 
     public static void before(){
-        System.out.println(".......rarshion before().......");
+        System.out.println(".......woca before().......");
     }
 
     public static void after(){
-        System.out.println(".......rarshion after().......");
+        System.out.println(".......woca after().......");
     }
 }

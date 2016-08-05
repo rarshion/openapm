@@ -21,4 +21,5 @@ public class DexerMainMethodVisitor extends MarkMethodVisitor {
         checkCast(Type.getType("[B"));
         storeArg(1);
     }
+
 }
