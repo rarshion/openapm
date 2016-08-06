@@ -225,6 +225,7 @@ public class TraceMachine extends HarvestAdapter {
         enterMethod(null, name, annotationParams);
     }
 
+    /*进入方法*/
     public static void enterMethod(final Trace trace, final String name, final ArrayList<String> annotationParams) {
         try {
             if (isTracingInactive()) {
@@ -244,6 +245,7 @@ public class TraceMachine extends HarvestAdapter {
                 return;
             }
             loadTraceContext(trace);
+            //新建追踪实例对象
             final Trace childTrace = registerNewTrace(name);
             pushTraceContext(childTrace);
             childTrace.scope = getCurrentScope();
@@ -441,7 +443,7 @@ public class TraceMachine extends HarvestAdapter {
 
     public static String getCurrentScope() {
         try {
-            if (isTracingInactive()) {
+            if (isTracingInactive()){
                 return null;
             }
             if (TraceMachine.traceMachineInterface == null || TraceMachine.traceMachineInterface.isUIThread()) {
