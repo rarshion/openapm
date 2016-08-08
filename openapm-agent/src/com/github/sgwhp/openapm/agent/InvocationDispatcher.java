@@ -82,7 +82,11 @@ public class InvocationDispatcher implements InvocationHandler {
                 //log.e("no invoke transform: testMesurement");
             }
 
-            //cv = new TraceAnnotationClassVisitor(cv, context);
+            //cv = new AnnotatingClassVisitor(cv, this.context, this.log);
+            //cv = new ActivityClassVisitor(cv, this.context, this.log);
+            //cv = new AsyncTaskClassVisitor(cv, this.context, this.log);
+            //cv = new TraceAnnotationClassVisitor(cv, this.context, this.log);
+           //cv = new WrapMethodClassVisitor(cv, this.context, this.log);
 
             if(str.startsWith("com/github/sgwhp/openapm/sample/Hello")){
                 log.d("invoke transform: Hello" + str);

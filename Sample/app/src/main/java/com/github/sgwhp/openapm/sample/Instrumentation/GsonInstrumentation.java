@@ -1,18 +1,9 @@
 package com.github.sgwhp.openapm.sample.Instrumentation;
 
-import com.github.sgwhp.openapm.sample.tracing.TraceMachine;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-
 /**
  * Created by user on 2016/8/6.
  */
+/*
 public class GsonInstrumentation {
     private static final ArrayList<String> categoryParams;
 
@@ -135,3 +126,5 @@ public class GsonInstrumentation {
         categoryParams = new ArrayList<String>(Arrays.asList("category", MetricCategory.class.getName(), "JSON"));
     }
 }
+
+*/

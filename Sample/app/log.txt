@@ -38,6 +38,7 @@
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Agent
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AgentConfiguration
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AgentImpl
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AgentInitializationException
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/analytics/AnalyticAttribute$1
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/analytics/AnalyticAttribute$2
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/analytics/AnalyticAttribute$AttributeDataType
@@ -64,7 +65,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 	at org.objectweb.asm.ClassReader.b(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
-	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:92)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
 	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
 	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
 	at com.android.dx.command.dexer.Main.processClass(Main.java)
@@ -100,6 +101,49 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/analytics/EventManagerImpl
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/analytics/InteractionEvent
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/analytics/SessionEvent
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AndroidAgentImpl$1
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AndroidAgentImpl
+[openamp.e] An error occurred while transforming com/github/sgwhp/openapm/sample/AndroidAgentImpl.
+java.lang.ClassNotFoundException: com.github.sgwhp.openapm.sample.util.ActivityLifecycleBackgroundListener
+java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.openapm.sample.util.ActivityLifecycleBackgroundListener
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:170)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMonoDex(Main.java:311)
+	at com.android.dx.command.dexer.Main.run(Main.java:277)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/AopInteceptor
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/api/common/CarrierType
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/api/common/ConnectionState
@@ -136,7 +180,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 	at org.objectweb.asm.ClassReader.b(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
-	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:92)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
 	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
 	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
 	at com.android.dx.command.dexer.Main.processClass(Main.java)
@@ -205,7 +249,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 	at org.objectweb.asm.ClassReader.b(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
-	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:92)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
 	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
 	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
 	at com.android.dx.command.dexer.Main.processClass(Main.java)
@@ -268,6 +312,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] AopClassAdapter
 [openamp.d] AopMethodAdapter visitCode
 [openamp.d] AopMethodAdapter visitInsn
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/BitmapFactoryInstrumentation
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/httpclient/ContentBufferingResponseEntityImpl
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/httpclient/HttpRequestEntityImpl
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/httpclient/HttpResponseEntityImpl
@@ -280,6 +325,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/io/StreamCompleteListenerSource
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/MetricCategory$1
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/MetricCategory
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/ReplaceCallSite
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/TraceConstructor
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/TransactionState$State
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/TransactionState
@@ -323,12 +369,55 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/producer/MethodMeasurementProducer
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/producer/NetworkMeasurementProducer
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/ThreadInfo
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MeasurementEngine
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Measurements
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/metric/Metric
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/metric/MetricNames
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/metric/MetricStore
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/metric/MetricUnit
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MyApplication
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/NewRelic
+[openamp.e] An error occurred while transforming com/github/sgwhp/openapm/sample/NewRelic.
+java.lang.ClassNotFoundException: com.github.sgwhp.openapm.sample.logging.AndroidAgentLog
+java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.openapm.sample.logging.AndroidAgentLog
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:170)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMonoDex(Main.java:311)
+	at com.android.dx.command.dexer.Main.run(Main.java:277)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/NullAgentImpl$1
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/NullAgentImpl
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$anim
@@ -346,6 +435,51 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$style
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R$styleable
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/R
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/sample/MachineMeasurementConsumer
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/sample/Sampler
+[openamp.e] An error occurred while transforming com/github/sgwhp/openapm/sample/sample/Sampler.
+java.lang.ClassNotFoundException: com.github.sgwhp.openapm.sample.tracing.Sample
+java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.openapm.sample.tracing.Sample
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:170)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMonoDex(Main.java:311)
+	at com.android.dx.command.dexer.Main.run(Main.java:277)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/SavedState
 [openamp.e] An error occurred while transforming com/github/sgwhp/openapm/sample/SavedState.
 java.lang.ClassNotFoundException: org.json.JSONException
@@ -360,7 +494,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: org.json.JSONExcep
 	at org.objectweb.asm.ClassReader.b(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
-	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:92)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
 	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
 	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
 	at com.android.dx.command.dexer.Main.processClass(Main.java)
@@ -429,7 +563,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 	at org.objectweb.asm.ClassReader.b(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
 	at org.objectweb.asm.ClassReader.accept(Unknown Source)
-	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:92)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
 	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
 	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
 	at com.android.dx.command.dexer.Main.processClass(Main.java)
@@ -461,11 +595,66 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/tracing/TraceType
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/tracing/TracingInactiveException
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/ActivityLifecycleBackgroundListener$1
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/ActivityLifecycleBackgroundListener$2
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/ActivityLifecycleBackgroundListener$3
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/ActivityLifecycleBackgroundListener
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/AndroidEncoder
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/Connectivity
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/Encoder
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/ExceptionHelper
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/FeatureFlag
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/JsonCrashStore
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/NamedThreadFactory
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/NetworkFailure
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/NewRelicCanary
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/PersistentUUID
+[openamp.e] An error occurred while transforming com/github/sgwhp/openapm/sample/util/PersistentUUID.
+java.lang.ClassNotFoundException: android.telephony.TelephonyManager
+java.lang.RuntimeException: java.lang.ClassNotFoundException: android.telephony.TelephonyManager
+	at org.objectweb.asm.ClassWriter.getCommonSuperClass(Unknown Source)
+	at org.objectweb.asm.ClassWriter.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.Frame.a(Unknown Source)
+	at org.objectweb.asm.MethodWriter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.commons.LocalVariablesSorter.visitMaxs(Unknown Source)
+	at org.objectweb.asm.ClassReader.a(Unknown Source)
+	at org.objectweb.asm.ClassReader.b(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at org.objectweb.asm.ClassReader.accept(Unknown Source)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.transform(InvocationDispatcher.java:96)
+	at com.github.sgwhp.openapm.agent.DexerMainInvocationHandler.invoke(DexerMainInvocationHandler.java:24)
+	at com.github.sgwhp.openapm.agent.InvocationDispatcher.invoke(InvocationDispatcher.java:43)
+	at com.android.dx.command.dexer.Main.processClass(Main.java)
+	at com.android.dx.command.dexer.Main.processFileBytes(Main.java:718)
+	at com.android.dx.command.dexer.Main.access$1200(Main.java:85)
+	at com.android.dx.command.dexer.Main$FileBytesConsumer.processFileBytes(Main.java:1645)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:170)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.processDirectory(ClassPathOpener.java:229)
+	at com.android.dx.cf.direct.ClassPathOpener.processOne(ClassPathOpener.java:158)
+	at com.android.dx.cf.direct.ClassPathOpener.process(ClassPathOpener.java:144)
+	at com.android.dx.command.dexer.Main.processOne(Main.java:672)
+	at com.android.dx.command.dexer.Main.processAllFiles(Main.java:574)
+	at com.android.dx.command.dexer.Main.runMonoDex(Main.java:311)
+	at com.android.dx.command.dexer.Main.run(Main.java:277)
+	at com.android.dx.command.dexer.Main.main(Main.java:245)
+	at com.android.dx.command.Main.main(Main.java:106)
+
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/SafeJsonPrimitive
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/SharedPrefsAnalyticAttributeStore$1
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/SharedPrefsAnalyticAttributeStore
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/UiBackgroundListener$1
+[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/UiBackgroundListener
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/util/Util

@@ -35,6 +35,14 @@ public class TraceMethodVisitor extends AdviceAdapter {
         this.log = context.getLog();
     }
 
+    public void setUnloadContext() {
+        this.unloadContext = true;
+    }
+
+    public void setStartTracing() {
+        this.startTracing = true;
+    }
+
     @Override
     protected void onMethodEnter(){
         log.d("---TraceMethodVisitor---onMethodEnter");
@@ -47,6 +55,7 @@ public class TraceMethodVisitor extends AdviceAdapter {
 
         if ((this.access & 0x8) != 0x0) {
             this.log.d("Tracing static method " + this.context.getClassName() + "#" + this.name);
+
             super.visitInsn(1);
             super.visitLdcInsn(this.context.getSimpleClassName() + "#" + this.name);
             this.emitAnnotationParamsList(this.name);

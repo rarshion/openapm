@@ -20,7 +20,6 @@ public class HttpErrorMeasurementProducer extends BaseMeasurementProducer {
     public static final String HTTP_METHOD_PARAMS_KEY = "http_method";
     public static final String WAN_TYPE_PARAMS_KEY = "wan_type";
 
-
     public HttpErrorMeasurementProducer() {
         super(MeasurementType.HttpError);
     }

@@ -63,6 +63,7 @@ public class HarvestConfiguration {
     }
 
     public void reconfigure(final HarvestConfiguration configuration) {
+
         this.setCollect_network_errors(configuration.isCollect_network_errors());
         if (configuration.getCross_process_id() != null) {
             this.setCross_process_id(configuration.getCross_process_id());

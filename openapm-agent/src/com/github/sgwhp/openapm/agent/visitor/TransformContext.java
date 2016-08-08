@@ -15,6 +15,10 @@ public class TransformContext {
     private String className;
     private String superClassName;
 
+
+    private static final String[] ANDROID_8_MISSING_CLASS_WHITE_LIST;
+    private static final HashMap<Integer, Set<String>> MISSING_CLASS_WHITE_LIST;
+
     private final ArrayList<String> tags;
     private HashMap<String, String> tracedMethods;
     private HashMap<String, String> skippedMethods;
@@ -70,6 +74,15 @@ public class TransformContext {
         if (className.contains("/"))
             return className.substring(className.lastIndexOf("/") + 1);
         return className;
+    }
+
+    public void addTag(final String tag) {
+        this.tags.add(tag);
+    }
+
+    public void addUniqueTag(final String tag) {
+        while (this.tags.remove(tag)) {}
+        this.addTag(tag);
     }
 
     public void setSuperClassName(String superClassName) {
@@ -139,15 +152,14 @@ public class TransformContext {
         return this.tags.contains(tag);
     }
 
-    /*
     static {
         ANDROID_8_MISSING_CLASS_WHITE_LIST = new String[] { "android.view.View$AccessibilityDelegate", "android.view.accessibility.AccessibilityNodeProvider" };
         MISSING_CLASS_WHITE_LIST = new HashMap<Integer, Set<String>>() {
             {
-                ((HashMap<Integer, HashSet<String>>)this).put(8, new HashSet<String>(Arrays.asList(InstrumentationContext.ANDROID_8_MISSING_CLASS_WHITE_LIST)));
+                ((HashMap<Integer, Set<String>>)this).put(8, new HashSet<String>(Arrays.asList(TransformContext.ANDROID_8_MISSING_CLASS_WHITE_LIST)));
             }
         };
     }
-    */
+
 
 }

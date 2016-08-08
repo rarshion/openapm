@@ -59,6 +59,7 @@ public class TraceMachine extends HarvestAdapter {
     }
 
     public static void addTraceListener(final TraceLifecycleAware listener) {
+        System.out.println("---Rarshoin:TraceMachine#addTraceListener---");
         TraceMachine.traceListeners.add(listener);
     }
 

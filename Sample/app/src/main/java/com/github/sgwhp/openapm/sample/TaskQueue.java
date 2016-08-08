@@ -45,6 +45,7 @@ public class TaskQueue extends HarvestAdapter {
     }
 
     public static void start() {
+        System.out.println("---Rarshion:TaskQueue#start");
         if (TaskQueue.dequeueFuture != null) {
             return;
         }

@@ -51,9 +51,12 @@ public class CrashReporter {
     }
 
     public static void initialize(final AgentConfiguration _agentConfiguration) {
+        System.out.println("---Rarshion:CrashReporter#initialize---");
+
         if (!CrashReporter.initialized.compareAndSet(false, true)) {
             return;
         }
+
         CrashReporter.executor = Executors.newCachedThreadPool(new NamedThreadFactory("CrashUploader"));
         CrashReporter.agentConfiguration = _agentConfiguration;
         CrashReporter.instance.isEnabled = CrashReporter.agentConfiguration.getReportCrashes();
@@ -66,10 +69,10 @@ public class CrashReporter {
                     CrashReporter.instance.reportSupportabilityMetrics();
                 }
                 else {
-                    CrashReporter.instance.log.warning("Unable to upload cached crash to New Relic - no network");
-                }
-            }
-        });
+            CrashReporter.instance.log.warning("Unable to upload cached crash to New Relic - no network");
+        }
+    }
+});
         if (CrashReporter.instance.isEnabled) {
             CrashReporter.instance.installCrashHandler();
         }

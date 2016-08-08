@@ -20,6 +20,9 @@ public final class Connectivity {
     private static AgentLog log;
 
     public static String carrierNameFromContext(final Context context) {
+
+        System.out.println("---Rarshion:Connectivity#carrierNameFromContext");
+
         NetworkInfo networkInfo;
         try {
             networkInfo = getNetworkInfo(context);
@@ -94,6 +97,8 @@ public final class Connectivity {
     }
 
     private static NetworkInfo getNetworkInfo(final Context context) throws SecurityException {
+
+        System.out.println("---Rarshion:Connectivity#getNetworkInfo");
         final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService("connectivity");
         try {
             return connectivityManager.getActiveNetworkInfo();

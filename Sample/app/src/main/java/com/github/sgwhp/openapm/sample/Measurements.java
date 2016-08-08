@@ -64,6 +64,29 @@ public class Measurements {
         Measurements.broadcastNewMeasurements = true;
     }
 
+    public static void initialize() {
+
+        System.out.println("---Rarshion:Measurements#Engine initialize---");
+
+        Measurements.log.info("Measurement Engine initialized.");
+
+        TaskQueue.start();
+        
+        addMeasurementProducer(Measurements.httpErrorMeasurementProducer);
+        addMeasurementProducer(Measurements.networkMeasurementProducer);
+        addMeasurementProducer(Measurements.activityMeasurementProducer);
+        addMeasurementProducer(Measurements.methodMeasurementProducer);
+        addMeasurementProducer(Measurements.customMetricProducer);
+        addMeasurementConsumer(Measurements.httpErrorHarvester);
+        addMeasurementConsumer(Measurements.httpTransactionHarvester);
+        addMeasurementConsumer(Measurements.activityConsumer);
+        addMeasurementConsumer(Measurements.methodMeasurementConsumer);
+        addMeasurementConsumer(Measurements.summaryMetricMeasurementConsumer);
+        addMeasurementConsumer(Measurements.customMetricConsumer);
+
+    }
+
+
 
     public static void shutdown() {
         TaskQueue.stop();
@@ -220,6 +243,7 @@ public class Measurements {
     }
 
     public static void addMeasurementConsumer(final MeasurementConsumer measurementConsumer) {
+        System.out.println("---Rarshion:Measurements#addMeasurementConsumer");
         Measurements.measurementEngine.addMeasurementConsumer(measurementConsumer);
     }
 

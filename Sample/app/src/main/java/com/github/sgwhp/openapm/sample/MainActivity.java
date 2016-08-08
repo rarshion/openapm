@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity
         Hello hello = new Hello();
         hello.test();
 
+
+        NewRelic newRelic = new NewRelic("wocaonima");
+        newRelic.start(this.getBaseContext());
+
     }
 
     @Override

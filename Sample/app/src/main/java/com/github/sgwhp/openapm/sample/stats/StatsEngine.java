@@ -26,6 +26,7 @@ public class StatsEngine extends HarvestAdapter {
     }
 
     public void inc(final String name) {
+        System.out.println("---Rarshion:StatsEngine#inc");
         final Metric m = this.lazyGet(name);
         synchronized (m) {
             m.increment();
@@ -93,6 +94,5 @@ public class StatsEngine extends HarvestAdapter {
     static {
         INSTANCE = new StatsEngine();
     }
-
 
 }

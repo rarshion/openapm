@@ -78,6 +78,8 @@ public class HarvestTimer implements Runnable {
 
     protected void tick() {
         this.log.debug("Harvest: tick");
+        System.out.println("---Rarshion:HavestTimer#tick---");
+
         final TicToc t = new TicToc();
         t.tic();
         try {
@@ -102,19 +104,26 @@ public class HarvestTimer implements Runnable {
     }
 
     public void start() {
+
         if (ApplicationStateMonitor.isAppInBackground()) {
             this.log.warning("HarvestTimer: Attempting to start while app is in background");
+            System.out.println("---Rarshion;HarvestTimer: Attempting to start while app is in background");
             return;
         }
         if (this.isRunning()) {
             this.log.warning("HarvestTimer: Attempting to start while already running");
+            System.out.println("---Rarshion;HarvestTimer: Attempting to start while already running");
             return;
         }
         if (this.period <= 0L) {
             this.log.error("HarvestTimer: Refusing to start with a period of 0 ms");
+            System.out.println("---Rarshion;HarvestTimer: Refusing to start with a period of 0 ms");
             return;
         }
+
         this.log.debug("HarvestTimer: Starting with a period of " + this.period + "ms");
+        System.out.println("---Rarshion:HarvestTimer: Starting with a period of " + this.period + "ms");
+
         this.startTimeMs = System.currentTimeMillis();
         this.tickFuture = this.scheduler.scheduleAtFixedRate(this, 0L, this.period, TimeUnit.MILLISECONDS);
         this.harvester.start();

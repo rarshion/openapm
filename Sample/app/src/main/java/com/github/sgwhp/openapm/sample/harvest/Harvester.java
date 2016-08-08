@@ -208,6 +208,8 @@ public class Harvester {
 
     protected void execute() {
         this.log.debug("Harvester state: " + this.state);
+        System.out.println("---Rarshion:Harvester state: " + this.state);
+
         this.stateChanged = false;
         try {
             this.expireHarvestData();
@@ -336,6 +338,7 @@ public class Harvester {
             new Exception().printStackTrace();
             return;
         }
+
         synchronized (this.harvestListeners) {
             if (this.harvestListeners.contains(harvestAware)) {
                 return;
@@ -445,6 +448,8 @@ public class Harvester {
     }
 
     private void fireOnHarvestStart() {
+        System.out.println("---Rarshion:Harvester#fireOnHarvestStart");
+
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
                 harvestAware.onHarvestStart();

@@ -1,5 +1,6 @@
 package com.github.sgwhp.openapm.agent.visitor;
 
+import com.github.sgwhp.openapm.agent.util.Log;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -12,10 +13,12 @@ import org.objectweb.asm.Opcodes;
 public class TraceAnnotationClassVisitor extends ClassVisitor {
 
    private final TransformContext context;
+   private final Log log;
 
-   public TraceAnnotationClassVisitor(ClassVisitor classVisitor, final TransformContext context) {
+   public TraceAnnotationClassVisitor(ClassVisitor classVisitor, final TransformContext context, final Log log) {
        super(Opcodes.ASM5, classVisitor);
        this.context = context;
+       this.log = log;
    }
 
     @Override
@@ -24,6 +27,8 @@ public class TraceAnnotationClassVisitor extends ClassVisitor {
         if(this.context.isTracedMethod(name, desc) & !this.context.isSkippedMethod(name, desc)) {
             this.context.markModified();
             return new TraceMethodVisitor(methodVisitor, access, name, desc, this.context);
+        } else{
+            this.log.d("----no enter TraceAnnotationClassVisitor---");
         }
         return methodVisitor;
     }

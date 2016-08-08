@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * Created by user on 2016/8/2.
  */
 public class Harvest {
+
     private static final AgentLog log;
     private static final boolean DISABLE_ACTIVITY_TRACE_LIMITS_FOR_DEBUGGING = false;
     public static final long INVALID_SESSION_DURATION = 0L;
@@ -37,12 +38,14 @@ public class Harvest {
     }
 
     public static void initialize(final AgentConfiguration agentConfiguration) {
+        System.out.println("---Rarshion:Harvest#initialize---");
         Harvest.instance.initializeHarvester(agentConfiguration);
         registerUnregisteredListeners();
         addHarvestListener(StatsEngine.get());
     }
 
     public void initializeHarvester(final AgentConfiguration agentConfiguration) {
+        System.out.println("---Rarshion:Harvest#initializeHarvester---");
         this.createHarvester();
         this.harvester.setAgentConfiguration(agentConfiguration);
         this.harvester.setConfiguration(Harvest.instance.getConfiguration());
@@ -54,6 +57,7 @@ public class Harvest {
     }
 
     public static void start() {
+        System.out.println("---Rarshion:Harvest#start");
         Harvest.instance.getHarvestTimer().start();
     }
 
@@ -79,6 +83,7 @@ public class Harvest {
         analyticsController.addEvent(sessionEvent);
         analyticsController.getEventManager().shutdown();
         Harvest.instance.getHarvestTimer().tickNow();
+
     }
 
     public static void setInstance(final Harvest harvestInstance) {
@@ -91,6 +96,7 @@ public class Harvest {
     }
 
     public void createHarvester() {
+        System.out.println("---Rarshion:Harvest#createHarvester---");
         this.harvestConnection = new HarvestConnection();
         this.harvestData = new HarvestData();
         (this.harvester = new Harvester()).setHarvestConnection(this.harvestConnection);
@@ -198,12 +204,16 @@ public class Harvest {
             Harvest.log.error("Harvest: Argument to addHarvestListener cannot be null.");
             return;
         }
+
+        System.out.println("---Rarshion:Harvest#addHarvestListener---");
+
         if (!isInitialized()) {
             if (!isUnregisteredListener(harvestAware)) {
                 addUnregisteredListener(harvestAware);
             }
             return;
         }
+
         Harvest.instance.getHarvester().addHarvestListener(harvestAware);
     }
 
@@ -253,6 +263,8 @@ public class Harvest {
     }
 
     private void flushHarvestableCaches() {
+        System.out.println("---Rarshion:Havest#flushHarvestableCaches");
+
         try {
             this.flushActivityTraceCache();
         }
@@ -272,6 +284,7 @@ public class Harvest {
         if (harvestAware == null) {
             return;
         }
+        System.out.println("---Rarshion:Harvest#addUnregisteredListener---");
         synchronized (Harvest.unregisteredLifecycleListeners) {
             Harvest.unregisteredLifecycleListeners.add(harvestAware);
         }
@@ -330,6 +343,8 @@ public class Harvest {
     }
 
     public void setConfiguration(final HarvestConfiguration newConfiguration) {
+        System.out.println("---Rarshion:Harvest#setConfiguration---");
+
         this.configuration.reconfigure(newConfiguration);
         this.harvestTimer.setPeriod(TimeUnit.MILLISECONDS.convert(this.configuration.getData_report_period(), TimeUnit.SECONDS));
         this.harvestConnection.setServerTimestamp(this.configuration.getServer_timestamp());
@@ -338,16 +353,23 @@ public class Harvest {
     }
 
     public void setConnectInformation(final ConnectInformation connectInformation) {
+        System.out.println("---Rarshion:Harvest#setConnectInformation");
+
         this.harvestConnection.setConnectInformation(connectInformation);
         this.harvestData.setDeviceInformation(connectInformation.getDeviceInformation());
     }
 
     public static void setHarvestConfiguration(final HarvestConfiguration configuration) {
+        System.out.println("---Rarshion:Harvest#setHarvestConfiguration---");
+
         if (!isInitialized()) {
             Harvest.log.error("Cannot configure Harvester before initialization.");
             new Exception().printStackTrace();
             return;
         }
+
+        System.out.println("---Rarshion:Harvest Configuration: " + configuration);
+
         Harvest.log.debug("Harvest Configuration: " + configuration);
         Harvest.instance.setConfiguration(configuration);
     }
@@ -360,12 +382,17 @@ public class Harvest {
     }
 
     public static void setHarvestConnectInformation(final ConnectInformation connectInformation) {
+        System.out.println("---Rarshion:Havest#setHarvestConnectInformation");
+
         if (!isInitialized()) {
             Harvest.log.error("Cannot configure Harvester before initialization.");
             new Exception().printStackTrace();
             return;
         }
+
+        System.out.println("---Rarshion:Setting Harvest connect information: " + connectInformation);
         Harvest.log.debug("Setting Harvest connect information: " + connectInformation);
+
         Harvest.instance.setConnectInformation(connectInformation);
     }
 

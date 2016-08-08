@@ -42,12 +42,17 @@ public class AnalyticsControllerImpl implements AnalyticsController{
     private static final String NR_PREFIX = "nr.";
 
     public static void initialize(final AgentConfiguration agentConfiguration, final AgentImpl agentImpl) {
+
+        System.out.println("---Rarshion:AnalyticsControllerImpl#initialize---");
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.initialize invoked.");
+
         if (!AnalyticsControllerImpl.initialized.compareAndSet(false, true)) {
             AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl has already been initialized.  Bypassing..");
             return;
         }
+
         AnalyticsControllerImpl.instance.clear();
+
         AnalyticsControllerImpl.reservedNames.add("eventType");
         AnalyticsControllerImpl.reservedNames.add("type");
         AnalyticsControllerImpl.reservedNames.add("timestamp");
@@ -70,8 +75,13 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         AnalyticsControllerImpl.reservedNames.add("upgradeFrom");
         AnalyticsControllerImpl.reservedNames.add("platform");
         AnalyticsControllerImpl.reservedNames.add("platformVersion");
+
         AnalyticsControllerImpl.instance.reinitialize(agentConfiguration, agentImpl);
+
         TraceMachine.addTraceListener(AnalyticsControllerImpl.instance.listener);
+
+        System.out.println("---Rarshion:AnalyticsControllerImpl#Controller started---");
+
         AnalyticsControllerImpl.log.info("Analytics Controller started.");
     }
 
@@ -89,9 +99,13 @@ public class AnalyticsControllerImpl implements AnalyticsController{
     }
 
     void reinitialize(final AgentConfiguration agentConfiguration, final AgentImpl agentImpl) {
+
+        System.out.println("---Rarshion:AnalyticsControllerImpl#reinitialize---");
+
         this.agentImpl = agentImpl;
         this.agentConfiguration = agentConfiguration;
         this.eventManager.initialize();
+
         this.isEnabled = agentConfiguration.getEnableAnalyticsEvents();
         this.loadPersistentAttributes();
         final DeviceInformation deviceInformation = agentImpl.getDeviceInformation();
@@ -105,7 +119,9 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         else {
             osMajorVersion = osVersion;
         }
-        final EnvironmentInformation environmentInformation = agentImpl.getEnvironmentInformation();
+
+        final EnvironmentInformation environmentInformation = agentImpl.getEnvironmentInformation();//这里怎么会出错呢？
+
         this.systemAttributes.add(new AnalyticAttribute("osName", deviceInformation.getOsName()));
         this.systemAttributes.add(new AnalyticAttribute("osVersion", osVersion));
         this.systemAttributes.add(new AnalyticAttribute("osMajorVersion", osMajorVersion));
