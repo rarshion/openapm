@@ -30,7 +30,10 @@ public class AgentConfiguration {
 
     public AgentConfiguration() {
         this.collectorHost = "mobile-collector.newrelic.com";
+
         this.crashCollectorHost = "mobile-crash.newrelic.com";
+
+
         this.useSsl = true;
         this.reportCrashes = true;
         this.enableAnalyticsEvents = true;

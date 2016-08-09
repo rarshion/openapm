@@ -18,8 +18,10 @@ import java.util.Map;
  */
 public class JsonCrashStore implements CrashStore
 {
+    //使用sharePreferences来存储，key值为NRCrashStore
+
     private static final String STORE_FILE = "NRCrashStore";
-    private static final AgentLog log;
+    private static final AgentLog log = AgentLogManager.getAgentLog();
     private final Context context;
 
     public JsonCrashStore(final Context context) {
@@ -84,9 +86,5 @@ public class JsonCrashStore implements CrashStore
         }
     }
 
-
-    static {
-        log = AgentLogManager.getAgentLog();
-    }
 }
 

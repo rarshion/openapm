@@ -81,6 +81,7 @@ public class ExceptionHelper implements HarvestErrorCodes {
                 agentHealthException.getSourceMethod(), topTraceElement.getFileName(), topTraceElement.getLineNumber(),
                 baseExceptionKey, agentHealthException.getExceptionClass(), agentHealthException.getMessage()));
         AgentHealth.noticeException(agentHealthException, baseExceptionKey);
+
     }
 
 }

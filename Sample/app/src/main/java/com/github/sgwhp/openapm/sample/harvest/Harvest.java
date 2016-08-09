@@ -69,19 +69,26 @@ public class Harvest {
         if (!isInitialized()) {
             return;
         }
+
         final long sessionDuration = getMillisSinceStart();
         if (sessionDuration == 0L) {
             Harvest.log.error("Session duration is invalid!");
             StatsEngine.get().inc("Supportability/AgentHealth/Session/InvalidDuration");
         }
+
         StatsEngine.get().sampleTimeMs("Session/Duration", sessionDuration);
         Harvest.log.debug("Harvest.harvestNow - Generating sessionDuration attribute with value " + sessionDuration);
+        System.out.println("---Rarshion:Harvest.harvestNow - Generating sessionDuration attribute with value " + sessionDuration);
+
         final AnalyticsControllerImpl analyticsController = AnalyticsControllerImpl.getInstance();
         analyticsController.setAttribute("sessionDuration", sessionDuration, false);
         Harvest.log.debug("Harvest.harvestNow - Generating session event.");
+        System.out.println("---Rarshion:Harvest.harvestNow - Generating session event.");
+
         final SessionEvent sessionEvent = new SessionEvent();
         analyticsController.addEvent(sessionEvent);
         analyticsController.getEventManager().shutdown();
+
         Harvest.instance.getHarvestTimer().tickNow();
 
     }
@@ -95,6 +102,7 @@ public class Harvest {
         }
     }
 
+    //创建采集器
     public void createHarvester() {
         System.out.println("---Rarshion:Harvest#createHarvester---");
         this.harvestConnection = new HarvestConnection();
@@ -105,6 +113,7 @@ public class Harvest {
         addHarvestListener(this.harvestDataValidator = new HarvestDataValidator());
     }
 
+    //关闭采集器
     public void shutdownHarvester() {
         this.harvestTimer.shutdown();
         this.harvestTimer = null;
@@ -112,7 +121,7 @@ public class Harvest {
         this.harvestConnection = null;
         this.harvestData = null;
     }
-
+    //关闭采集器
     public static void shutdown() {
         if (!isInitialized()) {
             return;
@@ -121,6 +130,8 @@ public class Harvest {
         Harvest.instance.shutdownHarvester();
     }
 
+
+    //添加http请求错误，这个方法会在其他继承子类中调用
     public static void addHttpError(final HttpError error) {
         if (!Harvest.instance.shouldCollectNetworkErrors() || isDisabled()) {
             return;
@@ -136,7 +147,7 @@ public class Harvest {
         errors.addHttpError(error);
         Harvest.log.verbose("Harvest: " + Harvest.instance + " now contains " + errors.count() + " errors.");
     }
-
+    //添加http传输，这个方法会在其他继承子类中调用
     public static void addHttpTransaction(final HttpTransaction txn) {
         if (isDisabled()) {
             return;
@@ -151,7 +162,7 @@ public class Harvest {
         }
         transactions.add(txn);
     }
-
+    //添加线程跟踪，这个方法会在其他继承子类中调用
     public static void addActivityTrace(final ActivityTrace activityTrace) {
         if (isDisabled()) {
             return;
@@ -184,22 +195,23 @@ public class Harvest {
         Harvest.log.debug("Adding activity trace: " + activityTrace.toJsonString());
         activityTraces.add(activityTrace);
     }
-
+    //添加线程跟踪，这个方法会在其他继承子类中调用
     public static void addMetric(final Metric metric) {
         if (isDisabled() || !isInitialized()) {
             return;
         }
         Harvest.instance.getHarvestData().getMetrics().addMetric(metric);
     }
-
+    //添加转换异常，这个方法会在其他继承子类中调用
     public static void addAgentHealthException(final AgentHealthException exception) {
         if (isDisabled() || !isInitialized()) {
             return;
         }
         Harvest.instance.getHarvestData().getAgentHealth().addException(exception);
     }
-
+    //添加采集监听器
     public static void addHarvestListener(final HarvestLifecycleAware harvestAware) {
+
         if (harvestAware == null) {
             Harvest.log.error("Harvest: Argument to addHarvestListener cannot be null.");
             return;
@@ -217,6 +229,7 @@ public class Harvest {
         Harvest.instance.getHarvester().addHarvestListener(harvestAware);
     }
 
+    //移除采集监听器
     public static void removeHarvestListener(final HarvestLifecycleAware harvestAware) {
         if (harvestAware == null) {
             Harvest.log.error("Harvest: Argument to removeHarvestListener cannot be null.");
@@ -239,6 +252,7 @@ public class Harvest {
         return Harvest.activityTraceCache.getSize();
     }
 
+    //获取当前到开始的时间差
     public static long getMillisSinceStart() {
         long lTime = 0L;
         final Harvest harvest = getInstance();
@@ -250,7 +264,7 @@ public class Harvest {
         }
         return lTime;
     }
-
+    //需要收集线程跟踪信息
     public static boolean shouldCollectActivityTraces() {
         if (isDisabled()) {
             return false;
@@ -261,7 +275,7 @@ public class Harvest {
         final ActivityTraceConfiguration configurations = Harvest.instance.getActivityTraceConfiguration();
         return configurations == null || configurations.getMaxTotalTraceCount() > 0;
     }
-
+    //清空数据采集器的缓存
     private void flushHarvestableCaches() {
         System.out.println("---Rarshion:Havest#flushHarvestableCaches");
 
@@ -272,13 +286,14 @@ public class Harvest {
             e.printStackTrace();
         }
     }
-
+    //清空线程跟踪信息的缓存
     private void flushActivityTraceCache() {
         final Collection<Harvestable> activityTraces = Harvest.activityTraceCache.flush();
         for (final Harvestable activityTrace : activityTraces) {
             addActivityTrace((ActivityTrace)activityTrace);
         }
     }
+
 
     private static void addUnregisteredListener(final HarvestLifecycleAware harvestAware) {
         if (harvestAware == null) {
@@ -354,7 +369,6 @@ public class Harvest {
 
     public void setConnectInformation(final ConnectInformation connectInformation) {
         System.out.println("---Rarshion:Harvest#setConnectInformation");
-
         this.harvestConnection.setConnectInformation(connectInformation);
         this.harvestData.setDeviceInformation(connectInformation.getDeviceInformation());
     }
@@ -367,9 +381,7 @@ public class Harvest {
             new Exception().printStackTrace();
             return;
         }
-
         System.out.println("---Rarshion:Harvest Configuration: " + configuration);
-
         Harvest.log.debug("Harvest Configuration: " + configuration);
         Harvest.instance.setConfiguration(configuration);
     }

@@ -111,6 +111,8 @@ public class HarvestConnection implements HarvestErrorCodes {
     }
 
     public HarvestResponse sendConnect() {
+        System.out.println("---Rarshion:HarvestConnection#sendConnect---");
+
         if (this.connectInformation == null) {
             throw new IllegalArgumentException();
         }

@@ -42,6 +42,7 @@ public class ApplicationStateMonitor implements Runnable {
         this.executor = new ScheduledThreadPoolExecutor(1, new NamedThreadFactory("AppStateMon"));
         this.activitySnoozeTimeInMilliseconds = snoozeTimeInMilliseconds;
         this.executor.scheduleAtFixedRate(this, initialDelay, period, timeUnit);
+        System.out.println("---Rarshion:Application state monitor has started");
         ApplicationStateMonitor.log.info("Application state monitor has started");
     }
 

@@ -10,6 +10,7 @@ public class AnalyticsEventFactory {
     static AnalyticsEvent createEvent(final String name, final AnalyticsEventCategory eventCategory, final String eventType,
                                       final Set<AnalyticAttribute> eventAttributes) {
         AnalyticsEvent event = null;
+        //根据种类来生成不同的事件类型
         switch (eventCategory) {
             case Session: {
                 event = new SessionEvent(eventAttributes);

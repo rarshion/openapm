@@ -48,9 +48,9 @@ public class ActivityTrace extends HarvestableArray {
     public final Metric networkCountMetric;
     public final Metric networkTimeMetric;
     private static final String SIZE_NORMAL = "NORMAL";
-    private static final HashMap<String, String> ENVIRONMENT_TYPE;
-    private static final HashMap<String, String> VITALS_TYPE;
-    private static final HashMap<String, String> ACTIVITY_HISTORY_TYPE;
+    private static final HashMap<String, String> ENVIRONMENT_TYPE = new HashMap<String, String>() {{this.put("type", "ENVIRONMENT");}};
+    private static final HashMap<String, String> VITALS_TYPE = new HashMap<String, String>() {{this.put("type", "VITALS");}};
+    private static final HashMap<String, String> ACTIVITY_HISTORY_TYPE= new HashMap<String, String>() {{this.put("type", "ACTIVITY_HISTORY");}};
 
     public ActivityTrace() {
         this.traces = new ConcurrentHashMap<UUID, Trace>();
@@ -274,23 +274,7 @@ public class ActivityTrace extends HarvestableArray {
         return activityName;
     }
 
-    static {
-        ENVIRONMENT_TYPE = new HashMap<String, String>() {
-            {
-                this.put("type", "ENVIRONMENT");
-            }
-        };
-        VITALS_TYPE = new HashMap<String, String>() {
-            {
-                this.put("type", "VITALS");
-            }
-        };
-        ACTIVITY_HISTORY_TYPE = new HashMap<String, String>() {
-            {
-                this.put("type", "ACTIVITY_HISTORY");
-            }
-        };
-    }
+
 
 
 }

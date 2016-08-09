@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class StatsEngine extends HarvestAdapter {
 
-    public static final StatsEngine INSTANCE;
+    public static final StatsEngine INSTANCE  = new StatsEngine();
     public boolean enabled;
     private ConcurrentHashMap<String, Metric> statsMap;
 
@@ -90,9 +90,4 @@ public class StatsEngine extends HarvestAdapter {
         }
         return m;
     }
-
-    static {
-        INSTANCE = new StatsEngine();
-    }
-
 }

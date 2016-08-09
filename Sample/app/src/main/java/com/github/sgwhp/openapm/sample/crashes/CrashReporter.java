@@ -29,6 +29,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by user on 2016/8/1.
  */
+
+//崩溃上报模块
 public class CrashReporter {
 
     private static final String CRASH_COLLECTOR_PATH = "/mobile_crash";
@@ -41,8 +43,7 @@ public class CrashReporter {
     private boolean reportCrashes;
     private Thread.UncaughtExceptionHandler previousExceptionHandler;
     private CrashStore crashStore;
-    protected static final AtomicBoolean initialized;
-
+    protected static final AtomicBoolean initialized ;
 
     public CrashReporter() {
         this.log = AgentLogManager.getAgentLog();
@@ -50,6 +51,7 @@ public class CrashReporter {
         this.reportCrashes = true;
     }
 
+    //上报器初始化
     public static void initialize(final AgentConfiguration _agentConfiguration) {
         System.out.println("---Rarshion:CrashReporter#initialize---");
 
@@ -57,6 +59,7 @@ public class CrashReporter {
             return;
         }
 
+        //实例出缓存线程池
         CrashReporter.executor = Executors.newCachedThreadPool(new NamedThreadFactory("CrashUploader"));
         CrashReporter.agentConfiguration = _agentConfiguration;
         CrashReporter.instance.isEnabled = CrashReporter.agentConfiguration.getReportCrashes();
@@ -69,10 +72,12 @@ public class CrashReporter {
                     CrashReporter.instance.reportSupportabilityMetrics();
                 }
                 else {
-            CrashReporter.instance.log.warning("Unable to upload cached crash to New Relic - no network");
-        }
-    }
-});
+                    CrashReporter.instance.log.warning("Unable to upload cached crash to New Relic - no network");
+                    System.out.println("---Rarshion:Unable to upload cached crash to New Relic - no network");
+                }
+            }
+        });
+
         if (CrashReporter.instance.isEnabled) {
             CrashReporter.instance.installCrashHandler();
         }
@@ -89,6 +94,7 @@ public class CrashReporter {
     public static UncaughtExceptionHandler getInstanceHandler() {
         return CrashReporter.instance.getHandler();
     }
+
     public static void setReportCrashes(final boolean reportCrashes) {
         CrashReporter.instance.reportCrashes = reportCrashes;
     }
@@ -105,27 +111,34 @@ public class CrashReporter {
         CrashReporter.instance.crashStore.clear();
     }
 
+    //安装崩溃处理
     private void installCrashHandler() {
         final Thread.UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         if (currentExceptionHandler != null) {
             if (currentExceptionHandler instanceof Thread.UncaughtExceptionHandler) {
                 this.log.debug("New Relic crash handler already installed.");
+                System.out.println("---Rarshion:Installing New Relic crash handler already installed.---");
                 return;
             }
             this.previousExceptionHandler = currentExceptionHandler;
             this.log.debug("Installing New Relic crash handler and chaining " + this.previousExceptionHandler.getClass().getName());
+            System.out.println("---Rarshion:Installing New Relic crash handler and chaining " + this.previousExceptionHandler.getClass().getName());
         }
         else {
             this.log.debug("Installing New Relic crash handler.");
+            System.out.println("---Rarshion:Installing New Relic crash handler.");
         }
         Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler());
     }
 
+    //上报存储的崩溃
     protected void reportSavedCrashes() {
-        for (final Crash crash : this.crashStore.fetchAll()) {
+        System.out.println("---Rarshion:CrashReporter#reportSavedCrashes");
+        for (final Crash crash : this.crashStore.fetchAll()) {//没有存储到crashs所以没有进入循环
             if (crash.isStale()) {
                 this.crashStore.delete(crash);
                 this.log.info("Crash [" + crash.getUuid().toString() + "] has become stale, and has been removed");
+                System.out.println("---Rarshion:Crash [" + crash.getUuid().toString() + "] has become stale, and has been removed");
                 StatsEngine.get().inc("Supportability/AgentHealth/Crash/Removed/Stale");
             }
             else {
@@ -134,17 +147,19 @@ public class CrashReporter {
         }
     }
 
+    //新建上传线程并推入线程池中
     protected Future<?> reportCrash(final Crash crash) {
         Future<?> crashSenderThread = null;
         if (this.reportCrashes) {
             final CrashSender sender = new CrashSender(crash);
-            crashSenderThread = CrashReporter.executor.submit(sender);
+            crashSenderThread = CrashReporter.executor.submit(sender);//使用http发送crash内容
         }
         return crashSenderThread;
     }
 
     protected void recordFailedUpload(final String errorMsg) {
         this.log.error(errorMsg);
+        System.out.println("---Rarshion:recordFailedUpload" + errorMsg);
         StatsEngine.get().inc("Supportability/AgentHealth/Crash/FailedUpload");
     }
 
@@ -153,8 +168,10 @@ public class CrashReporter {
     }
 
     protected void reportSupportabilityMetrics() {
+
     }
 
+    //判断httpResponse是否成功
     private boolean requestWasSuccessful(final HttpURLConnection connection) throws IOException {
         switch (connection.getResponseCode()) {
             case 200: {
@@ -167,13 +184,19 @@ public class CrashReporter {
         }
     }
 
+    //简单判断网络可用
     private boolean hasReachableNetworkConnection() {
         boolean isReachable = false;
         try {
-            final InetAddress addr = InetAddress.getByName(CrashReporter.agentConfiguration.getCrashCollectorHost());
+            //原厂使用配置中的上传地址
+            //final InetAddress addr = InetAddress.getByName(CrashReporter.agentConfiguration.getCrashCollectorHost());
+            //这里使用自己的主机
+            final InetAddress addr = InetAddress.getLocalHost();
+
             isReachable = addr.isReachable(5000);
         }
         catch (IOException e) {
+            System.out.println("---Rarshion:hasn't reachablNetworkConnection");
             isReachable = false;
         }
         return isReachable;
@@ -184,6 +207,8 @@ public class CrashReporter {
         initialized = new AtomicBoolean(false);
     }
 
+
+    //这个类可能要被改写，捕捉到异常的处理方法，然后将异常信息收集起
     public class UncaughtExceptionHandler implements Thread.UncaughtExceptionHandler
     {
         private final AtomicBoolean handledException;
@@ -194,24 +219,31 @@ public class CrashReporter {
 
         @Override
         public void uncaughtException(final Thread thread, final Throwable throwable) {
+
             if (!Agent.getUnityInstrumentationFlag().equals("YES") && !this.handledException.compareAndSet(false, true)) {
                 StatsEngine.get().inc("Supportability/AgentHealth/Recursion/UncaughtExceptionHandler");
                 return;
             }
+
             try {
                 if (!CrashReporter.instance.isEnabled || !FeatureFlag.featureEnabled(FeatureFlag.CrashReporting)) {
                     CrashReporter.this.log.debug("A crash has been detected but crash reporting is disabled!");
+                    System.out.println("---Rarshion:A crash has been detected but crash reporting is disabled!");
                     this.chainExceptionHandler(thread, throwable);
                     return;
                 }
 
                 CrashReporter.this.log.debug("A crash has been detected in " + thread.getStackTrace()[0].getClassName() + " and will be reported ASAP.");
                 CrashReporter.this.log.debug("Analytics data is currently " + (CrashReporter.agentConfiguration.getEnableAnalyticsEvents() ? "enabled " : "disabled"));
-                final Crash crash = new Crash(throwable, AnalyticsControllerImpl.getInstance().getSessionAttributes(), AnalyticsControllerImpl.getInstance().getEventManager().getQueuedEvents(), CrashReporter.agentConfiguration.getEnableAnalyticsEvents());
+
+                final Crash crash = new Crash(throwable, AnalyticsControllerImpl.getInstance().getSessionAttributes(),
+                        AnalyticsControllerImpl.getInstance().getEventManager().getQueuedEvents(),
+                        CrashReporter.agentConfiguration.getEnableAnalyticsEvents());
 
                 try {
-                    CrashReporter.this.crashStore.store(crash);
-                    CrashReporter.this.reportCrash(crash);
+                    CrashReporter.this.crashStore.store(crash);//将这个类crash存储起来
+                    CrashReporter.this.reportCrash(crash);//新建上传线程并推入线程池中
+
                     if (!Agent.getUnityInstrumentationFlag().equals("YES")) {
                         CrashReporter.executor.shutdown();
                         if (!CrashReporter.executor.awaitTermination(10000L, TimeUnit.MILLISECONDS)) {
@@ -242,6 +274,7 @@ public class CrashReporter {
         }
     }
 
+    //上传线程发送Http请求方法
     private class CrashSender implements Runnable
     {
         private final Crash crash;
@@ -252,6 +285,9 @@ public class CrashReporter {
 
         @Override
         public void run() {
+
+            System.out.println("---Rarshion:CrashReporter#CrashSender");
+
             try {
                 final String protocol = CrashReporter.agentConfiguration.useSsl() ? "https://" : "http://";
                 final String urlString = protocol + CrashReporter.agentConfiguration.getCrashCollectorHost() + "/mobile_crash";
@@ -264,13 +300,16 @@ public class CrashReporter {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setConnectTimeout(5000);
                 connection.setReadTimeout(5000);
+
                 try {
-                    this.crash.incrementUploadCount();
-                    CrashReporter.this.crashStore.store(this.crash);
+                    this.crash.incrementUploadCount();//增加上传次数
+                    CrashReporter.this.crashStore.store(this.crash);//
+
                     final OutputStream out = new BufferedOutputStream(connection.getOutputStream());
                     out.write(this.crash.toJsonString().getBytes());
                     out.close();
                     switch (connection.getResponseCode()) {
+
                         case 200: {
                             CrashReporter.this.crashStore.delete(this.crash);
                             StatsEngine.get().sampleTimeMs("Supportability/AgentHealth/Crash/UploadTime", timer.toc());

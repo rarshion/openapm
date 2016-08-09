@@ -13,7 +13,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 import android.os.StatFs;
@@ -55,7 +54,6 @@ import com.github.sgwhp.openapm.sample.util.SharedPrefsAnalyticAttributeStore;
 import com.github.sgwhp.openapm.sample.util.UiBackgroundListener;
 
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -85,10 +83,14 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         this.context = appContext(context);
         this.agentConfiguration = agentConfiguration;
         this.savedState = new SavedState(this.context);
+
+
         if (this.isDisabled()) {
             throw new AgentInitializationException("This version of the agent has been disabled");
         }
+
         this.initApplicationInformation();
+
         if (agentConfiguration.useLocationService() && this.context.getPackageManager().checkPermission("android.permission.ACCESS_FINE_LOCATION", this.getApplicationInformation().getPackageId()) == 0) {
             AndroidAgentImpl.log.debug("Location stats enabled");
             this.addLocationListener();
@@ -98,6 +100,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         agentConfiguration.setCrashStore(new JsonCrashStore(context));
         agentConfiguration.setAnalyticAttributeStore(new SharedPrefsAnalyticAttributeStore(context));
         ApplicationStateMonitor.getInstance().addApplicationStateListener(this);
+
 
         if (Build.VERSION.SDK_INT >= 14) {
             UiBackgroundListener backgroundListener;
@@ -245,13 +248,19 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
     }
 
     public void initApplicationInformation() throws AgentInitializationException {
+
+        System.out.println("---Rarshion:AndroidAgentImpl#initApplicationInformation");
+
         if (this.applicationInformation != null) {
             AndroidAgentImpl.log.debug("attempted to reinitialize ApplicationInformation.");
+            System.out.println("---Rarshion:attempted to reinitialize ApplicationInformation.");
             return;
         }
+
         final String packageName = this.context.getPackageName();
         final PackageManager packageManager = this.context.getPackageManager();
         PackageInfo packageInfo = null;
+
         try {
             packageInfo = packageManager.getPackageInfo(packageName, 0);
         }
@@ -297,6 +306,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         }
         AndroidAgentImpl.log.debug("Using build  " + build);
         (this.applicationInformation = new ApplicationInformation(appName, appVersion, packageName, build)).setVersionCode(packageInfo.versionCode);
+
     }
 
     public ApplicationInformation getApplicationInformation() {
@@ -512,15 +522,13 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
     }
 
     private void addLocationListener() {
-
-        /*
         final LocationManager locationManager = (LocationManager)this.context.getSystemService("location");
         if (locationManager == null) {
             AndroidAgentImpl.log.error("Unable to retrieve reference to LocationManager. Disabling location listener.");
             return;
         }
 
-
+        /*
         locationManager.requestLocationUpdates("passive", 1000L, 0.0f, this.locationListener = (LocationListener)new LocationListener() {
 
             public void onLocationChanged(final Location location) {
@@ -542,6 +550,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
             }
         });
         */
+
     }
 
 

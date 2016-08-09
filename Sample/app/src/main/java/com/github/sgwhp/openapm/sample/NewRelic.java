@@ -9,8 +9,7 @@ import com.github.sgwhp.openapm.sample.analytics.AnalyticsControllerImpl;
 import com.github.sgwhp.openapm.sample.api.common.TransactionData;
 import com.github.sgwhp.openapm.sample.logging.AgentLog;
 import com.github.sgwhp.openapm.sample.logging.AgentLogManager;
-import com.github.sgwhp.openapm.sample.logging.AndroidAgentLog;
-import com.github.sgwhp.openapm.sample.logging.NullAgentLog;
+import com.github.sgwhp.openapm.sample.logging.ConsoleAgentLog;
 import com.github.sgwhp.openapm.sample.measurement.http.HttpTransactionMeasurement;
 import com.github.sgwhp.openapm.sample.metric.MetricUnit;
 import com.github.sgwhp.openapm.sample.stats.StatsEngine;
@@ -164,8 +163,12 @@ public class NewRelic {
             return;
         }
         try {
-            AgentLogManager.setAgentLog(this.loggingEnabled ? new AndroidAgentLog() : new NullAgentLog());
-            NewRelic.log.setLevel(this.logLevel);
+            //AgentLogManager.setAgentLog(this.loggingEnabled ? new AndroidAgentLog() : new NullAgentLog());
+            //NewRelic.log.setLevel(this.logLevel);
+
+            /*打开输出日志 */
+            AgentLogManager.setAgentLog(new ConsoleAgentLog());
+            NewRelic.log.setLevel(5);
 
             /*
             if (!this.isInstrumented()) {
@@ -176,6 +179,7 @@ public class NewRelic {
                 NewRelic.log.debug("isIntrumented()");
             }
             */
+
             AndroidAgentImpl.init(context, NewRelic.agentConfiguration);
             NewRelic.started = true;
         }

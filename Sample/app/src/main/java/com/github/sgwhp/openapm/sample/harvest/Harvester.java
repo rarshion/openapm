@@ -37,7 +37,6 @@ public class Harvester {
     private HarvestData harvestData;
     private final Collection<HarvestLifecycleAware> harvestListeners;
 
-
     public Harvester() {
         this.log = AgentLogManager.getAgentLog();
         this.state = State.UNINITIALIZED;
@@ -45,14 +44,17 @@ public class Harvester {
         this.harvestListeners = new ArrayList<HarvestLifecycleAware>();
     }
 
+    //开始收集
     public void start() {
         this.fireOnHarvestStart();
     }
 
+    //停止收集
     public void stop() {
         this.fireOnHarvestStop();
     }
 
+    //卸载
     protected void uninitialized() {
         if (this.agentConfiguration == null) {
             this.log.error("Agent configuration unavailable.");
@@ -70,26 +72,37 @@ public class Harvester {
         this.execute();
     }
 
+    //失去连接
     protected void disconnected() {
         if (null == this.configuration) {
             this.configureHarvester(HarvestConfiguration.getDefaultHarvestConfiguration());
         }
+
         if (this.harvestData.isValid()) {
             this.log.verbose("Skipping connect call, saved state is available: " + this.harvestData.getDataToken());
+
             StatsEngine.get().sample("Session/Start", 1.0f);
             this.fireOnHarvestConnected();
             this.transition(State.CONNECTED);
             this.execute();
             return;
         }
+
         this.log.info("Connecting, saved state is not available: " + this.harvestData.getDataToken());
+        System.out.println("---Rarshion:Connecting, saved state is not available: " + this.harvestData.getDataToken());
+
         final HarvestResponse response = this.harvestConnection.sendConnect();
+
         if (response == null) {
             this.log.error("Unable to connect to the Collector.");
+            System.out.println("---Rarshion:Unable to connect to the Collector.");
             return;
         }
+
         if (!response.isOK()) {
             this.log.debug("Harvest connect response: " + response.getResponseCode());
+            System.out.println("---Rarshion:Harvest connect response: " + response.getResponseCode());
+
             switch (response.getResponseCode()) {
                 case UNAUTHORIZED:
                 case INVALID_AGENT_ID: {
@@ -120,11 +133,14 @@ public class Harvester {
             this.fireOnHarvestError();
             return;
         }
+
         final HarvestConfiguration configuration = this.parseHarvesterConfiguration(response);
         if (configuration == null) {
             this.log.error("Unable to configure Harvester using Collector configuration.");
+            System.out.println("---Rarshion:Unable to configure Harvester using Collector configuration.");
             return;
         }
+
         this.configureHarvester(configuration);
         StatsEngine.get().sampleTimeMs("Supportability/AgentHealth/Collector/Harvest", response.getResponseTime());
         this.fireOnHarvestConnected();
@@ -136,6 +152,7 @@ public class Harvester {
         this.log.info("Harvester: Sending " + this.harvestData.getHttpTransactions().count() + " HTTP transactions.");
         this.log.info("Harvester: Sending " + this.harvestData.getHttpErrors().count() + " HTTP errors.");
         this.log.info("Harvester: Sending " + this.harvestData.getActivityTraces().count() + " activity traces.");
+
         this.harvestData.setAnalyticsEnabled(this.agentConfiguration.getEnableAnalyticsEvents());
         if (this.agentConfiguration.getEnableAnalyticsEvents() && FeatureFlag.featureEnabled(FeatureFlag.AnalyticsEvents)) {
             final EventManager eventManager = AnalyticsControllerImpl.getInstance().getEventManager();
@@ -156,11 +173,14 @@ public class Harvester {
             this.fireOnHarvestSendFailed();
             return;
         }
+
         this.harvestData.reset();
         StatsEngine.get().sampleTimeMs("Supportability/AgentHealth/Collector/Harvest", response.getResponseTime());
+
         this.log.debug("Harvest data response: " + response.getResponseCode());
         this.log.debug("Harvest data response status code: " + response.getStatusCode());
         this.log.debug("Harvest data response BODY: " + response.getResponseBody());
+
         if (response.isError()) {
             this.fireOnHarvestError();
             switch (response.getResponseCode()) {
@@ -206,13 +226,16 @@ public class Harvester {
         this.fireOnHarvestDisabled();
     }
 
+    //每个tick会执行一次
     protected void execute() {
         this.log.debug("Harvester state: " + this.state);
         System.out.println("---Rarshion:Harvester state: " + this.state);
 
         this.stateChanged = false;
+
         try {
-            this.expireHarvestData();
+            this.expireHarvestData();//定时更新收集数据
+
             switch (this.state) {
                 case UNINITIALIZED: {
                     this.uninitialized();
@@ -242,18 +265,24 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Exception encountered while attempting to harvest", e);
+            System.out.println("---Rarshion:Exception encountered while attempting to harvest"+e);
             AgentHealth.noticeException(e);
         }
     }
 
+    //转换状态，需要判断新状态
     protected void transition(final State newState) {
+        System.out.println("---Rarshion:Harvester#transition newState" + newState);
+
         if (this.stateChanged) {
             this.log.debug("Ignoring multiple transition: " + newState);
             return;
         }
+
         if (this.state == newState) {
             return;
         }
+
         switch (this.state) {
             case UNINITIALIZED: {
                 if (this.stateIn(newState, State.DISCONNECTED, newState, State.CONNECTED, State.DISABLED)) {
@@ -279,7 +308,7 @@ public class Harvester {
         }
         this.changeState(newState);
     }
-
+    //解析收集配置
     private HarvestConfiguration parseHarvesterConfiguration(final HarvestResponse response) {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(ActivityTraceConfiguration.class, new ActivityTraceConfigurationDeserializer());
@@ -294,15 +323,16 @@ public class Harvester {
         }
         return config;
     }
-
     private void configureHarvester(final HarvestConfiguration harvestConfiguration) {
         this.configuration.reconfigure(harvestConfiguration);
         this.harvestData.setDataToken(this.configuration.getDataToken());
         Harvest.setHarvestConfiguration(this.configuration);
     }
-
+    //改变状态
     private void changeState(final State newState) {
         this.log.debug("Harvester changing state: " + this.state + " -> " + newState);
+        System.out.println("---Rarshion:Harvester changing state: " + this.state + " -> " + newState);
+
         if (this.state == State.CONNECTED) {
             if (newState == State.DISCONNECTED) {
                 this.fireOnHarvestDisconnected();
@@ -314,7 +344,7 @@ public class Harvester {
         this.state = newState;
         this.stateChanged = true;
     }
-
+    //判断状态正常
     private boolean stateIn(final State testState, final State... legalStates) {
         for (final State state : legalStates) {
             if (testState == state) {
@@ -332,6 +362,7 @@ public class Harvester {
         return State.DISABLED == this.state;
     }
 
+    //添加收集数据监听器
     public void addHarvestListener(final HarvestLifecycleAware harvestAware) {
         if (harvestAware == null) {
             this.log.error("Can't add null harvest listener");
@@ -346,7 +377,7 @@ public class Harvester {
             this.harvestListeners.add(harvestAware);
         }
     }
-
+    //移除收集数据监听器
     public void removeHarvestListener(final HarvestLifecycleAware harvestAware) {
         synchronized (this.harvestListeners) {
             if (!this.harvestListeners.contains(harvestAware)) {
@@ -356,13 +387,17 @@ public class Harvester {
         }
     }
 
+    //采集数据
     public void expireHarvestData() {
         this.expireHttpErrors();
         this.expireHttpTransactions();
         this.expireActivityTraces();
     }
-
+    //http访问出错
     public void expireHttpErrors() {
+
+        System.out.println("---Rarshion:Havester#expireHttpErrors---");
+
         final HttpErrors errors = this.harvestData.getHttpErrors();
         synchronized (errors) {
             final Collection<HttpError> oldErrors = new ArrayList<HttpError>();
@@ -379,8 +414,11 @@ public class Harvester {
             }
         }
     }
-
+    //网络传输
     public void expireHttpTransactions() {
+
+        System.out.println("---Rarshion:Havester#expireHttpTransactions---");
+
         final HttpTransactions transactions = this.harvestData.getHttpTransactions();
         synchronized (transactions) {
             final Collection<HttpTransaction> oldTransactions = new ArrayList<HttpTransaction>();
@@ -389,6 +427,7 @@ public class Harvester {
             for (final HttpTransaction txn : transactions.getHttpTransactions()) {
                 if (txn.getTimestamp() < now - maxAge) {
                     this.log.debug("HttpTransaction too old, purging: " + txn);
+                    System.out.println("---Rarshion:Havester#HttpTransaction too old, purging:" + txn);
                     oldTransactions.add(txn);
                 }
             }
@@ -397,8 +436,11 @@ public class Harvester {
             }
         }
     }
-
+    //活动线程跟踪
     public void expireActivityTraces() {
+
+        System.out.println("---Rarshion:Havester#expireActivityTraces---");
+
         final ActivityTraces traces = this.harvestData.getActivityTraces();
         synchronized (traces) {
             final Collection<ActivityTrace> expiredTraces = new ArrayList<ActivityTrace>();
@@ -406,6 +448,7 @@ public class Harvester {
             for (final ActivityTrace trace : traces.getActivityTraces()) {
                 if (trace.getReportAttemptCount() >= maxAttempts) {
                     this.log.debug("ActivityTrace has had " + trace.getReportAttemptCount() + " report attempts, purging: " + trace);
+                    System.out.println("---Rarshion:Havester#ActivityTrace has had " + trace.getReportAttemptCount() + " report attempts, purging: " + trace);
                     expiredTraces.add(trace);
                 }
             }
@@ -436,6 +479,8 @@ public class Harvester {
     }
 
     private void fireOnHarvestBefore() {
+        System.out.println("---Rarshion:Harvester#fireOnHarvestBefore");
+
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
                 harvestAware.onHarvestBefore();
@@ -443,10 +488,11 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestBefore", e);
+            System.out.println("---Rarshion:Havester#Error in fireOnHarvestBefore"+e);
             AgentHealth.noticeException(e);
         }
     }
-
+    //执行所有采集模块开始
     private void fireOnHarvestStart() {
         System.out.println("---Rarshion:Harvester#fireOnHarvestStart");
 
@@ -457,10 +503,11 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestStart", e);
+            System.out.println("---Rarshion:Havester#Error in fireOnHarvestStart"+e);
             AgentHealth.noticeException(e);
         }
     }
-
+    //执行所有采集模块停止
     private void fireOnHarvestStop() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -469,11 +516,12 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestStop", e);
+            System.out.println("---Rarshion:Havester#Error in fireOnHarvestStop"+e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvest() {
+        System.out.println("---Rarshion:Havester#fireOnHarvest---");
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
                 harvestAware.onHarvest();
@@ -481,10 +529,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvest", e);
+            System.out.println("---Rarshion:Havester#Error in fireOnHarvest"+e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestFinalize() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -493,10 +541,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestFinalize", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestFinalize" + e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestDisabled() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -505,10 +553,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestDisabled", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestDisabled" + e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestDisconnected() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -517,10 +565,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestDisconnected", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestDisconnected" + e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestError() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -529,10 +577,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestError", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestError" + e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestSendFailed() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -541,10 +589,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestSendFailed", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestSendFailed" + e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestComplete() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -553,10 +601,10 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestComplete", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestComplete" + e);
             AgentHealth.noticeException(e);
         }
     }
-
     private void fireOnHarvestConnected() {
         try {
             for (final HarvestLifecycleAware harvestAware : this.getHarvestListeners()) {
@@ -565,6 +613,7 @@ public class Harvester {
         }
         catch (Exception e) {
             this.log.error("Error in fireOnHarvestConnected", e);
+            System.out.println("---Rarshion:Harvester#Error in fireOnHarvestConnected" + e);
             AgentHealth.noticeException(e);
         }
     }

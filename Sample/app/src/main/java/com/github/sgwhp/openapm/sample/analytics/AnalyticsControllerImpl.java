@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by user on 2016/8/2.
  */
+//分析控制器实现
 public class AnalyticsControllerImpl implements AnalyticsController{
-
 
     protected static final int MAX_ATTRIBUTES = 64;
     static final AgentLog log;
@@ -37,23 +37,23 @@ public class AnalyticsControllerImpl implements AnalyticsController{
     private InteractionCompleteListener listener;
     private static final AnalyticsControllerImpl instance;
     private static final AtomicBoolean initialized;
-    private static final List<String> reservedNames;
+    private static final List<String> reservedNames;//保留字段
     private static final String NEW_RELIC_PREFIX = "newRelic";
     private static final String NR_PREFIX = "nr.";
 
     public static void initialize(final AgentConfiguration agentConfiguration, final AgentImpl agentImpl) {
 
         System.out.println("---Rarshion:AnalyticsControllerImpl#initialize---");
-        AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.initialize invoked.");
+        AnalyticsControllerImpl.log.debug("AnalyticsControllerImpl.initialize invoked.");
 
         if (!AnalyticsControllerImpl.initialized.compareAndSet(false, true)) {
             AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl has already been initialized.  Bypassing..");
             return;
         }
 
-        AnalyticsControllerImpl.instance.clear();
+        AnalyticsControllerImpl.instance.clear();//三大容器清空
 
-        AnalyticsControllerImpl.reservedNames.add("eventType");
+        AnalyticsControllerImpl.reservedNames.add("eventType");//添加保留字段
         AnalyticsControllerImpl.reservedNames.add("type");
         AnalyticsControllerImpl.reservedNames.add("timestamp");
         AnalyticsControllerImpl.reservedNames.add("category");
@@ -76,15 +76,14 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         AnalyticsControllerImpl.reservedNames.add("platform");
         AnalyticsControllerImpl.reservedNames.add("platformVersion");
 
-        AnalyticsControllerImpl.instance.reinitialize(agentConfiguration, agentImpl);
-
-        TraceMachine.addTraceListener(AnalyticsControllerImpl.instance.listener);
+        AnalyticsControllerImpl.instance.reinitialize(agentConfiguration, agentImpl);//重新初始化
+        TraceMachine.addTraceListener(AnalyticsControllerImpl.instance.listener);//在traceMachine中添加监听器
 
         System.out.println("---Rarshion:AnalyticsControllerImpl#Controller started---");
-
         AnalyticsControllerImpl.log.info("Analytics Controller started.");
     }
 
+    //关闭
     public static void shutdown() {
         TraceMachine.removeTraceListener(AnalyticsControllerImpl.instance.listener);
         AnalyticsControllerImpl.initialized.compareAndSet(true, false);
@@ -92,10 +91,10 @@ public class AnalyticsControllerImpl implements AnalyticsController{
     }
 
     private AnalyticsControllerImpl() {
-        this.eventManager = new EventManagerImpl();
-        this.systemAttributes = Collections.synchronizedSet(new HashSet<AnalyticAttribute>());
-        this.userAttributes = Collections.synchronizedSet(new HashSet<AnalyticAttribute>());
-        this.listener = new InteractionCompleteListener();
+        this.eventManager = new EventManagerImpl();//初始化事件管理模块
+        this.systemAttributes = Collections.synchronizedSet(new HashSet<AnalyticAttribute>());//初始化系统属性
+        this.userAttributes = Collections.synchronizedSet(new HashSet<AnalyticAttribute>());//初始化用户属性
+        this.listener = new InteractionCompleteListener();//新建交互完成监听器
     }
 
     void reinitialize(final AgentConfiguration agentConfiguration, final AgentImpl agentImpl) {
@@ -113,6 +112,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         osVersion = osVersion.replace(" ", "");
         final String[] osMajorVersionArr = osVersion.split("[.:-]");
         String osMajorVersion;
+
         if (osMajorVersionArr.length > 0) {
             osMajorVersion = osMajorVersionArr[0];
         }
@@ -122,7 +122,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
 
         final EnvironmentInformation environmentInformation = agentImpl.getEnvironmentInformation();//这里怎么会出错呢？
 
-        this.systemAttributes.add(new AnalyticAttribute("osName", deviceInformation.getOsName()));
+        this.systemAttributes.add(new AnalyticAttribute("osName", deviceInformation.getOsName()));//添加系统属性信息
         this.systemAttributes.add(new AnalyticAttribute("osVersion", osVersion));
         this.systemAttributes.add(new AnalyticAttribute("osMajorVersion", osMajorVersion));
         this.systemAttributes.add(new AnalyticAttribute("deviceManufacturer", deviceInformation.getManufacturer()));
@@ -146,6 +146,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         return attribute;
     }
 
+    //获取系统属性
     @Override
     public Set<AnalyticAttribute> getSystemAttributes() {
         final Set<AnalyticAttribute> attrs = new HashSet<AnalyticAttribute>(this.systemAttributes.size());
@@ -154,7 +155,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return Collections.unmodifiableSet((Set<? extends AnalyticAttribute>)attrs);
     }
-
+    //获取用户属性
     @Override
     public Set<AnalyticAttribute> getUserAttributes() {
         final Set<AnalyticAttribute> attrs = new HashSet<AnalyticAttribute>(this.userAttributes.size());
@@ -163,7 +164,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return Collections.unmodifiableSet((Set<? extends AnalyticAttribute>)attrs);
     }
-
+    //获取对话属性
     @Override
     public Set<AnalyticAttribute> getSessionAttributes() {
         final Set<AnalyticAttribute> attrs = new HashSet<AnalyticAttribute>(this.getSessionAttributeCount());
@@ -171,28 +172,28 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         attrs.addAll(this.getUserAttributes());
         return Collections.unmodifiableSet((Set<? extends AnalyticAttribute>)attrs);
     }
-
+    //获取系统属性
     @Override
     public int getSystemAttributeCount() {
         return this.systemAttributes.size();
     }
-
+    //获取用户属性
     @Override
     public int getUserAttributeCount() {
         return this.userAttributes.size();
     }
-
+    //获取对话属性
     @Override
     public int getSessionAttributeCount() {
         return this.systemAttributes.size() + this.userAttributes.size();
     }
-
+    //设置属性
     @Override
     public boolean setAttribute(final String name, final String value) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.setAttribute - " + name + ": " + value);
         return this.setAttribute(name, value, true);
     }
-
+    //设置属性
     @Override
     public boolean setAttribute(final String name, final String value, final boolean persistent) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.setAttribute - " + name + ": " + value + (persistent ? " (persistent)" : " (transient)"));
@@ -239,13 +240,13 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return true;
     }
-
+    //设置属性
     @Override
     public boolean setAttribute(final String name, final float value) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.setAttribute - " + name + ": " + value);
         return this.setAttribute(name, value, true);
     }
-
+    //设置属性
     @Override
     public boolean setAttribute(final String name, final float value, final boolean persistent) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.setAttribute - " + name + ": " + value + (persistent ? " (persistent)" : " (transient)"));
@@ -293,13 +294,13 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return true;
     }
-
+    //设置属性
     @Override
     public boolean setAttribute(final String name, final boolean value) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.setAttribute - " + name + ": " + value);
         return this.setAttribute(name, value, true);
     }
-
+    //设置属性
     @Override
     public boolean setAttribute(final String name, final boolean value, final boolean persistent) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.setAttribute - " + name + ": " + value + (persistent ? " (persistent)" : " (transient)"));
@@ -346,7 +347,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return true;
     }
-
+    //未检查添加属性
     public boolean addAttributeUnchecked(final AnalyticAttribute attribute, final boolean persistent) {
         final String name = attribute.getName();
         final String value = attribute.valueAsString();
@@ -403,13 +404,13 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return true;
     }
-
+    //增加属性项
     @Override
     public boolean incrementAttribute(final String name, final float value) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.incrementAttribute - " + name + ": " + value);
         return this.incrementAttribute(name, value, true);
     }
-
+    //增加属性项
     @Override
     public boolean incrementAttribute(final String name, final float value, final boolean persistent) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.incrementAttribute - " + name + ": " + value + (persistent ? " (persistent)" : " (transient)"));
@@ -454,7 +455,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return true;
     }
-
+    //删除属性
     @Override
     public boolean removeAttribute(final String name) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.removeAttribute - " + name);
@@ -470,7 +471,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return true;
     }
-
+    //删除所有属性
     @Override
     public boolean removeAllAttributes() {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.removeAttributes - ");
@@ -481,12 +482,12 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         this.userAttributes.clear();
         return false;
     }
-
+    //添加事件
     @Override
     public boolean addEvent(final String name, final Set<AnalyticAttribute> eventAttributes) {
         return this.addEvent(name, AnalyticsEventCategory.Custom, "Mobile", eventAttributes);
     }
-
+    //添加事件
     @Override
     public boolean addEvent(final String name, final AnalyticsEventCategory eventCategory, final String eventType, final Set<AnalyticAttribute> eventAttributes) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.addEvent - " + name + ": category=" + eventCategory + ", eventType: " + eventType + ", eventAttributes:" + eventAttributes);
@@ -499,10 +500,10 @@ public class AnalyticsControllerImpl implements AnalyticsController{
                 validatedAttributes.add(attribute);
             }
         }
-        final AnalyticsEvent event = AnalyticsEventFactory.createEvent(name, eventCategory, eventType, validatedAttributes);
+        final AnalyticsEvent event = AnalyticsEventFactory.createEvent(name, eventCategory, eventType, validatedAttributes);//这个事件是根据事件类型由工厂实例化出
         return this.addEvent(event);
     }
-
+    //添加事件
     @Override
     public boolean addEvent(final AnalyticsEvent event) {
         if (!this.isInitializedAndEnabled()) {
@@ -517,7 +518,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
             sessionAttributes.add(new AnalyticAttribute("timeSinceLoad", sessionDuration / 1000.0f));
             event.addAttributes(sessionAttributes);
         }
-        return this.eventManager.addEvent(event);
+        return this.eventManager.addEvent(event);//放到事件对象容器中
     }
 
     @Override
@@ -525,6 +526,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         return this.eventManager.getMaxEventPoolSize();
     }
 
+    //设置事件对象容器大小
     @Override
     public void setMaxEventPoolSize(final int maxSize) {
         this.eventManager.setMaxEventPoolSize(maxSize);
@@ -549,6 +551,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         return AnalyticsControllerImpl.instance;
     }
 
+    //加载持久化的用户属性
     void loadPersistentAttributes() {
         if (AnalyticsControllerImpl.log.getLevel() == 4) {
             AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.loadPersistentAttributes - loading userAttributes from the attribute store...");
@@ -561,7 +564,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
             this.userAttributes.add(attr);
         }
     }
-
+    //获取系统属性
     private AnalyticAttribute getSystemAttribute(final String name) {
         AnalyticAttribute attribute = null;
         for (final AnalyticAttribute nextAttribute : this.systemAttributes) {
@@ -572,7 +575,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return attribute;
     }
-
+    //获取用户属性
     private AnalyticAttribute getUserAttribute(final String name) {
         AnalyticAttribute attribute = null;
         for (final AnalyticAttribute nextAttribute : this.userAttributes) {
@@ -583,7 +586,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return attribute;
     }
-
+    //容器清空
     private void clear() {
         if (AnalyticsControllerImpl.log.getLevel() == 4) {
             AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.clear - clearing out attributes and events");
@@ -593,6 +596,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         this.eventManager.empty();
     }
 
+    //判断属性名合法
     private boolean isAttributeNameValid(final String name) {
         boolean valid = this.isNameValid(name);
         if (valid) {
@@ -603,7 +607,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return valid;
     }
-
+    //判断名合法
     private boolean isNameValid(final String name) {
         final boolean valid = name != null && !name.equals("") && name.length() < 256;
         if (!valid) {
@@ -611,7 +615,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return valid;
     }
-
+    //判断字符串合法
     private boolean isStringValueValid(final String name, final String value) {
         final boolean valid = value != null && !value.equals("") && value.getBytes().length < 4096;
         if (!valid) {
@@ -619,7 +623,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return valid;
     }
-
+    //判断字符串是否为保留
     private boolean isNameReserved(final String name) {
         boolean isReserved = AnalyticsControllerImpl.reservedNames.contains(name);
         if (isReserved) {
@@ -641,7 +645,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return isReserved;
     }
-
+    //记录事件
     @Override
     public boolean recordEvent(final String name, final Map<String, Object> eventAttributes) {
         if (AnalyticsControllerImpl.log.getLevel() == 4) {
@@ -717,6 +721,8 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         reservedNames = new ArrayList<String>();
     }
 
+
+    //这个监听器有什么用？
     class InteractionCompleteListener implements TraceLifecycleAware
     {
         @Override
@@ -734,7 +740,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         @Override
         public void onTraceComplete(final ActivityTrace activityTrace) {
             AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.InteractionCompleteListener.onTraceComplete invoke.");
-            final AnalyticsEvent event = this.createTraceEvent(activityTrace);
+            final AnalyticsEvent event = this.createTraceEvent(activityTrace);//通过工厂类生成事件
             final AnalyticsController analyticsController = AnalyticsControllerImpl.getInstance();
             analyticsController.addEvent(event);
         }

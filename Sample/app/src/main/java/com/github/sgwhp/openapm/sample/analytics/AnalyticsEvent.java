@@ -23,10 +23,10 @@ public class AnalyticsEvent extends HarvestableObject {
 
     private final AgentLog log;
     private String name;
-    private long timestamp;
-    private AnalyticsEventCategory category;
-    private String eventType;
-    private Set<AnalyticAttribute> attributeSet;
+    private long timestamp; //时间戳
+    private AnalyticsEventCategory category; //事件分类
+    private String eventType; //时间类型
+    private Set<AnalyticAttribute> attributeSet; //事件的其他属性
 
     protected AnalyticsEvent(final String name) {
         this(name, AnalyticsEventCategory.Custom, null, null);
@@ -65,11 +65,13 @@ public class AnalyticsEvent extends HarvestableObject {
         if (name != null) {
             this.attributeSet.add(new AnalyticAttribute("name", this.name));
         }
+        //增加事件属性，以key-value的set
         this.attributeSet.add(new AnalyticAttribute("timestamp", String.valueOf(this.timestamp)));
         this.attributeSet.add(new AnalyticAttribute("category", this.category.name()));
         this.attributeSet.add(new AnalyticAttribute("eventType", this.eventType));
     }
 
+    //添加属性
     public void addAttributes(final Set<AnalyticAttribute> attributeSet) {
         if (attributeSet != null) {
             for (final AnalyticAttribute attribute : attributeSet) {
@@ -159,7 +161,4 @@ public class AnalyticsEvent extends HarvestableObject {
         }
         return events;
     }
-
-
-
 }

@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by user on 2016/8/2.
  */
+//用List实现线程安全的事件对象管理容器，类似于缓冲区
 public class EventManagerImpl implements EventManager{
 
     private static final AgentLog log;
@@ -25,7 +26,6 @@ public class EventManagerImpl implements EventManager{
     private AtomicBoolean initialized;
     private AtomicInteger eventsRecorded;
     private AtomicInteger eventsEjected;
-
 
     public EventManagerImpl() {
         this(EventManagerImpl.DEFAULT_MAX_EVENT_BUFFER_SIZE, EventManagerImpl.DEFAULT_MAX_EVENT_BUFFER_TIME);
@@ -47,8 +47,10 @@ public class EventManagerImpl implements EventManager{
     public void initialize() {
         if (!this.initialized.compareAndSet(false, true)) {
             EventManagerImpl.log.verbose("EventManagerImpl has already been initialized.  Bypassing...");
+            System.out.println("---Rarshion:EventManagerImpl has already been initialized.  Bypassing...");
             return;
         }
+
         this.firstEventTimestamp = 0L;
         this.eventsRecorded.set(0);
         this.eventsEjected.set(0);
@@ -83,7 +85,7 @@ public class EventManagerImpl implements EventManager{
             EventManagerImpl.log.verbose("EventManagerImpl.addEvent - Queue is currently empty, setting first event timestamp to " + System.currentTimeMillis());
             this.firstEventTimestamp = System.currentTimeMillis();
         }
-        if (this.events.size() >= this.maxEventPoolSize) {
+        if (this.events.size() >= this.maxEventPoolSize) { //如果超出容量则随机剔除
             this.eventsEjected.incrementAndGet();
             final int index = (int)(Math.random() * eventsRecorded);
             if (index >= this.maxEventPoolSize) {
@@ -91,6 +93,7 @@ public class EventManagerImpl implements EventManager{
             }
             this.events.remove(index);
         }
+
         return this.events.add(event);
     }
 
