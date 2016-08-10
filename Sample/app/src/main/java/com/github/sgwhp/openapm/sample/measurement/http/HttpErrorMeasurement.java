@@ -8,12 +8,13 @@ import java.util.Map;
 /**
  * Created by user on 2016/8/2.
  */
+//http请求错误测量
 public class HttpErrorMeasurement  extends BaseMeasurement {
-    private String url;
-    private int httpStatusCode;
-    private String responseBody;
-    private String stackTrace;
-    private Map<String, String> params;
+    private String url;//路径
+    private int httpStatusCode;//状态码
+    private String responseBody;//回应码
+    private String stackTrace;//堆栈
+    private Map<String, String> params;//参数
 
     public HttpErrorMeasurement(final String url, final int httpStatusCode) {
         super(MeasurementType.HttpError);

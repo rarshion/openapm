@@ -167,6 +167,7 @@ public class CrashReporter {
         final ConcurrentHashMap<String, Metric> statsMap = StatsEngine.get().getStatsMap();
     }
 
+
     protected void reportSupportabilityMetrics() {
 
     }
@@ -183,7 +184,6 @@ public class CrashReporter {
             }
         }
     }
-
     //简单判断网络可用
     private boolean hasReachableNetworkConnection() {
         boolean isReachable = false;
@@ -201,12 +201,6 @@ public class CrashReporter {
         }
         return isReachable;
     }
-
-    static {
-        CrashReporter.instance = new CrashReporter();
-        initialized = new AtomicBoolean(false);
-    }
-
 
     //这个类可能要被改写，捕捉到异常的处理方法，然后将异常信息收集起
     public class UncaughtExceptionHandler implements Thread.UncaughtExceptionHandler
@@ -340,5 +334,11 @@ public class CrashReporter {
                 CrashReporter.this.recordFailedUpload("Unable to report crash to New Relic, will try again later. " + e2);
             }
         }
+    }
+
+
+    static {
+        CrashReporter.instance = new CrashReporter();
+        initialized = new AtomicBoolean(false);
     }
 }

@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 /**
  * Created by user on 2016/8/1.
  */
+//简单记录属性对象
 public class ActivitySighting extends HarvestableArray {
 
     private String name;

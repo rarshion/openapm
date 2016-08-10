@@ -29,20 +29,23 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TraceMachine extends HarvestAdapter {
 
     public static final String NR_TRACE_FIELD = "_nr_trace";
-    public static final String NR_TRACE_TYPE = "Lcom/newrelic/agent/android/tracing/Trace;";
+    public static final String NR_TRACE_TYPE = "Lcom/github/sgwhp/openapm/sample/tracing/Trace;";
     public static final String ACTIVITY_METRIC_PREFIX = "Mobile/Activity/Name/";
     public static final String ACTIVITY_BACKGROUND_METRIC_PREFIX = "Mobile/Activity/Background/Name/";
     public static final String ACTIVTY_DISPLAY_NAME_PREFIX = "Display ";
+
     public static final AtomicBoolean enabled;
     private static final AgentLog log;
     public static final int HEALTHY_TRACE_TIMEOUT = 500;
     public static final int UNHEALTHY_TRACE_TIMEOUT = 60000;
-    private static final Collection<TraceLifecycleAware> traceListeners;
-    private static final ThreadLocal<Trace> threadLocalTrace;
-    private static final ThreadLocal<TraceStack> threadLocalTraceStack;
-    private static final List<ActivitySighting> activityHistory;
+
+    private static final Collection<TraceLifecycleAware> traceListeners;//跟踪监听
+    private static final ThreadLocal<Trace> threadLocalTrace;//线程安全的对象
+    private static final ThreadLocal<TraceStack> threadLocalTraceStack;//线程安全的对象
+    private static final List<ActivitySighting> activityHistory;//线程安全的对象
+
     private static TraceMachine traceMachine;
-    private static TraceMachineInterface traceMachineInterface;
+    private static TraceMachineInterface traceMachineInterface; //该接口只有三个方法:获取本地线程ID\名字\界面ID
     private ActivityTrace activityTrace;
 
     protected static boolean isEnabled() {
@@ -564,6 +567,7 @@ public class TraceMachine extends HarvestAdapter {
 
     private static class TraceStack extends Stack<Trace>
     {
+
     }
 
 }

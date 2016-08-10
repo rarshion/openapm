@@ -35,20 +35,19 @@ android {
 
 dependencies {
     compile project(':monitor')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-    //compile files('libs/openapm-agent.jar');
-    //compile files('libs/openapm-gradle-plugin.jar');
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/commons-codec-1.9.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/commons-logging-1.2.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/fluent-hc-4.5.2.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/httpclient-4.5.2.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/httpclient-cache-4.5.2.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/httpclient-win-4.5.2.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/httpcore-4.4.4.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/httpmime-4.5.2.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/jna-4.1.0.jar')
-    compile files('D:/Android/Android_pro/github_pro/openapm/Sample/plugin/jna-platform-4.1.0.jar')
+
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/commons-codec-1.9.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/commons-logging-1.2.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/fluent-hc-4.5.2.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/httpclient-4.5.2.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/httpclient-cache-4.5.2.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/httpclient-win-4.5.2.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/httpcore-4.4.4.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/httpmime-4.5.2.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/jna-4.1.0.jar')
+    compile files('/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/Sample/plugin/jna-platform-4.1.0.jar')
 }

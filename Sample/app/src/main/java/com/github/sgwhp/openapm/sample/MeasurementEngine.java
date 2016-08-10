@@ -17,8 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MeasurementEngine {
 
     private final Map<String, MeasuredActivity> activities;
-    private final MeasurementPool rootMeasurementPool;
-
+    private final MeasurementPool rootMeasurementPool;//测量值对象缓冲区,保存了生产者与消费者容器
 
     public MeasurementEngine() {
         this.activities = new ConcurrentHashMap<String, MeasuredActivity>();

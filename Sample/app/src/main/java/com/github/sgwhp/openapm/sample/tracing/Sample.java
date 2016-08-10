@@ -7,11 +7,12 @@ import com.google.gson.JsonArray;
 /**
  * Created by user on 2016/8/1.
  */
+//采集数据
 public class Sample extends HarvestableArray {
 
-    private long timestamp;
-    private SampleValue sampleValue;
-    private SampleType type;
+    private long timestamp;//采集时间
+    private SampleValue sampleValue;//采集值
+    private SampleType type;//采集值类型:CPU/MEMORY
 
     public Sample(final SampleType type) {
         this.setSampleType(type);

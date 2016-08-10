@@ -27,8 +27,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by user on 2016/8/1.
  */
+//Activity跟踪
 public class ActivityTrace extends HarvestableArray {
-
 
     public static final String TRACE_VERSION = "1.0";
     public static final int MAX_TRACES = 2000;
@@ -36,7 +36,7 @@ public class ActivityTrace extends HarvestableArray {
     private final ConcurrentHashMap<UUID, Trace> traces;
     private int traceCount;
     private final Set<UUID> missingChildren;
-    private NamedActivity measuredActivity;
+    private NamedActivity measuredActivity;//测量线程父类,跟测量的一些属性有关
     private long reportAttemptCount;
     public long lastUpdatedAt;
     public long startedAt;
@@ -48,6 +48,7 @@ public class ActivityTrace extends HarvestableArray {
     public final Metric networkCountMetric;
     public final Metric networkTimeMetric;
     private static final String SIZE_NORMAL = "NORMAL";
+
     private static final HashMap<String, String> ENVIRONMENT_TYPE = new HashMap<String, String>() {{this.put("type", "ENVIRONMENT");}};
     private static final HashMap<String, String> VITALS_TYPE = new HashMap<String, String>() {{this.put("type", "VITALS");}};
     private static final HashMap<String, String> ACTIVITY_HISTORY_TYPE= new HashMap<String, String>() {{this.put("type", "ACTIVITY_HISTORY");}};
@@ -79,7 +80,8 @@ public class ActivityTrace extends HarvestableArray {
         this.startedAt = this.lastUpdatedAt;
         this.params.put("traceVersion", "1.0");
         this.params.put("type", "ACTIVITY");
-        (this.measuredActivity = (NamedActivity) Measurements.startActivity(rootTrace.displayName)).setStartTime(rootTrace.entryTimestamp);
+        (this.measuredActivity =
+                (NamedActivity) Measurements.startActivity(rootTrace.displayName)).setStartTime(rootTrace.entryTimestamp);
     }
 
     public String getId() {
@@ -273,8 +275,5 @@ public class ActivityTrace extends HarvestableArray {
         }
         return activityName;
     }
-
-
-
 
 }

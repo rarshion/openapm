@@ -26,7 +26,7 @@ public class StatsEngine extends HarvestAdapter {
     }
 
     public void inc(final String name) {
-        System.out.println("---Rarshion:StatsEngine#inc");
+        System.out.println("---Rarshion:StatsEngine#inc---" + name);
         final Metric m = this.lazyGet(name);
         synchronized (m) {
             m.increment();
@@ -34,16 +34,18 @@ public class StatsEngine extends HarvestAdapter {
     }
 
     public void inc(final String name, final long count) {
+        System.out.println("---Rarshion:StatsEngine#inc---" + name + "count:" + count);
         final Metric m = this.lazyGet(name);
         synchronized (m) {
-            m.increment(count);
+            m.increment(count);//增加采集的次数
         }
     }
 
     public void sample(final String name, final float value) {
+        System.out.println("---Rarshion:StatsEngine#sample---" + name + "count:" + value);
         final Metric m = this.lazyGet(name);
         synchronized (m) {
-            m.sample(value);
+            m.sample(value);//增加采集的数值
         }
     }
 
@@ -51,35 +53,33 @@ public class StatsEngine extends HarvestAdapter {
         this.sample(name, time / 1000.0f);
     }
 
+    //将采集标记压入队列
     public static void populateMetrics() {
         for (final Map.Entry<String, Metric> entry : StatsEngine.INSTANCE.getStatsMap().entrySet()) {
             final Metric metric = entry.getValue();
-            TaskQueue.queue(metric);
+            //metric对象作为采集标记,以字符串区分
+            TaskQueue.queue(metric); //压进任务队列
         }
     }
 
+    //harvest接口重写:
+    // 1.将采集标记压入队列;
+    // 2.清空本地map缓存
     @Override
     public void onHarvest() {
         populateMetrics();
         reset();
     }
 
+    //清空本地map缓存
     public static void reset() {
         StatsEngine.INSTANCE.getStatsMap().clear();
     }
-
-    public static synchronized void disable() {
-        StatsEngine.INSTANCE.enabled = false;
-    }
-
-    public static synchronized void enable() {
-        StatsEngine.INSTANCE.enabled = true;
-    }
-
+    //获取本地map缓存
     public ConcurrentHashMap<String, Metric> getStatsMap() {
         return this.statsMap;
     }
-
+    //先从本地map中查找,如无再实例化新的对象
     private Metric lazyGet(final String name) {
         Metric m = this.statsMap.get(name);
         if (m == null) {
@@ -90,4 +90,13 @@ public class StatsEngine extends HarvestAdapter {
         }
         return m;
     }
+
+
+    public static synchronized void disable() {
+        StatsEngine.INSTANCE.enabled = false;
+    }
+    public static synchronized void enable() {
+        StatsEngine.INSTANCE.enabled = true;
+    }
+
 }

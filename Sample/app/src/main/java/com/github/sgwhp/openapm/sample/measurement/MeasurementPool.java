@@ -15,11 +15,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by user on 2016/8/1.
  */
+//用来装生产者与消费者的缓冲区
 public class MeasurementPool extends BaseMeasurementProducer implements MeasurementConsumer {
 
-    private static final AgentLog log;
-    private final Collection<MeasurementProducer> producers;
-    private final Collection<MeasurementConsumer> consumers;
+    private static final AgentLog log= AgentLogManager.getAgentLog();
+    private final Collection<MeasurementProducer> producers;//生产者容器
+    private final Collection<MeasurementConsumer> consumers;//消费者容器
 
     public MeasurementPool() {
         super(MeasurementType.Any);
@@ -28,6 +29,7 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
         this.addMeasurementProducer(this);
     }
 
+    //添加生产者
     public void addMeasurementProducer(final MeasurementProducer producer) {
         if (producer != null) {
             synchronized (this.producers) {
@@ -43,6 +45,7 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
         }
     }
 
+    //移除生产者
     public void removeMeasurementProducer(final MeasurementProducer producer) {
         synchronized (this.producers) {
             if (!this.producers.contains(producer)) {
@@ -53,6 +56,7 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
         }
     }
 
+    //添加消费者
     public void addMeasurementConsumer(final MeasurementConsumer consumer) {
         if (consumer != null) {
             synchronized (this.consumers) {
@@ -68,6 +72,7 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
         }
     }
 
+    //移除消费者
     public void removeMeasurementConsumer(final MeasurementConsumer consumer) {
         synchronized (this.consumers) {
             if (!this.consumers.contains(consumer)) {
@@ -78,8 +83,11 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
         }
     }
 
+    //广播测量,通知消费者消费
     public void broadcastMeasurements() {
         final List<Measurement> allProducedMeasurements = new ArrayList<Measurement>();
+
+        //将当前生产者容器中的的对象全部拷贝出来
         synchronized (this.producers) {
             for (final MeasurementProducer producer : this.producers) {
                 final Collection<Measurement> measurements = producer.drainMeasurements();
@@ -89,8 +97,11 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
                 }
             }
         }
+
+        //遍历消费者容器,如果测量类别与生产者的相同则让该消费者去消费
         if (allProducedMeasurements.size() > 0) {
             synchronized (this.consumers) {
+                //遍历生产者与消费者两个容器
                 for (final MeasurementConsumer consumer : this.consumers) {
                     final List<Measurement> measurements2 = new ArrayList<Measurement>(allProducedMeasurements);
                     for (final Measurement measurement : measurements2) {
@@ -100,7 +111,7 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
                             }
                         }
                         try {
-                            consumer.consumeMeasurement(measurement);
+                            consumer.consumeMeasurement(measurement);//消费
                         }
                         catch (Exception e) {
                             ExceptionHelper.exceptionToErrorCode(e);
@@ -135,7 +146,4 @@ public class MeasurementPool extends BaseMeasurementProducer implements Measurem
         return this.consumers;
     }
 
-    static {
-        log = AgentLogManager.getAgentLog();
-    }
 }

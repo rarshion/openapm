@@ -8,13 +8,14 @@ import com.google.gson.JsonPrimitive;
 /**
  * Created by user on 2016/8/1.
  */
+//采集记录
 public class Metric extends HarvestableObject {
 
     private String name;
-    private String scope;
-    private Double min;
-    private Double max;
-    private Double total;
+    private String scope;//范围
+    private Double min;//最小的
+    private Double max;//最大
+    private Double total;//总的
     private Double sumOfSquares;
     private Double exclusive;
     private long count;
@@ -40,6 +41,7 @@ public class Metric extends HarvestableObject {
         this.count = metric.getCount();
     }
 
+    //采集
     public void sample(final double value) {
         ++this.count;
         if (this.total == null) {
@@ -199,6 +201,7 @@ public class Metric extends HarvestableObject {
         return this.scope == null;
     }
 
+    //
     @Override
     public JsonElement asJson() {
         if (this.isCountOnly()) {
@@ -207,6 +210,7 @@ public class Metric extends HarvestableObject {
         return this.asJsonObject();
     }
 
+    //转换成json对象
     @Override
     public JsonObject asJsonObject() {
         final JsonObject jsonObject = new JsonObject();

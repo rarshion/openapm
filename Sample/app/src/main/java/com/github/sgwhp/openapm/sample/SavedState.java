@@ -22,6 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by user on 2016/8/2.
  */
+//属性值存储
 public class SavedState extends HarvestAdapter {
 
     private static final AgentLog log;

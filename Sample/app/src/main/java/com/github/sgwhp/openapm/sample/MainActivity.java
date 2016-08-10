@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
 
         NewRelic newRelic = new NewRelic("wocaonima");
-        newRelic.start(this.getBaseContext());
+        newRelic.start(this.getApplicationContext());
 
     }
 

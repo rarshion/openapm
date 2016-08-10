@@ -11,17 +11,13 @@ public enum  MetricUnit {
     BYTES_PER_SECOND("bytes/second"),
     OPERATIONS("op");
 
-
     private String label;
-
     private MetricUnit(final String label) {
         this.label = label;
     }
-
     public String getLabel() {
         return this.label;
     }
-
     public void setLabel(final String label) {
         this.label = label;
     }

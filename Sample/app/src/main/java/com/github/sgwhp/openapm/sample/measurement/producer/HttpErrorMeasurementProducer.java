@@ -24,6 +24,7 @@ public class HttpErrorMeasurementProducer extends BaseMeasurementProducer {
         super(MeasurementType.HttpError);
     }
 
+
     public void produceMeasurement(final String url, final String httpMethod, final int statusCode) {
         this.produceMeasurement(url, httpMethod, statusCode, "");
     }

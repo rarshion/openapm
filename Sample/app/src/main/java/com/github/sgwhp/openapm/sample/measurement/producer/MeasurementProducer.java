@@ -8,7 +8,7 @@ import java.util.Collection;
  * Created by user on 2016/8/1.
  */
 public interface MeasurementProducer {
-    MeasurementType getMeasurementType();
+    MeasurementType getMeasurementType();//获取测量类型
     void produceMeasurement(Measurement p0);
     void produceMeasurements(Collection<Measurement> p0);
     Collection<Measurement> drainMeasurements();

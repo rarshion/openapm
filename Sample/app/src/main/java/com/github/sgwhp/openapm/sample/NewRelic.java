@@ -29,6 +29,7 @@ import java.util.TreeMap;
  * Created by user on 2016/8/8.
  */
 public class NewRelic {
+
     private static final String DEFAULT_COLLECTOR_ADDR = "mobile-collector.newrelic.com";
     private static final String UNKNOWN_HTTP_REQUEST_TYPE = "unknown";
     protected static final AgentLog log;

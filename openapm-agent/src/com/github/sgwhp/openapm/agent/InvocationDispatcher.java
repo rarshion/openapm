@@ -82,7 +82,7 @@ public class InvocationDispatcher implements InvocationHandler {
                 //log.e("no invoke transform: testMesurement");
             }
 
-            //cv = new AnnotatingClassVisitor(cv, this.context, this.log);
+            cv = new AnnotatingClassVisitor(cv, this.context, this.log);
             //cv = new ActivityClassVisitor(cv, this.context, this.log);
             //cv = new AsyncTaskClassVisitor(cv, this.context, this.log);
             //cv = new TraceAnnotationClassVisitor(cv, this.context, this.log);

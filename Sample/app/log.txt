@@ -312,6 +312,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] AopClassAdapter
 [openamp.d] AopMethodAdapter visitCode
 [openamp.d] AopMethodAdapter visitInsn
+[openamp.d] [com.github.sgwhp.openapm.sample.Hello] tagging as instrumented
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/BitmapFactoryInstrumentation
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/httpclient/ContentBufferingResponseEntityImpl
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/Instrumentation/httpclient/HttpRequestEntityImpl
@@ -339,6 +340,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/MainActivity
 [openamp.d] find exception java/lang/IndexOutOfBoundsException
 [openamp.d] instrument exception
+[openamp.d] [com.github.sgwhp.openapm.sample.MainActivity] tagging as instrumented
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/ActivityMeasurement
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/BaseMeasurement
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/CategorizedMeasurement
@@ -356,7 +358,6 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: com.github.sgwhp.o
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/http/HttpErrorMeasurement
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/http/HttpTransactionMeasurement
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/Measurement
-[openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/MeasurementEngine
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/MeasurementException
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/MeasurementPool
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/measurement/MeasurementType
@@ -497,6 +498,7 @@ java.lang.RuntimeException: java.lang.ClassNotFoundException: org.json.JSONExcep
 [openamp.d] -----MeMethodAdapter-------onFinally
 [openamp.d] -----MeMethodAdapter-------onMethodExit_internal
 [openamp.d] -----MeMethodAdapter-------onMethodExit
+[openamp.d] [com.github.sgwhp.openapm.sample.testMesurement] tagging as instrumented
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/tracing/ActivityTrace$1
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/tracing/ActivityTrace$2
 [openamp.d] invoke transform: com/github/sgwhp/openapm/sample/tracing/ActivityTrace$3

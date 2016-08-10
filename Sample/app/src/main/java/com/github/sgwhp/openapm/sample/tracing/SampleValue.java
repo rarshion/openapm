@@ -3,6 +3,7 @@ package com.github.sgwhp.openapm.sample.tracing;
 /**
  * Created by user on 2016/8/1.
  */
+//采集数据值
 public class SampleValue {
     private Double value;
     private boolean isDouble;

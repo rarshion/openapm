@@ -78,34 +78,38 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
     private static final Comparator<TransactionData> cmp;
 
     public AndroidAgentImpl(final Context context, final AgentConfiguration agentConfiguration) throws AgentInitializationException {
+
         this.lock = new ReentrantLock();
         this.encoder = new AndroidEncoder();
         this.context = appContext(context);
         this.agentConfiguration = agentConfiguration;
         this.savedState = new SavedState(this.context);
 
-
         if (this.isDisabled()) {
             throw new AgentInitializationException("This version of the agent has been disabled");
         }
 
-        this.initApplicationInformation();
+        this.initApplicationInformation();//初始化应用信息
 
-        if (agentConfiguration.useLocationService() && this.context.getPackageManager().checkPermission("android.permission.ACCESS_FINE_LOCATION", this.getApplicationInformation().getPackageId()) == 0) {
+        //注册位置监听器
+        if (agentConfiguration.useLocationService() &&
+                this.context.getPackageManager().checkPermission("android.permission.ACCESS_FINE_LOCATION", this.getApplicationInformation().getPackageId()) == 0) {
             AndroidAgentImpl.log.debug("Location stats enabled");
             this.addLocationListener();
         }
 
-        TraceMachine.setTraceMachineInterface(this);
+        TraceMachine.setTraceMachineInterface(this);//设置当前的线程编号,线程名
+
         agentConfiguration.setCrashStore(new JsonCrashStore(context));
         agentConfiguration.setAnalyticAttributeStore(new SharedPrefsAnalyticAttributeStore(context));
-        ApplicationStateMonitor.getInstance().addApplicationStateListener(this);
 
+        ApplicationStateMonitor.getInstance().addApplicationStateListener(this);//添加到应用状态监控器
 
         if (Build.VERSION.SDK_INT >= 14) {
             UiBackgroundListener backgroundListener;
             if (Agent.getUnityInstrumentationFlag().equals("YES")) {
                 backgroundListener = new ActivityLifecycleBackgroundListener();
+
                 if (backgroundListener instanceof Application.ActivityLifecycleCallbacks) {
                     try {
                         if (context.getApplicationContext() instanceof Application) {
@@ -115,12 +119,14 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
                     }
                     catch (Exception e) {}
                 }
+
             }
             else {
                 backgroundListener = new UiBackgroundListener();
             }
 
             context.registerComponentCallbacks((ComponentCallbacks)backgroundListener);
+
             this.setupSession();
 
         }
@@ -128,7 +134,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
 
     protected void initialize() {
 
-        System.out.println("---Rarshion:AndroidAgentImpl#initialize---");
+        System.out.println("---Rarshion:AndroidAgentImpl#initialize 1---");
 
         this.setupSession();
 
@@ -151,6 +157,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         CrashReporter.initialize(this.agentConfiguration);//异常上报模块初始化
 
         Sampler.init(this.context);//数据采集模块初始化
+
     }
 
     protected void setupSession() {
@@ -178,6 +185,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         return false;
     }
 
+    //获取设备信息
     public DeviceInformation getDeviceInformation() {
         if (this.deviceInformation != null) {
             return this.deviceInformation;
@@ -198,10 +206,10 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         info.setApplicationPlatformVersion(this.agentConfiguration.getApplicationPlatformVersion());
         return this.deviceInformation = info;
     }
-
+    //获取环境信息
     public EnvironmentInformation getEnvironmentInformation() {
 
-        System.out.println("---Rarshion:AndroidAgentImpl#getEnvironmentInformation");
+        //System.out.println("---Rarshion:AndroidAgentImpl#getEnvironmentInformation");
 
         final EnvironmentInformation envInfo = new EnvironmentInformation();//只有地点、接入网络状态等属性信息
         final ActivityManager activityManager = (ActivityManager)this.context.getSystemService("activity");
@@ -246,7 +254,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
 
         return envInfo;
     }
-
+    //初始化应用信息
     public void initApplicationInformation() throws AgentInitializationException {
 
         System.out.println("---Rarshion:AndroidAgentImpl#initApplicationInformation");
@@ -293,6 +301,8 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
             AndroidAgentImpl.log.warning(e3.toString());
             appName = packageName;
         }
+
+
         AndroidAgentImpl.log.debug("Using application name " + appName);
         String build = this.agentConfiguration.getCustomBuildIdentifier();
         if (TextUtils.isEmpty((CharSequence)build)) {
@@ -308,15 +318,15 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         (this.applicationInformation = new ApplicationInformation(appName, appVersion, packageName, build)).setVersionCode(packageInfo.versionCode);
 
     }
-
+    //获取应用信息
     public ApplicationInformation getApplicationInformation() {
         return this.applicationInformation;
     }
-
+    //获取会话持续时间
     public long getSessionDurationMillis() {
         return Harvest.getMillisSinceStart();
     }
-
+    //获取设备来源
     private static DeviceForm deviceForm(final Context context) {
         final int deviceSize = context.getResources().getConfiguration().screenLayout & 0xF;
         switch (deviceSize) {
@@ -394,7 +404,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         this.initialize();
         Harvest.start();
 
-        /* 原装的
+        /* 原厂
         if (!this.isDisabled()) {
             this.initialize();
             Harvest.start();
@@ -411,8 +421,8 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
 
     private void stop(final boolean finalSendData) {
         this.finalizeSession();
-        Sampler.shutdown();
-        TraceMachine.haltTracing();
+        Sampler.shutdown();//关闭采集器
+        TraceMachine.haltTracing();//关闭TraceMachine
         final int eventsRecorded = AnalyticsControllerImpl.getInstance().getEventManager().getEventsRecorded();
         final int eventsEjected = AnalyticsControllerImpl.getInstance().getEventManager().getEventsEjected();
         Measurements.addCustomMetric("Supportability/Events/Recorded", MetricCategory.NONE.name(), eventsRecorded, eventsEjected, eventsEjected, MetricUnit.OPERATIONS, MetricUnit.OPERATIONS);
@@ -424,7 +434,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         }
         AnalyticsControllerImpl.shutdown();
         TraceMachine.clearActivityHistory();
-        Harvest.shutdown();
+        Harvest.shutdown();//关闭Harvest
         Measurements.shutdown();
     }
 
@@ -488,12 +498,13 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         this.stop();
     }
 
+    //设置位置
     public void setLocation(final String countryCode, final String adminRegion) {
         if (countryCode == null || adminRegion == null) {
             throw new IllegalArgumentException("Country code and administrative region are required.");
         }
     }
-
+    //设置位置
     public void setLocation(final Location location) {
         if (location == null) {
             throw new IllegalArgumentException("Location must not be null.");
@@ -520,7 +531,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
             this.removeLocationListener();
         }
     }
-
+    //增加位置监听器
     private void addLocationListener() {
         final LocationManager locationManager = (LocationManager)this.context.getSystemService("location");
         if (locationManager == null) {
@@ -552,8 +563,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         */
 
     }
-
-
+    //移除位置监听器
     private void removeLocationListener() {
         if (this.locationListener == null) {
             return;
@@ -568,11 +578,11 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
             this.locationListener = null;
         }
     }
-
+    //判断是否为精确定位
     private boolean isAccurate(final Location location) {
         return location != null && 500.0f >= location.getAccuracy();
     }
-
+    //获取唯一码
     private String getUUID() {
         String uuid = this.savedState.getConnectInformation().getDeviceInformation().getDeviceId();
         if (TextUtils.isEmpty((CharSequence)uuid)) {

@@ -6,17 +6,18 @@ import com.github.sgwhp.openapm.sample.logging.AgentLogManager;
 /*
  * Created by user on 2016/8/1.
  */
+//基础的测量类,用来记录基础数据
 public class BaseMeasurement implements Measurement{
 
     private static final AgentLog log;
-    private MeasurementType type;
-    private String name;
-    private String scope;
-    private long startTime;
-    private long endTime;
-    private long exclusiveTime;
-    private ThreadInfo threadInfo;
-    private boolean finished;
+    private MeasurementType type;//测量类型如http error等
+    private String name;//名字
+    private String scope;//范围
+    private long startTime;//开始时间
+    private long endTime;//结束时间
+    private long exclusiveTime;//
+    private ThreadInfo threadInfo;//线程信息
+    private boolean finished;//是否完成
 
     public BaseMeasurement(final MeasurementType measurementType) {
         this.setType(measurementType);

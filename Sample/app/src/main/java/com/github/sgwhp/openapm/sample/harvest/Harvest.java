@@ -23,44 +23,46 @@ public class Harvest {
     private static final AgentLog log;
     private static final boolean DISABLE_ACTIVITY_TRACE_LIMITS_FOR_DEBUGGING = false;
     public static final long INVALID_SESSION_DURATION = 0L;
-    protected static Harvest instance;
-    private Harvester harvester;
-    private HarvestConnection harvestConnection;
-    private HarvestTimer harvestTimer;
-    protected HarvestData harvestData;
-    private HarvestDataValidator harvestDataValidator;
+    protected static Harvest instance;//单例对象
+    private Harvester harvester;//采集器
+    private HarvestConnection harvestConnection;//采集连接器
+    private HarvestTimer harvestTimer;//定时器
+    protected HarvestData harvestData;//采集到的数据
+    private HarvestDataValidator harvestDataValidator;//数据采集验证器
     private static final Collection<HarvestLifecycleAware> unregisteredLifecycleListeners;
-    private static final HarvestableCache activityTraceCache;
-    private HarvestConfiguration configuration;
+    private static final HarvestableCache activityTraceCache; //采集缓存
+    private HarvestConfiguration configuration; //采集配置
 
     public Harvest() {
-        this.configuration = HarvestConfiguration.getDefaultHarvestConfiguration();
+        this.configuration = HarvestConfiguration.getDefaultHarvestConfiguration();//获取默认的配置
     }
 
     public static void initialize(final AgentConfiguration agentConfiguration) {
-        System.out.println("---Rarshion:Harvest#initialize---");
+        //System.out.println("---Rarshion:Harvest#initialize---");
         Harvest.instance.initializeHarvester(agentConfiguration);
         registerUnregisteredListeners();
-        addHarvestListener(StatsEngine.get());
+        addHarvestListener(StatsEngine.get()); //这里添加状态引擎对象类型的监听器;在havesteTimer中tick一次会调用引擎的方法
     }
 
+    //
     public void initializeHarvester(final AgentConfiguration agentConfiguration) {
-        System.out.println("---Rarshion:Harvest#initializeHarvester---");
+        //System.out.println("---Rarshion:Harvest#initializeHarvester---");
         this.createHarvester();
         this.harvester.setAgentConfiguration(agentConfiguration);
         this.harvester.setConfiguration(Harvest.instance.getConfiguration());
         this.flushHarvestableCaches();
     }
 
+    //设置timer的间隔
     public static void setPeriod(final long period) {
         Harvest.instance.getHarvestTimer().setPeriod(period);
     }
-
+    //采集开始,执行timer的一次tick
     public static void start() {
         System.out.println("---Rarshion:Harvest#start");
-        Harvest.instance.getHarvestTimer().start();
+        Harvest.instance.getHarvestTimer().start();//timer执行一次tick
     }
-
+    //采集停止,关掉timer
     public static void stop() {
         Harvest.instance.getHarvestTimer().stop();
     }
@@ -81,18 +83,18 @@ public class Harvest {
         System.out.println("---Rarshion:Harvest.harvestNow - Generating sessionDuration attribute with value " + sessionDuration);
 
         final AnalyticsControllerImpl analyticsController = AnalyticsControllerImpl.getInstance();
-        analyticsController.setAttribute("sessionDuration", sessionDuration, false);
+        analyticsController.setAttribute("sessionDuration", sessionDuration, false);//设置属性
         Harvest.log.debug("Harvest.harvestNow - Generating session event.");
         System.out.println("---Rarshion:Harvest.harvestNow - Generating session event.");
 
         final SessionEvent sessionEvent = new SessionEvent();
-        analyticsController.addEvent(sessionEvent);
+        analyticsController.addEvent(sessionEvent);//将事件添加到管理容器中
         analyticsController.getEventManager().shutdown();
 
-        Harvest.instance.getHarvestTimer().tickNow();
-
+        Harvest.instance.getHarvestTimer().tickNow();//执行timer的一次tick
     }
 
+    //设置单例对象
     public static void setInstance(final Harvest harvestInstance) {
         if (harvestInstance == null) {
             Harvest.log.error("Attempt to set Harvest instance to null value!");
@@ -112,7 +114,6 @@ public class Harvest {
         this.harvestTimer = new HarvestTimer(this.harvester);
         addHarvestListener(this.harvestDataValidator = new HarvestDataValidator());
     }
-
     //关闭采集器
     public void shutdownHarvester() {
         this.harvestTimer.shutdown();
@@ -129,7 +130,6 @@ public class Harvest {
         stop();
         Harvest.instance.shutdownHarvester();
     }
-
 
     //添加http请求错误，这个方法会在其他继承子类中调用
     public static void addHttpError(final HttpError error) {
@@ -195,7 +195,7 @@ public class Harvest {
         Harvest.log.debug("Adding activity trace: " + activityTrace.toJsonString());
         activityTraces.add(activityTrace);
     }
-    //添加线程跟踪，这个方法会在其他继承子类中调用
+    //添加采集标记，这个方法会在其他继承子类中调用
     public static void addMetric(final Metric metric) {
         if (isDisabled() || !isInitialized()) {
             return;
@@ -209,6 +209,7 @@ public class Harvest {
         }
         Harvest.instance.getHarvestData().getAgentHealth().addException(exception);
     }
+
     //添加采集监听器
     public static void addHarvestListener(final HarvestLifecycleAware harvestAware) {
 
@@ -228,7 +229,6 @@ public class Harvest {
 
         Harvest.instance.getHarvester().addHarvestListener(harvestAware);
     }
-
     //移除采集监听器
     public static void removeHarvestListener(final HarvestLifecycleAware harvestAware) {
         if (harvestAware == null) {
@@ -243,7 +243,7 @@ public class Harvest {
         }
         Harvest.instance.getHarvester().removeHarvestListener(harvestAware);
     }
-
+    //判断是否已初始化
     public static boolean isInitialized() {
         return Harvest.instance != null && Harvest.instance.getHarvester() != null;
     }
@@ -294,7 +294,7 @@ public class Harvest {
         }
     }
 
-
+    //添加未注册的监听器
     private static void addUnregisteredListener(final HarvestLifecycleAware harvestAware) {
         if (harvestAware == null) {
             return;
@@ -304,7 +304,7 @@ public class Harvest {
             Harvest.unregisteredLifecycleListeners.add(harvestAware);
         }
     }
-
+    //移除未注册的监听器
     private static void removeUnregisteredListener(final HarvestLifecycleAware harvestAware) {
         if (harvestAware == null) {
             return;
@@ -313,14 +313,14 @@ public class Harvest {
             Harvest.unregisteredLifecycleListeners.remove(harvestAware);
         }
     }
-
+    //注册未注册的监听器
     private static void registerUnregisteredListeners() {
         for (final HarvestLifecycleAware harvestAware : Harvest.unregisteredLifecycleListeners) {
             addHarvestListener(harvestAware);
         }
         Harvest.unregisteredLifecycleListeners.clear();
     }
-
+    //是否为未注册的监听器
     private static boolean isUnregisteredListener(final HarvestLifecycleAware harvestAware) {
         return harvestAware != null && Harvest.unregisteredLifecycleListeners.contains(harvestAware);
     }
@@ -357,6 +357,7 @@ public class Harvest {
         return this.configuration.isCollect_network_errors();
     }
 
+    //设置配置
     public void setConfiguration(final HarvestConfiguration newConfiguration) {
         System.out.println("---Rarshion:Harvest#setConfiguration---");
 
@@ -366,13 +367,13 @@ public class Harvest {
         this.harvestData.setDataToken(this.configuration.getDataToken());
         this.harvester.setConfiguration(this.configuration);
     }
-
+    //设置连接信息
     public void setConnectInformation(final ConnectInformation connectInformation) {
         System.out.println("---Rarshion:Harvest#setConnectInformation");
         this.harvestConnection.setConnectInformation(connectInformation);
         this.harvestData.setDeviceInformation(connectInformation.getDeviceInformation());
     }
-
+    //设置havest配置
     public static void setHarvestConfiguration(final HarvestConfiguration configuration) {
         System.out.println("---Rarshion:Harvest#setHarvestConfiguration---");
 
@@ -385,14 +386,14 @@ public class Harvest {
         Harvest.log.debug("Harvest Configuration: " + configuration);
         Harvest.instance.setConfiguration(configuration);
     }
-
+    //获取havest配置
     public static HarvestConfiguration getHarvestConfiguration() {
         if (!isInitialized()) {
             return HarvestConfiguration.getDefaultHarvestConfiguration();
         }
         return Harvest.instance.getConfiguration();
     }
-
+    //设置连接信息
     public static void setHarvestConnectInformation(final ConnectInformation connectInformation) {
         System.out.println("---Rarshion:Havest#setHarvestConnectInformation");
 
@@ -407,11 +408,9 @@ public class Harvest {
 
         Harvest.instance.setConnectInformation(connectInformation);
     }
-
     public static boolean isDisabled() {
         return isInitialized() && Harvest.instance.getHarvester().isDisabled();
     }
-
     protected ActivityTraceConfiguration getActivityTraceConfiguration() {
         return this.configuration.getAt_capture();
     }

@@ -47,7 +47,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         AnalyticsControllerImpl.log.debug("AnalyticsControllerImpl.initialize invoked.");
 
         if (!AnalyticsControllerImpl.initialized.compareAndSet(false, true)) {
-            AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl has already been initialized.  Bypassing..");
+            AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl has already been initialized.Bypassing..");
             return;
         }
 
@@ -503,7 +503,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         final AnalyticsEvent event = AnalyticsEventFactory.createEvent(name, eventCategory, eventType, validatedAttributes);//这个事件是根据事件类型由工厂实例化出
         return this.addEvent(event);
     }
-    //添加事件
+    //添加事件到容器中
     @Override
     public boolean addEvent(final AnalyticsEvent event) {
         if (!this.isInitializedAndEnabled()) {

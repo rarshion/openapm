@@ -5,7 +5,6 @@ import com.github.sgwhp.openapm.sample.api.common.TransactionData;
 import com.github.sgwhp.openapm.sample.harvest.Harvest;
 import com.github.sgwhp.openapm.sample.logging.AgentLog;
 import com.github.sgwhp.openapm.sample.logging.AgentLogManager;
-import com.github.sgwhp.openapm.sample.measurement.MeasurementEngine;
 import com.github.sgwhp.openapm.sample.measurement.ThreadInfo;
 import com.github.sgwhp.openapm.sample.measurement.consumer.ActivityMeasurementConsumer;
 import com.github.sgwhp.openapm.sample.measurement.consumer.CustomMetricConsumer;
@@ -32,12 +31,14 @@ import java.util.Map;
 public class Measurements {
 
     private static final AgentLog log;
+
     private static final MeasurementEngine measurementEngine;
     private static final HttpErrorMeasurementProducer httpErrorMeasurementProducer;
     private static final NetworkMeasurementProducer networkMeasurementProducer;
     private static final ActivityMeasurementProducer activityMeasurementProducer;
     private static final MethodMeasurementProducer methodMeasurementProducer;
     private static final CustomMetricProducer customMetricProducer;
+
     private static final HttpErrorHarvestingConsumer httpErrorHarvester;
     private static final HttpTransactionHarvestingConsumer httpTransactionHarvester;
     private static final ActivityMeasurementConsumer activityConsumer;
@@ -46,37 +47,43 @@ public class Measurements {
     private static final CustomMetricConsumer customMetricConsumer;
     private static boolean broadcastNewMeasurements;
 
-
     static {
         log = AgentLogManager.getAgentLog();
-        measurementEngine = new MeasurementEngine();
+
+        measurementEngine = new MeasurementEngine();//MeasurementEngine实例化,该对象代管生产者与消费者缓冲区
+
         httpErrorMeasurementProducer = new HttpErrorMeasurementProducer();
         networkMeasurementProducer = new NetworkMeasurementProducer();
         activityMeasurementProducer = new ActivityMeasurementProducer();
-        methodMeasurementProducer = new MethodMeasurementProducer();
+        methodMeasurementProducer = new MethodMeasurementProducer();//生产者容器
         customMetricProducer = new CustomMetricProducer();
+
         httpErrorHarvester = new HttpErrorHarvestingConsumer();
         httpTransactionHarvester = new HttpTransactionHarvestingConsumer();
         activityConsumer = new ActivityMeasurementConsumer();
-        methodMeasurementConsumer = new MethodMeasurementConsumer();
+        methodMeasurementConsumer = new MethodMeasurementConsumer();//消费者容器
         summaryMetricMeasurementConsumer = new SummaryMetricMeasurementConsumer();
         customMetricConsumer = new CustomMetricConsumer();
+
         Measurements.broadcastNewMeasurements = true;
     }
 
+    //初始化
+    //1.开始任务队列;
+    //2.在Engine中添加消费者与生产者
     public static void initialize() {
 
         System.out.println("---Rarshion:Measurements#Engine initialize---");
-
         Measurements.log.info("Measurement Engine initialized.");
 
-        TaskQueue.start();
-        
+        TaskQueue.start();//开始任务队列
+
         addMeasurementProducer(Measurements.httpErrorMeasurementProducer);
         addMeasurementProducer(Measurements.networkMeasurementProducer);
         addMeasurementProducer(Measurements.activityMeasurementProducer);
         addMeasurementProducer(Measurements.methodMeasurementProducer);
         addMeasurementProducer(Measurements.customMetricProducer);
+
         addMeasurementConsumer(Measurements.httpErrorHarvester);
         addMeasurementConsumer(Measurements.httpTransactionHarvester);
         addMeasurementConsumer(Measurements.activityConsumer);
@@ -85,18 +92,22 @@ public class Measurements {
         addMeasurementConsumer(Measurements.customMetricConsumer);
 
     }
-
-
-
+    //关闭
+    //1.结束任务队列;
+    //2.在Engine中移除消费者与生产者
     public static void shutdown() {
+
+        Measurements.log.info("Measurement Engine shutting down.");
+
         TaskQueue.stop();
         Measurements.measurementEngine.clear();
-        Measurements.log.info("Measurement Engine shutting down.");
+
         removeMeasurementProducer(Measurements.httpErrorMeasurementProducer);
         removeMeasurementProducer(Measurements.networkMeasurementProducer);
         removeMeasurementProducer(Measurements.activityMeasurementProducer);
         removeMeasurementProducer(Measurements.methodMeasurementProducer);
         removeMeasurementProducer(Measurements.customMetricProducer);
+
         removeMeasurementConsumer(Measurements.httpErrorHarvester);
         removeMeasurementConsumer(Measurements.httpTransactionHarvester);
         removeMeasurementConsumer(Measurements.activityConsumer);
@@ -105,14 +116,16 @@ public class Measurements {
         removeMeasurementConsumer(Measurements.customMetricConsumer);
     }
 
+
+    //添加http错误到生产者对象并通知广播
     public static void addHttpError(final String url, final String httpMethod, final int statusCode) {
         if (Harvest.isDisabled()) {
             return;
         }
         Measurements.httpErrorMeasurementProducer.produceMeasurement(url, httpMethod, statusCode);
-        newMeasurementBroadcast();
+        newMeasurementBroadcast();//
     }
-
+    //添加http错误到生产者对象并通知广播
     public static void addHttpError(final String url, final String httpMethod, final int statusCode, final String responseBody) {
         if (Harvest.isDisabled()) {
             return;
@@ -120,7 +133,7 @@ public class Measurements {
         Measurements.httpErrorMeasurementProducer.produceMeasurement(url, httpMethod, statusCode, responseBody);
         newMeasurementBroadcast();
     }
-
+    //添加http错误到生产者对象并通知广播
     public static void addHttpError(final String url, final String httpMethod, final int statusCode, final String responseBody, final Map<String, String> params) {
         if (Harvest.isDisabled()) {
             return;
@@ -128,7 +141,7 @@ public class Measurements {
         Measurements.httpErrorMeasurementProducer.produceMeasurement(url, httpMethod, statusCode, responseBody, params);
         newMeasurementBroadcast();
     }
-
+    //添加http错误到生产者对象并通知广播
     public static void addHttpError(final String url, final String httpMethod, final int statusCode, final String responseBody, final Map<String, String> params, final ThreadInfo threadInfo) {
         if (Harvest.isDisabled()) {
             return;
@@ -136,7 +149,7 @@ public class Measurements {
         Measurements.httpErrorMeasurementProducer.produceMeasurement(url, httpMethod, statusCode, responseBody, params, threadInfo);
         newMeasurementBroadcast();
     }
-
+    //添加http传输到生产者对象并通知广播
     public static void addHttpTransaction(final HttpTransactionMeasurement transactionMeasurement) {
         if (Harvest.isDisabled()) {
             return;
@@ -149,7 +162,7 @@ public class Measurements {
             newMeasurementBroadcast();
         }
     }
-
+    //添加http错误到生产者对象并通知广播
     public static void addHttpError(final TransactionData transactionData, final String responseBody, final Map<String, String> params) {
         if (transactionData == null) {
             Measurements.log.error("TransactionData is null. HttpError measurement not created.");
@@ -158,7 +171,7 @@ public class Measurements {
             addHttpError(transactionData.getUrl(), transactionData.getHttpMethod(), transactionData.getStatusCode(), responseBody, params);
         }
     }
-
+    //添加Metric生产者对象并通知广播
     public static void addCustomMetric(final String name, final String category, final int count, final double totalValue, final double exclusiveValue) {
         if (Harvest.isDisabled()) {
             return;
@@ -167,7 +180,6 @@ public class Measurements {
         newMeasurementBroadcast();
     }
 
-
     public static void addCustomMetric(final String name, final String category, final int count, final double totalValue, final double exclusiveValue, final MetricUnit countUnit, final MetricUnit valueUnit) {
         if (Harvest.isDisabled()) {
             return;
@@ -175,19 +187,19 @@ public class Measurements {
         Measurements.customMetricProducer.produceMeasurement(name, category, count, totalValue, exclusiveValue, countUnit, valueUnit);
         newMeasurementBroadcast();
     }
-
+    //设置可以广播操作
     public static void setBroadcastNewMeasurements(final boolean broadcast) {
         Measurements.broadcastNewMeasurements = broadcast;
     }
-
+    //广播
     private static void newMeasurementBroadcast() {
         if (Measurements.broadcastNewMeasurements) {
             broadcast();
         }
     }
-
+    //进行广播操作,底层调用Pool中的broadcast()方法通知消费者消费
     public static void broadcast() {
-        Measurements.measurementEngine.broadcastMeasurements();
+        Measurements.measurementEngine.broadcastMeasurements();//在Engine中执行Pool里面的广播方法
     }
 
     public static MeasuredActivity startActivity(final String activityName) {
@@ -226,6 +238,7 @@ public class Measurements {
         Measurements.measurementEngine.endActivity(activity);
     }
 
+    //添加方法追踪生产者对象并通知广播
     public static void addTracedMethod(final Trace trace) {
         if (Harvest.isDisabled()) {
             return;
@@ -234,23 +247,28 @@ public class Measurements {
         newMeasurementBroadcast();
     }
 
+    //在Engine中添加生产者
     public static void addMeasurementProducer(final MeasurementProducer measurementProducer) {
         Measurements.measurementEngine.addMeasurementProducer(measurementProducer);
     }
 
+    //在Engine中移除生产者
     public static void removeMeasurementProducer(final MeasurementProducer measurementProducer) {
         Measurements.measurementEngine.removeMeasurementProducer(measurementProducer);
     }
 
+    //在Engine中添加消费者
     public static void addMeasurementConsumer(final MeasurementConsumer measurementConsumer) {
-        System.out.println("---Rarshion:Measurements#addMeasurementConsumer");
+        //System.out.println("---Rarshion:Measurements#addMeasurementConsumer");
         Measurements.measurementEngine.addMeasurementConsumer(measurementConsumer);
     }
 
+    //在Engine中移除消费者
     public static void removeMeasurementConsumer(final MeasurementConsumer measurementConsumer) {
         Measurements.measurementEngine.removeMeasurementConsumer(measurementConsumer);
     }
 
+    //通知消费者消费生产者
     public static void process() {
         Measurements.measurementEngine.broadcastMeasurements();
     }

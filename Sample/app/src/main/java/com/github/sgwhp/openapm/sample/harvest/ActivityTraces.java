@@ -10,6 +10,7 @@ import java.util.Collection;
 /**
  * Created by user on 2016/8/2.
  */
+//Activity跟踪
 public class ActivityTraces extends HarvestableArray {
 
     private final Collection<ActivityTrace> activityTraces;

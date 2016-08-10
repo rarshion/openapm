@@ -19,8 +19,11 @@ public class HarvestDataValidator extends HarvestAdapter {
     }
 
     public void ensureActivityNameMetricsExist() {
+
         final HarvestData harvestData = Harvest.getInstance().getHarvestData();
         final ActivityTraces activityTraces = harvestData.getActivityTraces();
+
+
         if (activityTraces == null || activityTraces.count() == 0) {
             return;
         }

@@ -16,8 +16,10 @@ public enum MetricCategory {
     JSON("JSON"),
     NETWORK("Network");
 
-    private String categoryName;
-    private static final Map<String, MetricCategory> methodMap;
+    private String categoryName;//种类名
+    private static final Map<String, MetricCategory> methodMap = new HashMap<String, MetricCategory>() {
+        {this.put("onCreate", MetricCategory.VIEW_LOADING);}
+    };
 
     private MetricCategory(final String categoryName) {
         this.categoryName = categoryName;
@@ -27,6 +29,7 @@ public enum MetricCategory {
         return this.categoryName;
     }
 
+    //根据方法全名返回测量种类
     public static MetricCategory categoryForMethod(final String fullMethodName) {
         if (fullMethodName == null) {
             return MetricCategory.NONE;
@@ -43,11 +46,4 @@ public enum MetricCategory {
         return category;
     }
 
-    static {
-        methodMap = new HashMap<String, MetricCategory>() {
-            {
-                this.put("onCreate", MetricCategory.VIEW_LOADING);
-            }
-        };
-    }
 }
