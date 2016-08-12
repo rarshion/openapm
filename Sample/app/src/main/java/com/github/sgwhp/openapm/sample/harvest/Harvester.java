@@ -492,6 +492,7 @@ public class Harvester {
             AgentHealth.noticeException(e);
         }
     }
+
     //执行所有采集模块开始
     private void fireOnHarvestStart() {
         System.out.println("---Rarshion:Harvester#fireOnHarvestStart");
@@ -507,6 +508,7 @@ public class Harvester {
             AgentHealth.noticeException(e);
         }
     }
+
     //执行所有采集模块停止
     private void fireOnHarvestStop() {
         try {
@@ -520,6 +522,7 @@ public class Harvester {
             AgentHealth.noticeException(e);
         }
     }
+
     private void fireOnHarvest() {
         System.out.println("---Rarshion:Havester#fireOnHarvest---");
         try {

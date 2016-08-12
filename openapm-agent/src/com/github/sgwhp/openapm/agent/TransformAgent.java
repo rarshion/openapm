@@ -23,6 +23,16 @@ public class TransformAgent {
     public static final Set<String> dx = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new String[] { "dx", "dx.bat" })));
     public static final Set<String> java = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new String[] { "java", "java.exe" })));
     public static final Set<String> skip = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new String[] {"com/github/sgwhp/openapm/monitor"})));
+
+    public static final HashSet<String> exclude_packages = new HashSet<String>() {
+        {
+            this.add("com/gtihub/sgwhp/openapm/sample");
+            this.add("com/google/gson");
+            this.add("com/squareup/okhttp");
+        }
+    };
+
+
     public static String attachParams;
 
     public static void agentmain(String args, Instrumentation inst){
@@ -40,6 +50,8 @@ public class TransformAgent {
         }
 //        String logFile = params.get("logfile");
 //        Log log = logFile == null ? new ConsoleLog() : new FileLog(logFile);
+
+
         Log log = new FileLog("log.txt");
         if(error){
             log.e("Arguments parse error: " + args);
@@ -71,6 +83,7 @@ public class TransformAgent {
             }
 
             redefineClass(inst, modifier, ProcessBuilder.class);
+
         } catch (Exception e) {
             log.e("agent startup error", e);
             throw new RuntimeException("agent startup error");

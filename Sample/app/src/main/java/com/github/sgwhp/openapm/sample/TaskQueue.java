@@ -30,6 +30,7 @@ public class TaskQueue extends HarvestAdapter {
 
     //进队列
     public static void queue(final Object object) {
+        System.out.println("---Rarshion:TaskQueue:queue---");
         TaskQueue.queue.add(object);
     }
     //

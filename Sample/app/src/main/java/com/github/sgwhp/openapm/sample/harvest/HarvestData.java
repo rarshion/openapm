@@ -19,6 +19,7 @@ import java.util.Set;
 /**
  * Created by user on 2016/8/2.
  */
+//所有的采集数据在这里
 public class HarvestData extends HarvestableArray {
 
     private static final AgentLog log;

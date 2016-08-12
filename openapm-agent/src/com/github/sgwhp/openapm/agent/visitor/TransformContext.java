@@ -15,7 +15,6 @@ public class TransformContext {
     private String className;
     private String superClassName;
 
-
     private static final String[] ANDROID_8_MISSING_CLASS_WHITE_LIST;
     private static final HashMap<Integer, Set<String>> MISSING_CLASS_WHITE_LIST;
 
@@ -33,6 +32,7 @@ public class TransformContext {
         this.tracedMethods = new HashMap<String, String>();
         this.skippedMethods = new HashMap<String, String>();
     }
+
 
     public Log getLog() {
         return this.log;
@@ -143,6 +143,15 @@ public class TransformContext {
         final String descToMatch = map.get(this.className + "#" + name);
         return descToMatch != null && desc.equals(desc);
     }
+
+    public ClassMethod getMethodWrapper(final ClassMethod method) {
+        return this.config.getMethodWrapper(method);
+    }
+
+    public Collection<ClassMethod> getCallSiteReplacements(final String className, final String methodName, final String methodDesc) {
+        return this.config.getCallSiteReplacements(className, methodName, methodDesc);
+    }
+
 
     public List<String> getTags() {
         return this.tags;

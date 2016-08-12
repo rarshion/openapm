@@ -33,20 +33,20 @@ public class ActivityTrace extends HarvestableArray {
     public static final String TRACE_VERSION = "1.0";
     public static final int MAX_TRACES = 2000;
     public Trace rootTrace;
-    private final ConcurrentHashMap<UUID, Trace> traces;
+    private final ConcurrentHashMap<UUID, Trace> traces;//追踪hashmap容器
     private int traceCount;
     private final Set<UUID> missingChildren;
     private NamedActivity measuredActivity;//测量线程父类,跟测量的一些属性有关
     private long reportAttemptCount;
     public long lastUpdatedAt;
     public long startedAt;
-    public ActivitySighting previousActivity;
+    public ActivitySighting previousActivity;//简单记录名字/时间戳/耗时等属性
     private boolean complete;
     private final HashMap<String, String> params;
-    private Map<Sample.SampleType, Collection<Sample>> vitals;
+    private Map<Sample.SampleType, Collection<Sample>> vitals;// <采集类型:CPU/内存, 采集值>
     private final AgentLog log;
     public final Metric networkCountMetric;
-    public final Metric networkTimeMetric;
+    public final Metric networkTimeMetric;//测量标志
     private static final String SIZE_NORMAL = "NORMAL";
 
     private static final HashMap<String, String> ENVIRONMENT_TYPE = new HashMap<String, String>() {{this.put("type", "ENVIRONMENT");}};
@@ -91,11 +91,13 @@ public class ActivityTrace extends HarvestableArray {
         return this.rootTrace.myUUID.toString();
     }
 
+    //在set中添加追踪对象
     public void addTrace(final Trace trace) {
         this.missingChildren.add(trace.myUUID);
         this.lastUpdatedAt = System.currentTimeMillis();
     }
 
+    //添加完整的跟踪对象,更新时间戳
     public void addCompletedTrace(final Trace trace) {
         if (trace.getType() == TraceType.NETWORK) {
             this.networkCountMetric.sample(1.0);
@@ -133,6 +135,7 @@ public class ActivityTrace extends HarvestableArray {
         Measurements.endActivityWithoutMeasurement(this.measuredActivity);
     }
 
+    //完成,移除mesurements中对象,压入任务队列中
     public void complete() {
         this.log.debug("Completing trace of " + this.rootTrace.displayName + ":" + this.rootTrace.myUUID.toString() + "(" + this.traces.size() + " traces)");
         if (this.rootTrace.exitTimestamp == 0L) {
@@ -148,13 +151,15 @@ public class ActivityTrace extends HarvestableArray {
         Measurements.endActivity(this.measuredActivity);
         this.rootTrace.traceMachine = null;
         this.complete = true;
-        TaskQueue.queue(this);
+
+        TaskQueue.queue(this);//压入任务队列
     }
 
     public Map<UUID, Trace> getTraces() {
         return this.traces;
     }
 
+    //返回Json对象
     @Override
     public JsonArray asJsonArray() {
         final JsonArray tree = new JsonArray();
@@ -176,7 +181,7 @@ public class ActivityTrace extends HarvestableArray {
         tree.add(segments);
         return tree;
     }
-
+    //
     private JsonArray traceToTree(final Trace trace) {
         final JsonArray segment = new JsonArray();
         trace.prepareForSerialization();
@@ -204,7 +209,7 @@ public class ActivityTrace extends HarvestableArray {
         return segment;
     }
 
-
+    //获取环境信息
     private JsonArray getEnvironment() {
         final JsonArray environment = new JsonArray();
         environment.add(new Gson().toJsonTree(ActivityTrace.ENVIRONMENT_TYPE, ActivityTrace.GSON_STRING_MAP_TYPE));

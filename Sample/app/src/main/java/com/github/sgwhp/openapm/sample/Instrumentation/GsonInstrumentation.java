@@ -1,8 +1,14 @@
 package com.github.sgwhp.openapm.sample.Instrumentation;
 
+
+
+import java.util.ArrayList;
+
 /**
  * Created by user on 2016/8/6.
  */
+
+
 /*
 public class GsonInstrumentation {
     private static final ArrayList<String> categoryParams;
@@ -128,3 +134,4 @@ public class GsonInstrumentation {
 }
 
 */
+

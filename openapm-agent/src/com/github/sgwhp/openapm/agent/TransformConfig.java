@@ -19,6 +19,7 @@ public class TransformConfig {
 
     public static final String WRAP_METHOD_IDENTIFIER = "WRAP_METHOD:";
     public static final String REPLACE_CALL_SITE_IDENTIFIER = "REPLACE_CALL_SITE:";
+
     private final Map<ClassMethod, ClassMethod> methodWrappers;
     private final Map<String, Collection<ClassMethod>> callSiteReplacements;
 
@@ -30,6 +31,10 @@ public class TransformConfig {
 
         this.methodWrappers = getMethodWrappers(properties, log);
         this.callSiteReplacements = getCallSiteReplacements(properties, log);
+    }
+
+    public ClassMethod getMethodWrapper(final ClassMethod method) {
+        return this.methodWrappers.get(method);
     }
 
     public String getTargetPackage(){

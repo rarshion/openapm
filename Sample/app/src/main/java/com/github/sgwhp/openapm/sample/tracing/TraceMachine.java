@@ -39,7 +39,7 @@ public class TraceMachine extends HarvestAdapter {
     public static final int HEALTHY_TRACE_TIMEOUT = 500;
     public static final int UNHEALTHY_TRACE_TIMEOUT = 60000;
 
-    private static final Collection<TraceLifecycleAware> traceListeners;//跟踪监听
+    private static final Collection<TraceLifecycleAware> traceListeners;//跟踪监听器
     private static final ThreadLocal<Trace> threadLocalTrace;//线程安全的对象
     private static final ThreadLocal<TraceStack> threadLocalTraceStack;//线程安全的对象
     private static final List<ActivitySighting> activityHistory;//线程安全的对象
@@ -54,35 +54,37 @@ public class TraceMachine extends HarvestAdapter {
 
     protected TraceMachine(final Trace rootTrace) {
         this.activityTrace = new ActivityTrace(rootTrace);
-        Harvest.addHarvestListener(this);
+        Harvest.addHarvestListener(this);//在havest中添加监听器
     }
 
     public static TraceMachine getTraceMachine() {
         return TraceMachine.traceMachine;
     }
 
+    //添加跟踪监听器
     public static void addTraceListener(final TraceLifecycleAware listener) {
         System.out.println("---Rarshoin:TraceMachine#addTraceListener---");
         TraceMachine.traceListeners.add(listener);
     }
-
+    //移除跟踪监听器
     public static void removeTraceListener(final TraceLifecycleAware listener) {
+        System.out.println("---Rarshoin:TraceMachine#removeTraceListener---");
         TraceMachine.traceListeners.remove(listener);
     }
-
+    //设置
     public static void setTraceMachineInterface(final TraceMachineInterface traceMachineInterface) {
         TraceMachine.traceMachineInterface = traceMachineInterface;
     }
 
+    //开始追踪
     public static void startTracing(final String name) {
         startTracing(name, false);
     }
-
     public static void startTracing(final String name, final boolean customName) {
         startTracing(name, false, false);
     }
-
     public static void startTracing(final String name, final boolean customName, final boolean customInteraction) {
+
         try {
             if (!isEnabled()) {
                 return;
@@ -96,8 +98,10 @@ public class TraceMachine extends HarvestAdapter {
             if (isTracingActive()) {
                 TraceMachine.traceMachine.completeActivityTrace();
             }
-            TraceMachine.threadLocalTrace.remove();
-            TraceMachine.threadLocalTraceStack.set(new TraceStack());
+
+            TraceMachine.threadLocalTrace.remove();//移除当前线程
+            TraceMachine.threadLocalTraceStack.set(new TraceStack());//新建线程栈对象
+
             final Trace rootTrace = new Trace();
             if (customName) {
                 rootTrace.displayName = name;
@@ -105,24 +109,29 @@ public class TraceMachine extends HarvestAdapter {
             else {
                 rootTrace.displayName = formatActivityDisplayName(name);
             }
+
             rootTrace.metricName = formatActivityMetricName(rootTrace.displayName);
             rootTrace.metricBackgroundName = formatActivityBackgroundMetricName(rootTrace.displayName);
             rootTrace.entryTimestamp = System.currentTimeMillis();
             if (TraceMachine.log.getLevel() == 5) {
                 TraceMachine.log.debug("Started trace of " + name + ":" + rootTrace.myUUID.toString());
             }
+
             TraceMachine.traceMachine = new TraceMachine(rootTrace);
             rootTrace.traceMachine = TraceMachine.traceMachine;
             pushTraceContext(rootTrace);
             TraceMachine.traceMachine.activityTrace.previousActivity = getLastActivitySighting();
             TraceMachine.activityHistory.add(new ActivitySighting(rootTrace.entryTimestamp, rootTrace.displayName));
+
+            //执行所有跟踪监听器的start方法
             for (final TraceLifecycleAware listener : TraceMachine.traceListeners) {
                 listener.onTraceStart(TraceMachine.traceMachine.activityTrace);
             }
+
         }
         catch (Exception e) {
             TraceMachine.log.error("Caught error while initializing TraceMachine, shutting it down", e);
-            AgentHealth.noticeException(e);
+            AgentHealth.noticeException(e);//发布异常
             TraceMachine.traceMachine = null;
             TraceMachine.threadLocalTrace.remove();
             TraceMachine.threadLocalTraceStack.remove();
@@ -167,19 +176,23 @@ public class TraceMachine extends HarvestAdapter {
         return "Display " + name;
     }
 
+    //注册新的追踪对象
     private static Trace registerNewTrace(final String name) throws TracingInactiveException {
+        System.out.println("---Rarshion:TraceMachine:registerNewTrace " + name);
+
         if (isTracingInactive()) {
             TraceMachine.log.debug("Tried to register a new trace but tracing is inactive!");
             throw new TracingInactiveException();
         }
+
         final Trace parentTrace = getCurrentTrace();
         final Trace childTrace = new Trace(name, parentTrace.myUUID, TraceMachine.traceMachine);
         try {
             TraceMachine.traceMachine.activityTrace.addTrace(childTrace);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new TracingInactiveException();
         }
+
         if (TraceMachine.log.getLevel() == 4) {
             TraceMachine.log.verbose("Registering trace of " + name + " with parent " + parentTrace.displayName);
         }
@@ -187,20 +200,27 @@ public class TraceMachine extends HarvestAdapter {
         return childTrace;
     }
 
+    //完成线程跟踪
     protected void completeActivityTrace() {
         if (isTracingInactive()) {
             return;
         }
+
         final TraceMachine finishedMachine = TraceMachine.traceMachine;
         TraceMachine.traceMachine = null;
         finishedMachine.activityTrace.complete();
         endLastActivitySighting();
+
+        //执行监听器的完成方法
         for (final TraceLifecycleAware listener : TraceMachine.traceListeners) {
             listener.onTraceComplete(finishedMachine.activityTrace);
         }
+
+        //在havest中移除自己
         Harvest.removeHarvestListener(finishedMachine);
     }
 
+    //进入网络段落,同样调用进入方法新建跟踪对象
     public static void enterNetworkSegment(final String name) {
         try {
             if (isTracingInactive()) {
@@ -221,16 +241,16 @@ public class TraceMachine extends HarvestAdapter {
         }
     }
 
+    //进入方法
     public static void enterMethod(final String name) {
         enterMethod(null, name, null);
     }
-
     public static void enterMethod(final String name, final ArrayList<String> annotationParams) {
         enterMethod(null, name, annotationParams);
     }
-
-    /*进入方法*/
+    //进入方法后新建追踪对象,并压入上下文栈中
     public static void enterMethod(final Trace trace, final String name, final ArrayList<String> annotationParams) {
+        System.out.println("---Rarshion:TraceMachine#enterMethod---" + name);
         try {
             if (isTracingInactive()) {
                 return;
@@ -238,25 +258,30 @@ public class TraceMachine extends HarvestAdapter {
             final long currentTime = System.currentTimeMillis();
             final long lastUpdatedAt = TraceMachine.traceMachine.activityTrace.lastUpdatedAt;
             final long inception = TraceMachine.traceMachine.activityTrace.startedAt;
+
             if (lastUpdatedAt + 500L < currentTime && !TraceMachine.traceMachine.activityTrace.hasMissingChildren()) {
                 TraceMachine.log.debug("Completing activity trace after hitting healthy timeout (500ms)");
                 TraceMachine.traceMachine.completeActivityTrace();
                 return;
             }
+
             if (inception + 60000L < currentTime) {
                 TraceMachine.log.debug("Completing activity trace after hitting unhealthy timeout (60000ms)");
                 TraceMachine.traceMachine.completeActivityTrace();
                 return;
             }
-            loadTraceContext(trace);
+
+            loadTraceContext(trace);//从栈中加载,如果没有则新建
             //新建追踪实例对象
             final Trace childTrace = registerNewTrace(name);
-            pushTraceContext(childTrace);
+            pushTraceContext(childTrace);//压入跟踪上下文
             childTrace.scope = getCurrentScope();
             childTrace.setAnnotationParams(annotationParams);
+
             for (final TraceLifecycleAware listener : TraceMachine.traceListeners) {
                 listener.onEnterMethod();
             }
+
             childTrace.entryTimestamp = System.currentTimeMillis();
         }
         catch (TracingInactiveException e2) {}
@@ -266,6 +291,7 @@ public class TraceMachine extends HarvestAdapter {
         }
     }
 
+    //离开方法
     public static void exitMethod() {
         try {
             if (isTracingInactive()) {
@@ -315,10 +341,15 @@ public class TraceMachine extends HarvestAdapter {
         }
     }
 
+    //压入跟踪上下文,并设置当前上下文
     private static void pushTraceContext(final Trace trace) {
+
+        System.out.println("---Rarshion:TraceMachine#pushTraceContext---");
+
         if (isTracingInactive() || trace == null) {
             return;
         }
+
         final TraceStack traceStack = TraceMachine.threadLocalTraceStack.get();
         if (traceStack.empty()) {
             traceStack.push(trace);
@@ -326,9 +357,10 @@ public class TraceMachine extends HarvestAdapter {
         else if (traceStack.peek() != trace) {
             traceStack.push(trace);
         }
+
         TraceMachine.threadLocalTrace.set(trace);
     }
-
+    //加载跟踪上下文,压入上下文栈中
     private static void loadTraceContext(Trace trace) {
         if (isTracingInactive()) {
             return;
@@ -356,7 +388,7 @@ public class TraceMachine extends HarvestAdapter {
             TraceMachine.log.verbose("Trace " + trace.myUUID.toString() + " is now active");
         }
     }
-
+    //卸载
     public static void unloadTraceContext(final Object object) {
         try {
             if (isTracingInactive()) {
@@ -384,7 +416,7 @@ public class TraceMachine extends HarvestAdapter {
             AgentHealth.noticeException(e2);
         }
     }
-
+    //获取当前的上下文
     public static Trace getCurrentTrace() throws TracingInactiveException {
         if (isTracingInactive()) {
             throw new TracingInactiveException();
@@ -445,6 +477,7 @@ public class TraceMachine extends HarvestAdapter {
         }
     }
 
+    //获取当前测量类型名
     public static String getCurrentScope() {
         try {
             if (isTracingInactive()){
@@ -470,6 +503,7 @@ public class TraceMachine extends HarvestAdapter {
         return !isTracingActive();
     }
 
+    //存储已完成的跟踪
     public void storeCompletedTrace(final Trace trace) {
         try {
             if (isTracingInactive()) {
@@ -513,6 +547,7 @@ public class TraceMachine extends HarvestAdapter {
         return TraceMachine.activityHistory.get(TraceMachine.activityHistory.size() - 1);
     }
 
+    //
     public static void endLastActivitySighting() {
         final ActivitySighting activitySighting = getLastActivitySighting();
         if (activitySighting != null) {
@@ -530,6 +565,7 @@ public class TraceMachine extends HarvestAdapter {
             final long currentTime = System.currentTimeMillis();
             final long lastUpdatedAt = TraceMachine.traceMachine.activityTrace.lastUpdatedAt;
             final long inception = TraceMachine.traceMachine.activityTrace.startedAt;
+
             if (lastUpdatedAt + 500L < currentTime && !TraceMachine.traceMachine.activityTrace.hasMissingChildren()) {
                 TraceMachine.log.debug("Completing activity trace after hitting healthy timeout (500ms)");
                 this.completeActivityTrace();
@@ -555,6 +591,7 @@ public class TraceMachine extends HarvestAdapter {
         catch (NullPointerException ex) {}
     }
 
+
     static {
         enabled = new AtomicBoolean(true);
         log = AgentLogManager.getAgentLog();
@@ -565,8 +602,9 @@ public class TraceMachine extends HarvestAdapter {
         TraceMachine.traceMachine = null;
     }
 
-    private static class TraceStack extends Stack<Trace>
+    private static class TraceStack extends Stack<Trace> //追踪栈,类似于堆栈,将方法压入栈中
     {
+
 
     }
 

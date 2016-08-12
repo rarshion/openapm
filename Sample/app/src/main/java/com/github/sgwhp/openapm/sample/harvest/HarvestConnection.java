@@ -85,6 +85,8 @@ public class HarvestConnection implements HarvestErrorCodes {
         return post;
     }
 
+
+
     public HarvestResponse send(final HttpPost post) {
         final HarvestResponse harvestResponse = new HarvestResponse();
         HttpResponse response;
@@ -116,6 +118,7 @@ public class HarvestConnection implements HarvestErrorCodes {
         if (this.connectInformation == null) {
             throw new IllegalArgumentException();
         }
+
         final HttpPost connectPost = this.createConnectPost(this.connectInformation.toJsonString());
         if (connectPost == null) {
             this.log.error("Failed to create connect POST");

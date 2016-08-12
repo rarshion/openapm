@@ -10,6 +10,7 @@ import org.objectweb.asm.ClassWriter;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
 import java.util.HashMap;
 
 /**
@@ -55,47 +56,104 @@ public class InvocationDispatcher implements InvocationHandler {
     }
 
     public ClassData transform(byte[] classByte) {
-        String str = "an unknown class";
+        String className = "an unknown class";
         try {
             ClassReader cr = new ClassReader(classByte);
             ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
             context.reset();
-            cr.accept(new InitContextClassVisitor(context, log)
-                    , ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG | ClassReader.SKIP_CODE);
-            str = context.getClassName();
-            log.d("invoke transform: " + str);
-            if (skip(context.getClassName()))
-                return null;
+            cr.accept(new InitContextClassVisitor(context, log), ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG | ClassReader.SKIP_CODE);
+            className = this.context.getClassName();//获取当前改写的类名
+            //log.d("invoke transform: " + className);
             ClassVisitor cv = cw;
+            if (skip(context.getClassName())) // monitor不需要改写
+                return null;
 
-            if (context.getTargetPackage() == null || str.startsWith(context.getTargetPackage())) {
+
+            //cv = new PrefilterClassVisitor(cv, this.context, this.log);//进行最先改写
+
+            if(className.startsWith("com/github/sgwhp/openapm/sample/Instrumentation")){
+                cv = new WrapMethodClassVisitor(cv, this.context, this.log);
+            }
+
+            if(className.startsWith("com/github/sgwhp/openapm/sample/Hello")){
+                log.d("invoke transform: Hello" + className);
+                cv = new AopClassAdapter(cv, context);
+            }
+
+/*
+            if (this.context.getClassName().startsWith("com/github/sgwhp/openapm/sample")) {
+                //cv = new NewRelicClassVisitor(cv, this.context, this.log);
+            }
+            else if (this.context.getClassName().startsWith("android/support/")) {
+                //cv = new ActivityClassVisitor(cv, this.context, this.log);
+            }
+            else {
+                log.d("!!!!!!");
+                if (this.isExcludedPackage(this.context.getClassName())) {
+                    return null;
+                }
+                //cv = new AnnotatingClassVisitor(cv, this.context, this.log);
+                //cv = new ActivityClassVisitor(cv, this.context, this.log);
+                //cv = new AsyncTaskClassVisitor(cv, this.context, this.log);
+                //cv = new TraceAnnotationClassVisitor(cv, this.context, this.log);
+                cv = new WrapMethodClassVisitor(cv, this.context, this.log);
+            }
+
+*/
+
+/*
+            if (!this.context.hasTag("Lcom/github/sgwhp/openapm/sample/instrumentation/Instrumented;")) {
+                //ClassVisitor cv = cw;
+                if (this.context.getClassName().startsWith("com/github/sgwhp/openapm/sample")) {
+                    cv = new NewRelicClassVisitor(cv, this.context, this.log);
+                }
+                else if (this.context.getClassName().startsWith("android/support/")) {
+                    //cv = new ActivityClassVisitor(cv, this.context, this.log);
+                }
+                else {
+                    if (this.isExcludedPackage(this.context.getClassName())) {
+                        return null;
+                    }
+                    //cv = new AnnotatingClassVisitor(cv, this.context, this.log);
+                    //cv = new ActivityClassVisitor(cv, this.context, this.log);
+                    //cv = new AsyncTaskClassVisitor(cv, this.context, this.log);
+                    //cv = new TraceAnnotationClassVisitor(cv, this.context, this.log);
+                    cv = new WrapMethodClassVisitor(cv, this.context, this.log);
+                }
+                //cv = new ContextInitializationClassVisitor(cv, this.context);
+                //cr.accept(cv, 12);
+            }
+            else {
+                this.log.d(MessageFormat.format("[{0}] class is already instrumented! skipping ...", this.context.getFriendlyClassName()));
+            }
+*/
+
+            //if (skip(context.getClassName()))
+                //return null;
+            //ClassVisitor cv = cw;
+
+            /*
+            if (context.getTargetPackage() == null || className.startsWith(context.getTargetPackage())) {
                 //log.d("invoke from ExceptionLogClassAdapter");
                 cv = new ExceptionLogClassAdapter(cw, context);
             }else{
                 //log.e("no invoke transform: ExceptionLogClassAdapter");
             }
-
-            if (str.startsWith("com/github/sgwhp/openapm/sample/testMesurement")) {
-                log.d("invoke transform: testMesurement" + str);
+            if (className.startsWith("com/github/sgwhp/openapm/sample/testMesurement")) {
+                log.d("invoke transform: testMesurement" + className);
                 cv = new MeClassAdapter(cv, context);
             } else{
                 //log.e("no invoke transform: testMesurement");
             }
 
-            cv = new AnnotatingClassVisitor(cv, this.context, this.log);
+            //cv = new AnnotatingClassVisitor(cv, this.context, this.log);
             //cv = new ActivityClassVisitor(cv, this.context, this.log);
             //cv = new AsyncTaskClassVisitor(cv, this.context, this.log);
             //cv = new TraceAnnotationClassVisitor(cv, this.context, this.log);
-           //cv = new WrapMethodClassVisitor(cv, this.context, this.log);
+            //cv = new WrapMethodClassVisitor(cv, this.context, this.log);
+            */
 
-            if(str.startsWith("com/github/sgwhp/openapm/sample/Hello")){
-                log.d("invoke transform: Hello" + str);
-                cv = new AopClassAdapter(cv, context);
-            }
-
-            cr.accept(new ContextClassVisitor(cv, context)
-                    , ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);
-
+            cr.accept(new ContextClassVisitor(cv, context), ClassReader.EXPAND_FRAMES | ClassReader.SKIP_FRAMES);
             //将转换的类字节写到文件中以便观察
             StreamUtil.writeToFile(cw.toByteArray(), cv.getClass().toString());
             return context.newClassData(cw.toByteArray());
@@ -103,7 +161,7 @@ public class InvocationDispatcher implements InvocationHandler {
         } catch (TransformedException e) {
             return null;
         } catch (Exception e) {
-            log.e("An error occurred while transforming " + str
+            log.e("An error occurred while transforming " + className
                     + ".\n" + e.getMessage(), e);
         }
         return new ClassData(classByte, false);
@@ -112,4 +170,17 @@ public class InvocationDispatcher implements InvocationHandler {
     public TransformContext getContext() {
         return context;
     }
+
+
+    private boolean isExcludedPackage(final String packageName) {
+        for (final String name : TransformAgent.exclude_packages) {
+            if (packageName.contains(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }

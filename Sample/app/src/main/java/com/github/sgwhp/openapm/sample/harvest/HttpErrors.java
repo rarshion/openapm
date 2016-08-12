@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by user on 2016/8/2.
  */
+//Http请求错误对象容器
 public class HttpErrors extends HarvestableArray {
 
     private final Collection<HttpError> httpErrors;

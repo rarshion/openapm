@@ -28,3 +28,4 @@ public class DexerMainInvocationHandler implements InvocationHandler {
         return classBytes;
     }
 }
+

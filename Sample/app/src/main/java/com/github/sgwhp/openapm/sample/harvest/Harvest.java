@@ -37,16 +37,17 @@ public class Harvest {
         this.configuration = HarvestConfiguration.getDefaultHarvestConfiguration();//获取默认的配置
     }
 
+    //初始化
     public static void initialize(final AgentConfiguration agentConfiguration) {
-        //System.out.println("---Rarshion:Harvest#initialize---");
+        System.out.println("---Rarshion:Harvest#initialize---");
         Harvest.instance.initializeHarvester(agentConfiguration);
         registerUnregisteredListeners();
         addHarvestListener(StatsEngine.get()); //这里添加状态引擎对象类型的监听器;在havesteTimer中tick一次会调用引擎的方法
     }
 
-    //
+    //初始化真正的采集器
     public void initializeHarvester(final AgentConfiguration agentConfiguration) {
-        //System.out.println("---Rarshion:Harvest#initializeHarvester---");
+        System.out.println("---Rarshion:Harvest#initializeHarvester---");
         this.createHarvester();
         this.harvester.setAgentConfiguration(agentConfiguration);
         this.harvester.setConfiguration(Harvest.instance.getConfiguration());
@@ -114,6 +115,7 @@ public class Harvest {
         this.harvestTimer = new HarvestTimer(this.harvester);
         addHarvestListener(this.harvestDataValidator = new HarvestDataValidator());
     }
+
     //关闭采集器
     public void shutdownHarvester() {
         this.harvestTimer.shutdown();

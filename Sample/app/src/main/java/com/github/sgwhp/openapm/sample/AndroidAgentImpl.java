@@ -117,7 +117,9 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
                             application.registerActivityLifecycleCallbacks((Application.ActivityLifecycleCallbacks)backgroundListener);
                         }
                     }
-                    catch (Exception e) {}
+                    catch (Exception e) {
+
+                    }
                 }
 
             }
@@ -134,7 +136,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
 
     protected void initialize() {
 
-        System.out.println("---Rarshion:AndroidAgentImpl#initialize 1---");
+        System.out.println("---Rarshion:AndroidAgentImpl#initialize 2---");
 
         this.setupSession();
 
@@ -153,9 +155,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         //AndroidAgentImpl.log.verbose(MessageFormat.format("Application token: {0}", this.agentConfiguration.getApplicationToken()));
 
         StatsEngine.get().inc("Supportability/AgentHealth/UncaughtExceptionHandler/" + this.getUnhandledExceptionHandlerName());//状态引擎初始化
-
         CrashReporter.initialize(this.agentConfiguration);//异常上报模块初始化
-
         Sampler.init(this.context);//数据采集模块初始化
 
     }
@@ -167,6 +167,7 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
     protected void finalizeSession() {
     }
 
+    //更新并保存连接信息
     public boolean updateSavedConnectInformation() {
         final ConnectInformation savedConnectInformation = this.savedState.getConnectInformation();
         final ConnectInformation newConnectInformation = new ConnectInformation(this.getApplicationInformation(), this.getDeviceInformation());
@@ -184,7 +185,6 @@ public class AndroidAgentImpl implements AgentImpl, ConnectionListener, Applicat
         }
         return false;
     }
-
     //获取设备信息
     public DeviceInformation getDeviceInformation() {
         if (this.deviceInformation != null) {

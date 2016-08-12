@@ -16,6 +16,7 @@ public class HttpErrorHarvestingConsumer extends BaseMeasurementConsumer {
 
     @Override
     public void consumeMeasurement(final Measurement measurement) {
+        System.out.println("---Rarshion:HttpErrorHarvestingConsumer#consumeMeasurement" + measurement.getName());
         final HttpError error = new HttpError((HttpErrorMeasurement)measurement);
         Harvest.addHttpError(error);
     }

@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 /**
  * Created by user on 2016/8/2.
  */
+//http事务
 public class HttpTransaction extends HarvestableArray {
 
     private String url;

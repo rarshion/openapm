@@ -45,6 +45,7 @@ public class EventManagerImpl implements EventManager{
 
     @Override
     public void initialize() {
+
         if (!this.initialized.compareAndSet(false, true)) {
             EventManagerImpl.log.verbose("EventManagerImpl has already been initialized.  Bypassing...");
             System.out.println("---Rarshion:EventManagerImpl has already been initialized.  Bypassing...");

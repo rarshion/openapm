@@ -34,7 +34,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
     private boolean isEnabled;
     private AgentImpl agentImpl;
     private AgentConfiguration agentConfiguration;
-    private InteractionCompleteListener listener;
+    private InteractionCompleteListener listener;//内置监听器,用于添加到TraceMachine中
     private static final AnalyticsControllerImpl instance;
     private static final AtomicBoolean initialized;
     private static final List<String> reservedNames;//保留字段
@@ -52,7 +52,6 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
 
         AnalyticsControllerImpl.instance.clear();//三大容器清空
-
         AnalyticsControllerImpl.reservedNames.add("eventType");//添加保留字段
         AnalyticsControllerImpl.reservedNames.add("type");
         AnalyticsControllerImpl.reservedNames.add("timestamp");
@@ -77,10 +76,12 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         AnalyticsControllerImpl.reservedNames.add("platformVersion");
 
         AnalyticsControllerImpl.instance.reinitialize(agentConfiguration, agentImpl);//重新初始化
+
         TraceMachine.addTraceListener(AnalyticsControllerImpl.instance.listener);//在traceMachine中添加监听器
 
         System.out.println("---Rarshion:AnalyticsControllerImpl#Controller started---");
         AnalyticsControllerImpl.log.info("Analytics Controller started.");
+
     }
 
     //关闭
@@ -96,7 +97,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         this.userAttributes = Collections.synchronizedSet(new HashSet<AnalyticAttribute>());//初始化用户属性
         this.listener = new InteractionCompleteListener();//新建交互完成监听器
     }
-
+    //重新初始化,获取配置
     void reinitialize(final AgentConfiguration agentConfiguration, final AgentImpl agentImpl) {
 
         System.out.println("---Rarshion:AnalyticsControllerImpl#reinitialize---");
@@ -121,7 +122,6 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
 
         final EnvironmentInformation environmentInformation = agentImpl.getEnvironmentInformation();//这里怎么会出错呢？
-
         this.systemAttributes.add(new AnalyticAttribute("osName", deviceInformation.getOsName()));//添加系统属性信息
         this.systemAttributes.add(new AnalyticAttribute("osVersion", osVersion));
         this.systemAttributes.add(new AnalyticAttribute("osMajorVersion", osMajorVersion));
@@ -134,8 +134,9 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         this.systemAttributes.add(new AnalyticAttribute("sessionId", agentConfiguration.getSessionID()));
         this.systemAttributes.add(new AnalyticAttribute("platform", agentConfiguration.getApplicationPlatform().toString()));
         this.systemAttributes.add(new AnalyticAttribute("platformVersion", agentConfiguration.getApplicationPlatformVersion()));
-    }
 
+    }
+    //获取系统属性
     @Override
     public AnalyticAttribute getAttribute(final String name) {
         AnalyticsControllerImpl.log.verbose("AnalyticsControllerImpl.getAttribute - retrieving " + name);
@@ -145,7 +146,6 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return attribute;
     }
-
     //获取系统属性
     @Override
     public Set<AnalyticAttribute> getSystemAttributes() {
@@ -520,37 +520,30 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return this.eventManager.addEvent(event);//放到事件对象容器中
     }
-
     @Override
     public int getMaxEventPoolSize() {
         return this.eventManager.getMaxEventPoolSize();
     }
-
     //设置事件对象容器大小
     @Override
     public void setMaxEventPoolSize(final int maxSize) {
         this.eventManager.setMaxEventPoolSize(maxSize);
     }
-
     @Override
     public void setMaxEventBufferTime(final int maxBufferTimeInSec) {
         this.eventManager.setMaxEventBufferTime(maxBufferTimeInSec);
     }
-
     @Override
     public int getMaxEventBufferTime() {
         return this.eventManager.getMaxEventBufferTime();
     }
-
     @Override
     public EventManager getEventManager() {
         return this.eventManager;
     }
-
     public static AnalyticsControllerImpl getInstance() {
         return AnalyticsControllerImpl.instance;
     }
-
     //加载持久化的用户属性
     void loadPersistentAttributes() {
         if (AnalyticsControllerImpl.log.getLevel() == 4) {
@@ -595,7 +588,6 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         this.userAttributes.clear();
         this.eventManager.empty();
     }
-
     //判断属性名合法
     private boolean isAttributeNameValid(final String name) {
         boolean valid = this.isNameValid(name);
@@ -701,7 +693,6 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         }
         return this.addEvent(name, AnalyticsEventCategory.Custom, "Mobile", attributes);
     }
-
     private boolean isInitializedAndEnabled() {
         if (!AnalyticsControllerImpl.initialized.get()) {
             AnalyticsControllerImpl.log.warning("Analytics controller is not initialized!");
@@ -720,7 +711,6 @@ public class AnalyticsControllerImpl implements AnalyticsController{
         initialized = new AtomicBoolean(false);
         reservedNames = new ArrayList<String>();
     }
-
 
     //这个监听器有什么用？
     class InteractionCompleteListener implements TraceLifecycleAware
@@ -751,6 +741,7 @@ public class AnalyticsControllerImpl implements AnalyticsController{
             attrs.add(new AnalyticAttribute("interactionDuration", durationInSec));
             return AnalyticsEventFactory.createEvent(activityTrace.rootTrace.displayName, AnalyticsEventCategory.Interaction, "Mobile", attrs);
         }
+
     }
 
 

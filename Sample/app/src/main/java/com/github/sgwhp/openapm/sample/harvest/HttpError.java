@@ -20,8 +20,9 @@ import java.util.Map;
 /**
  * Created by user on 2016/8/2.
  */
+//Http错误的一些信息记录对象
 public class HttpError extends HarvestableArray {
-    private static final AgentLog log;
+    private static final AgentLog log= AgentLogManager.getAgentLog();
     private String url;
     private int httpStatusCode;
     private long count;
@@ -50,6 +51,7 @@ public class HttpError extends HarvestableArray {
         this.setTimestamp(m.getStartTime());
     }
 
+    //转换成JSON对象
     @Override
     public JsonArray asJsonArray() {
         final int bodyLimit = Harvest.getHarvestConfiguration().getResponse_body_limit();
@@ -91,7 +93,6 @@ public class HttpError extends HarvestableArray {
     public void digest() {
         this.digest = this.computeHash();
     }
-
 
     private String computeHash() {
         MessageDigest digester;
@@ -150,7 +151,4 @@ public class HttpError extends HarvestableArray {
         this.timestamp = timestamp;
     }
 
-    static {
-        log = AgentLogManager.getAgentLog();
-    }
 }

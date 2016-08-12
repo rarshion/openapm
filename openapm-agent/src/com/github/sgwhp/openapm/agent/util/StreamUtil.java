@@ -32,10 +32,9 @@ public class StreamUtil {
 
 
     public static void writeToFile(byte[] bytes, String className) {
-
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(new File("E:\\openapm\\" + className + ".class"));
+            fos = new FileOutputStream(new File("/Users/rarshion/AndroidStudioProjects/Android_pro/openapm/class_file/" + className + ".class"));
             //fos = new FileOutputStream(new File("E:\\openapm\\wocaonima.class"));
             fos.write(bytes);
             fos.flush();

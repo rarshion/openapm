@@ -25,6 +25,7 @@ public class TraceAnnotationClassVisitor extends ClassVisitor {
     public MethodVisitor visitMethod(final int access, final String name, final String desc, final String signature, final String[] exceptions) {
         final MethodVisitor methodVisitor = super.visitMethod(access, name, desc, signature, exceptions);
         if(this.context.isTracedMethod(name, desc) & !this.context.isSkippedMethod(name, desc)) {
+            this.log.d("----enter TraceAnnotationClassVisitor---" + name);
             this.context.markModified();
             return new TraceMethodVisitor(methodVisitor, access, name, desc, this.context);
         } else{

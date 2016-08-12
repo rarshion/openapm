@@ -61,6 +61,7 @@ public class TraceMethodVisitor extends AdviceAdapter {
             this.emitAnnotationParamsList(this.name);
             //调用TraceMachine中的enterMethod(final Trace trace, final String name, final ArrayList<String> annotationParams)方法
             super.invokeStatic(targetType, new Method("enterMethod", "(Lcom/github/sgwhp/openapm/sample/tracing/Trace;Ljava/lang/String;Ljava/util/ArrayList;)V"));
+
         } else {
             this.log.d("Tracing method " + this.context.getClassName() + "#" + this.name);
             final Label tryStart = new Label();

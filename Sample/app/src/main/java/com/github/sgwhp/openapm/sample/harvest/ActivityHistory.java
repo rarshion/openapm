@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by user on 2016/8/1.
  */
+//线程属性的容器,记录历史线程数据
 public class ActivityHistory extends HarvestableArray {
 
     private final List<ActivitySighting> activityHistory;

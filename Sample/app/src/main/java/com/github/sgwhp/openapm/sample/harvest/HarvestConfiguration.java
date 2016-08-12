@@ -283,6 +283,19 @@ public class HarvestConfiguration {
 
     @Override
     public String toString() {
-        return "HarvestConfiguration{collect_network_errors=" + this.collect_network_errors + ", cross_process_id='" + this.cross_process_id + '\'' + ", data_report_period=" + this.data_report_period + ", data_token=" + Arrays.toString(this.data_token) + ", error_limit=" + this.error_limit + ", report_max_transaction_age=" + this.report_max_transaction_age + ", report_max_transaction_count=" + this.report_max_transaction_count + ", response_body_limit=" + this.response_body_limit + ", server_timestamp=" + this.server_timestamp + ", stack_trace_limit=" + this.stack_trace_limit + ", activity_trace_max_size=" + this.activity_trace_max_size + ", activity_trace_max_report_attempts=" + this.activity_trace_max_report_attempts + ", activity_trace_min_utilization=" + this.activity_trace_min_utilization + ", at_capture=" + this.at_capture + '}';
+        return "HarvestConfiguration{collect_network_errors="
+                + this.collect_network_errors + ", cross_process_id='"
+                + this.cross_process_id + '\'' + ", data_report_period="
+                + this.data_report_period + ", data_token=" + Arrays.toString(this.data_token)
+                + ", error_limit=" + this.error_limit + ", report_max_transaction_age="
+                + this.report_max_transaction_age + ", report_max_transaction_count="
+                + this.report_max_transaction_count + ", response_body_limit="
+                + this.response_body_limit + ", server_timestamp="
+                + this.server_timestamp + ", stack_trace_limit="
+                + this.stack_trace_limit + ", activity_trace_max_size="
+                + this.activity_trace_max_size + ", activity_trace_max_report_attempts="
+                + this.activity_trace_max_report_attempts + ", activity_trace_min_utilization="
+                + this.activity_trace_min_utilization + ", at_capture="
+                + this.at_capture + '}';
     }
 }

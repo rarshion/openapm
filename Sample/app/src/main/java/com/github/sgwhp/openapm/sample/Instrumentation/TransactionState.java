@@ -12,6 +12,7 @@ import java.net.URL;
 /**
  * Created by user on 2016/8/1.
  */
+
 public class TransactionState {
     private static final AgentLog log;
     private String url;
